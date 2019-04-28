@@ -1,15 +1,23 @@
 <template>
   <div>
+    <TradeDisputeModal ref="tradeDisputeModal" @onSuccess="onTradeDispute"/>
     <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header"><strong>Trade Status</strong></div>
           <div class="card-body">
             <StepProgress
+                v-if="trade.status != 'cancel' && trade.status != 'dispute'"
                 :length="5"
                 :labels="['Request','Start','Payment','Release','Done']"
                 :step="getTradeStatusStep()"
             />
+            <div v-else-if="trade.status == 'cancel'" class="alert alert-warning">
+              <h1>Trade canceled by <BaseLink :to="{name: 'profile-id', params: {id: trade.canceledBy._id}}">{{trade.canceledBy.username}}</BaseLink></h1>
+            </div>
+            <div v-else class="alert alert-danger">
+              <h1>Trade disputed by <BaseLink :to="{name: 'profile-id', params: {id: trade.disputedBy._id}}">{{trade.disputedBy.username}}</BaseLink></h1>
+            </div>
           </div>
         </div>
       </div>
@@ -47,7 +55,7 @@
             <button v-if="isReleaseBtnVisible" @click="doReleaseTrade" class="btn btn-primary" type="submit" style="width: 100%">Release tokens</button>
 
 
-            <div class="row">
+            <div class="row" style="margin-top: 1em">
               <div class="col-sm-6">
                 <button v-if="isDisputeBtnVisible" @click="doDisputeTrade" class="btn btn-danger" type="submit" style="width: 100%">Dispute</button>
               </div>
@@ -114,20 +122,23 @@
 </template>
 
 <script>
+  import Vue from 'vue';
+  import TradeDisputeModal from '../../components/TradeDisputeModal';
   import StepProgress from '~/components/StepProgress.vue';
   import VueFileUpload from '~/components/VueFileUpload.vue';
   import VueStarRating from 'vue-star-rating';
   import {mapActions, mapGetters} from 'vuex';
   import replaceAll from '../../utils/replaceAll';
+  import BaseLink from "../../components/global/BaseLink";
   const proxyConfig = require('../../nuxt.proxy.config');
   let apiRoot = proxyConfig["/api"].target;
 
   export default {
     layout: 'coreui',
-    components:{StepProgress, VueStarRating, VueFileUpload},
+    components:{TradeDisputeModal, BaseLink, StepProgress, VueStarRating, VueFileUpload},
     data(){
       return{
-        message: 'test message',
+        message: '',
         sendMessageInProgress: false,
         feedbackStar: 0,
         feedbackComment: ""
@@ -167,6 +178,8 @@
         );
       },
       isCancelBtnVisible: function () {
+        if(this.trade.status === 'request')
+          return true;
         return (this.trade.status === 'start' || this.trade.status === 'payment') && (
             (this.trade.advertisement.type === 'buy' && this.$auth.user._id === this.trade.advertisement.user)
             ||
@@ -292,24 +305,42 @@
 //        this.startTradeInProgress = false;
       },
       async doCancelTrade(){
-//        this.startTradeInProgress = true;
-//        let response = await this.releaseTrade(this.trade._id);
-//        if(response.success){
-//          this.trade = response.trade;
-//        }else{
-//          alert(response.message || 'server side error');
-//        }
-//        this.startTradeInProgress = false;
+       this.cancelTradeInProgress = true;
+        this.$axios.post('/api/v0.1/trade/cancel',{id: this.trade._id})
+          .then(({data}) => data)
+          .catch(error => error.response.data)
+          .then(response => {
+            this.cancelTradeInProgress = false;
+            if(response.success){
+              this.$toast.success("Trade canceled successfully.");
+              Vue.set(this.trade, 'status', response.trade.status);
+              Vue.set(this.trade, 'canceledBy', response.trade.canceledBy);
+            }else{
+              // TODO: handle global alert modal
+              this.$toast.error(response.message || "server side error");
+            }
+          })
       },
-      async doDisputeTrade(){
-//        this.startTradeInProgress = true;
-//        let response = await this.releaseTrade(this.trade._id);
-//        if(response.success){
-//          this.trade = response.trade;
-//        }else{
-//          alert(response.message || 'server side error');
-//        }
-//        this.startTradeInProgress = false;
+      doDisputeTrade(){
+        this.$refs.tradeDisputeModal.show();
+      },
+      async onTradeDispute(message){
+        this.$refs.tradeDisputeModal.hide();
+        this.disputeTradeInProgress = true;
+        this.$axios.post('/api/v0.1/trade/dispute',{id: this.trade._id, message})
+          .then(({data}) => data)
+          .catch(error => error.response.data)
+          .then(response => {
+            this.disputeTradeInProgress = false;
+            if(response.success){
+              this.$toast.success("Dispute registered successfully.");
+              Vue.set(this.trade, 'status', response.trade.status);
+              Vue.set(this.trade, 'disputedBy', response.trade.disputedBy);
+            }else{
+              // TODO: handle global alert modal
+              this.$toast.error(response.message || "server side error");
+            }
+          })
       },
       setFeedbackStar(star){
         this.feedbackStar = star;
