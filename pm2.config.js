@@ -5,7 +5,7 @@
 module.exports = {
   "apps": [
     {
-      "name": "zchange-backend",
+      "name": "zchange-frontend",
       "script": "npm",
       "args" : "run dev"
     }
