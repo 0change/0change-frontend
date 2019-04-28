@@ -1,6 +1,6 @@
 module.exports = {
   '/api': {
-    target: process.env.API_TARGET,
+    target: "http://localhost:5554",
     // changeOrigin: true,
     // pathRewrite: {'^/api': '/api'}
   }
