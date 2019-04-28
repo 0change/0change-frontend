@@ -1,10 +1,15 @@
 const pkg = require('./package');
+require('dotenv').config();
 const proxyConfig = require('./nuxt.proxy.config');
 
 
 module.exports = {
   mode: 'universal',
   ssr: true,
+  server: {
+    port: process.env.NUXT_PORT,
+    host: process.env.NUXT_HOST,
+  },
 
   /*
   ** Headers of the page
@@ -79,6 +84,9 @@ module.exports = {
 
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
+
+    // .env module. doc: https://github.com/nuxt-community/dotenv-module
+    ['@nuxtjs/dotenv', { /* module options */ }],
   ],
   /*
   ** Axios module configuration
