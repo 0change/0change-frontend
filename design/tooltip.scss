@@ -1,0 +1,142 @@
+$borderWidth: 10px;
+$borderRadius: 0.25rem;
+
+.tooltip {
+  display: block !important;
+  z-index: 10000;
+
+  .tooltip-inner {
+    background: black;
+    color: white;
+    border-radius: $borderRadius;
+    padding: 5px 10px 4px;
+  }
+
+  .tooltip-arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    margin: $borderWidth;
+    border-color: black;
+    z-index: 1;
+  }
+
+  &.tooltip-primary {
+    .tooltip-inner{background: #007bff}
+    .tooltip-arrow{border-color: #007bff}
+  }
+
+  &.tooltip-secondary {
+    .tooltip-inner{background: #6c757d}
+    .tooltip-arrow{border-color: #6c757d}
+  }
+
+  &.tooltip-success {
+    .tooltip-inner{background: #28a745}
+    .tooltip-arrow{border-color: #28a745}
+  }
+
+  &.tooltip-danger {
+    .tooltip-inner{background: #dc3545}
+    .tooltip-arrow{border-color: #dc3545}
+  }
+
+  &.tooltip-warning {
+    .tooltip-inner{background: #ffc107}
+    .tooltip-arrow{border-color: #ffc107}
+  }
+
+  &.tooltip-info {
+    .tooltip-inner{background: #17a2b8}
+    .tooltip-arrow{border-color: #17a2b8}
+  }
+
+  &[x-placement^="top"] {
+    margin-bottom: $borderWidth;
+
+    .tooltip-arrow {
+      border-width: $borderWidth $borderWidth 0 $borderWidth;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+      bottom: -$borderWidth;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^="bottom"] {
+    margin-top: $borderWidth;
+
+    .tooltip-arrow {
+      border-width: 0 $borderWidth $borderWidth $borderWidth;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-top-color: transparent !important;
+      top: -5px;
+      left: calc(50% - 5px);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &[x-placement^="right"] {
+    margin-left: $borderWidth;
+
+    .tooltip-arrow {
+      border-width: $borderWidth $borderWidth $borderWidth 0;
+      border-left-color: transparent !important;
+      border-top-color: transparent !important;
+      border-bottom-color: transparent !important;
+      left: -$borderWidth;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  &[x-placement^="left"] {
+    margin-right: $borderWidth;
+
+    .tooltip-arrow {
+      border-width: $borderWidth 0 $borderWidth $borderWidth;
+      border-top-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom-color: transparent !important;
+      right: -$borderWidth;
+      top: calc(50% - 5px);
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  &.popover {
+    $color: #f9f9f9;
+
+    .popover-inner {
+      background: $color;
+      color: black;
+      padding: 24px;
+      border-radius: 5px;
+      box-shadow: 0 5px 30px rgba(black, .1);
+    }
+
+    .popover-arrow {
+      border-color: $color;
+    }
+  }
+
+  &[aria-hidden='true'] {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .15s, visibility .15s;
+  }
+
+  &[aria-hidden='false'] {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .15s;
+  }
+}
