@@ -135,8 +135,8 @@
   import {mapActions, mapGetters} from 'vuex';
   import replaceAll from '../../utils/replaceAll';
   import BaseLink from "../../components/global/BaseLink";
-  const proxyConfig = require('../../nuxt.proxy.config');
-  let apiRoot = proxyConfig["/api"].target;
+  // const proxyConfig = require('../../nuxt.proxy.config');
+  let apiRoot = process.env._AXIOS_BASE_URL_;
 
   export default {
     layout: 'coreui',

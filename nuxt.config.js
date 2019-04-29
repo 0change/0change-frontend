@@ -1,6 +1,6 @@
 require('dotenv').config();
 const pkg = require('./package');
-const proxyConfig = require('./nuxt.proxy.config');
+// const proxyConfig = require('./nuxt.proxy.config');
 
 
 module.exports = {
@@ -117,7 +117,14 @@ module.exports = {
     position: 'top-center',
     duration: 3000
   },
-  proxy: proxyConfig,
+  proxy: {
+    '/api': {
+      target: process.env._AXIOS_BASE_URL_,
+      //target: "http://localhost:5554",
+      // changeOrigin: true,
+      // pathRewrite: {'^/api': '/api'}
+    }
+  },
   auth: {
     // nuxtjs-auth options
     strategies: {
