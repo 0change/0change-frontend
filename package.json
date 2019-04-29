@@ -5,14 +5,14 @@
   "author": "sadegh",
   "private": true,
   "scripts": {
+    "prod": "nuxt build &&  node server/index.js",
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "test": "ava"
   },
-  "config": {
-  },
+  "config": {},
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.6",
     "@fortawesome/free-solid-svg-icons": "^5.4.1",
@@ -23,6 +23,7 @@
     "@nuxtjs/toast": "^3.0.2",
     "bootstrap": "^4.1.3",
     "bootstrap-vue": "^2.0.0-rc.11",
+    "cookie-parser": "^1.4.4",
     "cross-env": "^5.2.0",
     "moment": "^2.24.0",
     "nuxt": "^2.4.0",

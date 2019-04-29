@@ -7,7 +7,7 @@ module.exports = {
     {
       "name": "zchange-frontend",
       "script": "npm",
-      "args" : "run dev"
+      "args" : "run prod"
     }
   ]
 }

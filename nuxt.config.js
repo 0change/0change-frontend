@@ -100,6 +100,12 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    extractCSS: {
+      allChunks: true
+    },
+    splitChunks: {
+      layouts: true
+    },
     /*
     ** You can extend webpack config here
     */
