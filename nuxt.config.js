@@ -1,3 +1,4 @@
+require('dotenv').config();
 const pkg = require('./package');
 const proxyConfig = require('./nuxt.proxy.config');
 
@@ -5,7 +6,10 @@ const proxyConfig = require('./nuxt.proxy.config');
 module.exports = {
   mode: 'universal',
   ssr: true,
-
+  server:{
+    port: process.env.SITE_PORT,
+    host: process.env.SITE_HOST,
+  },
   /*
   ** Headers of the page
   */
@@ -69,6 +73,9 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+
+    // Docs: https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv',
 
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',

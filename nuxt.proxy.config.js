@@ -1,7 +1,9 @@
-module.exports = {
+var config = {
   '/api': {
-    target: "http://localhost:5554",
+    target: process.env._AXIOS_BASE_URL_,
+    //target: "http://localhost:5554",
     // changeOrigin: true,
     // pathRewrite: {'^/api': '/api'}
   }
 }
+module.exports = config;

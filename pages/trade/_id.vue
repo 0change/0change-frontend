@@ -100,7 +100,7 @@
                 :src="getAttachmentUrl(attachment)"
               />
             </p>
-            <textarea v-model="message" class="form-control trade-comment" rows="5" placeholder="Write your message to seller"></textarea>
+            <textarea v-model="message" class="form-control trade-comment" rows="5" placeholder="Write your message to the trader"></textarea>
 
             <button @click="sendMessage" class="btn btn-primary" type="submit">Send</button>
             <button @click="$refs.fileUpload.addFiles()" class="btn btn-primary" type="submit">Attachment</button>
