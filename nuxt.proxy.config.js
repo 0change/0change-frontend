@@ -6,4 +6,4 @@ var config = {
     // pathRewrite: {'^/api': '/api'}
   }
 }
-module.exports = config;
+exports = config;
