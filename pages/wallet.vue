@@ -46,7 +46,7 @@
                   <span
                     class="badge"
                     :class="transactionTypeClass(row)"
-                  >{{row.type}}</span>
+                  >{{row.trade != null ? 'trade' : transactionType(row)}}</span>
                 </td>
                 <td>
                   <span>{{row.status}}</span>
@@ -162,7 +162,7 @@
         },
         withdrawData: {
           token: null,
-          to: "0xd86ffb989f06150e17c5b80c2a3751f16da50a61",
+          to: "", //"0xd86ffb989f06150e17c5b80c2a3751f16da50a61",
           amount: ''
         },
       }
@@ -209,14 +209,19 @@
       getTokenByCode(code){
         return this.cryptoTokens.find(t => t.code==code) || {code, title: code};
       },
+      transactionType(tx){
+        if(tx.to === this.$auth.user.address)
+          return 'deposit';
+        else
+          return 'withdraw';
+      },
       transactionTypeClass(tx){
-        switch (tx.type.toLowerCase()){
+        let txType = this.transactionType(tx);
+        switch (txType){
           case 'deposit': return 'badge-success';
           case 'withdraw': return 'badge-danger';
-          case 'trade': return tx.to === this.$auth.user.address ? "badge-success" : "badge-danger";
           default: return 'badge-secondary';
         }
-        return (row.type.toLowerCase()=='' || row.type.toLowerCase()=='buy') ? 'badge-success' : 'badge-danger'
       }
     }
   }
