@@ -165,23 +165,16 @@
           to: "0xd86ffb989f06150e17c5b80c2a3751f16da50a61",
           amount: ''
         },
-        transactions: [],
-        balance: {}
       }
     },
-    asyncData ({ params, $axios }) {
-      return $axios.post(`/api/v0.1/user/transactions`)
-          .then(({data}) => {
-            if(data.success)
-              return {transactions: data.transactions, balance: data.balance};
-            return {transactions: [], balance: {}}
-          })
-    },
     computed: {
-        ...mapGetters('global', ['cryptoTokens']),
+        ...mapGetters('global', ['cryptoTokens', 'balance', 'transactions']),
+    },
+    mounted(){
+      this.loadUserBalance();
     },
     methods: {
-      ...mapActions('global',['fakeDeposit', 'withdraw']),
+      ...mapActions('global',['fakeDeposit', 'withdraw', 'loadUserBalance']),
       copyWalletAddress(){
         this.$copyText(this.$auth.user.address)
             .then(e => {
@@ -196,8 +189,7 @@
           return alert('Enter token and amount to deposit');
         let response = await this.fakeDeposit(this.depositData);
         if(response.success){
-          this.transactions = response.transactions;
-          this.balance = response.balance;
+          this.loadUserBalance();
           this.depositData = {token: null, amount: ''};
           this.$refs.depositModal.hide();
         }else{

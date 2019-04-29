@@ -54,7 +54,7 @@
 
             <h5><strong>Step 2:</strong> confirm your payment</h5>
 
-            <button class="btn btn-primary" type="submit" style="width: 100%">I have payed</button>
+            <button class="btn btn-primary" type="submit" style="width: 100%">I have paid</button>
 
             <h5><strong>Step 3:</strong> finalize</h5>
 

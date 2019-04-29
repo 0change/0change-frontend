@@ -9,6 +9,7 @@
               <thead>
               <tr>
                 <th>#</th>
+                <th>Status</th>
                 <th>Date</th>
                 <th>Trader</th>
                 <th>Type</th>
@@ -20,6 +21,7 @@
               <tbody>
               <tr v-for="row in trades">
                 <td><BaseLink :to="{name: 'trade-id', params: {id: row._id}}">{{row.id}}</BaseLink></td>
+                <td>{{row.status}}</td>
                 <td>{{row.createdAt}}</td>
                 <td><BaseLink :to="{name: 'profile-id', params: {id: extractTrader(row)._id}}">{{extractTrader(row).username}}</BaseLink></td>
                 <td><span class="badge" :class="row.advertisement.type.toLowerCase()=='sell' ? 'badge-success' : 'badge-danger'">{{row.advertisement.type}}</span></td>

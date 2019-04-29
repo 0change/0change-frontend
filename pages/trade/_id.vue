@@ -50,7 +50,7 @@
 
             <button v-if="isStartBtnVisible" @click="doStartTrade" class="btn btn-primary" type="submit" style="width: 100%">Start Trade</button>
 
-            <button v-if="isPaymentBtnVisible" @click="doSetTradePayed" class="btn btn-primary" type="submit" style="width: 100%">I have payed</button>
+            <button v-if="isPaymentBtnVisible" @click="doSetTradePaid" class="btn btn-primary" type="submit" style="width: 100%">I have paid</button>
 
             <button v-if="isReleaseBtnVisible" @click="doReleaseTrade" class="btn btn-primary" type="submit" style="width: 100%">Release tokens</button>
 
@@ -80,7 +80,12 @@
           </div>
           <div>
             <strong>Exchange rate: </strong>
-            <span class="badge badge-primary">{{trade.advertisement.amount}}</span> {{advertisementCurrency}} / TOKEN</div>
+            <span class="badge badge-primary">{{trade.advertisement.amount}}</span> {{advertisementCurrency}} / TOKEN
+          </div>
+          <div>
+            <strong>Trade volume: </strong>
+            <span class="badge badge-primary">{{trade.tokenCount}}</span> {{tradeToken.code}}
+          </div>
         </div>
         <div class="card">
           <div class="card-header"><strong>Message History</strong></div>
@@ -159,7 +164,10 @@
           })
     },
     computed: {
-      ...mapGetters('global',['currencies']),
+      ...mapGetters('global',['currencies', 'cryptoTokens']),
+      tradeToken: function(){
+        return this.cryptoTokens.find(ct => ct._id === this.trade.advertisement.token) || {};
+      },
       isStartBtnVisible: function () {
         return this.trade.status==='request' && this.$auth.user._id == this.trade.advertisement.user;
       },
@@ -187,6 +195,8 @@
         );
       },
       isDisputeBtnVisible: function () {
+        // TODO: temporarily disabled
+        return false;
         return this.trade.status === 'payment' && (
             (this.trade.advertisement.type === 'buy' && this.$auth.user._id === this.trade.advertisement.user)
             ||
@@ -231,7 +241,7 @@
       }
     },
     methods:{
-      ...mapActions('global', ['sendTradeMessage', 'startTrade', 'setTradePayed', 'releaseTrade']),
+      ...mapActions('global', ['sendTradeMessage', 'startTrade', 'setTradePaid', 'releaseTrade']),
       async sendMessage(){
         if(!!this.message) {
           this.sendMessageInProgress = true;
@@ -284,9 +294,9 @@
         }
         this.startTradeInProgress = false;
       },
-      async doSetTradePayed(){
+      async doSetTradePaid(){
 //        this.startTradeInProgress = true;
-        let response = await this.setTradePayed(this.trade._id);
+        let response = await this.setTradePaid(this.trade._id);
         if(response.success){
           this.trade = response.trade;
         }else{

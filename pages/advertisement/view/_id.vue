@@ -202,7 +202,11 @@
       },
       tooltipMessage: function () {
         let message = [];
-        if(this.tokenCount < this.advertisement.limitMin || this.tokenCount > this.advertisement.limitMax)
+        if(
+          (this.advertisement.limitMin && this.tokenCount < this.advertisement.limitMin)
+          ||
+          (this.advertisement.limitMax && this.tokenCount > this.advertisement.limitMax)
+        )
           message.push(`Token count is limited by min:${this.advertisement.limitMin} and max:${this.advertisement.limitMax}`);
         if(!this.termsConfirmed)
           message.push('Terms of trade not confirmed');

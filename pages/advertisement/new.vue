@@ -3,41 +3,45 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header"><strong>New advertisement</strong></div>
+          <div class="card-header"><strong>Create a new advertisement for sell</strong></div>
           <div class="card-body">
             <!-- Trade type row -->
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="form-group">
-                  <label for="adv-type-select">Type</label>
-                  <select v-model="advertisement.type" class="form-control" id="adv-type-select" name="select1">
-                    <option value="">Please select adv type</option>
-                    <option value="sell">Sell</option>
-                    <option value="buy">Buy</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-sm-8">
-                  <div class="adv-description">
-                    <p>What kind of trade advertisement do you wish to create? If you wish to sell token make sure you have token in your wallet.</p>
-                  </div>
-              </div>
-              <div class="adv-row-separator d-sm-none"></div>
-            </div>
+            <!--<div class="row">-->
+              <!--<div class="col-sm-4">-->
+                <!--<div class="form-group">-->
+                  <!--<label for="adv-type-select">Type</label>-->
+                  <!--<select v-model="advertisement.type" class="form-control" id="adv-type-select" name="select1">-->
+                    <!--<option value="">Please select adv type</option>-->
+                    <!--<option value="sell">Sell</option>-->
+                    <!--<option value="buy">Buy</option>-->
+                  <!--</select>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="col-sm-8">-->
+                  <!--<div class="adv-description">-->
+                    <!--<p>What kind of trade advertisement do you wish to create? If you wish to sell tokens make sure you have token in your wallet.</p>-->
+                  <!--</div>-->
+              <!--</div>-->
+              <!--<div class="adv-row-separator d-sm-none"></div>-->
+            <!--</div>-->
             <!-- Token row -->
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="adv-token-select">Token</label>
-                  <select v-model="advertisement.token" class="form-control" id="adv-token-select" name="select1">
+                  <select v-if="userTokens.length > 0" v-model="advertisement.token" class="form-control" id="adv-token-select" name="select1">
                     <option value="">Select token</option>
-                    <option v-for="token in cryptoTokens" :value="token.code">{{token.title}} ({{token.code}})</option>
+                    <option v-for="token in userTokens" :value="token.code">{{token.title}} ({{token.code}})</option>
+                  </select>
+                  <select v-else class="form-control">
+                    <option value="">You have not any token.</option>
                   </select>
                 </div>
               </div>
               <div class="col-sm-8">
                 <div class="adv-description">
                   <p>What kind of token do you wish to sell/buy ?</p>
+                  <p v-if="userTokens.length == 0" class="color-danger">You hav not any tokens to post a trade. Make deposit and try again.</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
@@ -55,7 +59,7 @@
               </div>
               <div class="col-sm-8">
                 <div class="adv-description">
-                  <p>How the trade price will be payed ?</p>
+                  <p>What do you want to receive in exchange for your token?</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
@@ -81,13 +85,13 @@
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label for="adv-token-amount">Amount</label>
+                  <label for="adv-token-amount">Token Price <span class="text-primary"><strong>( in {{advertisement.currency}} )</strong></span></label>
                   <input v-model="advertisement.amount" class="form-control" id="adv-token-amount" type="number" placeholder="example: 2.3241">
                 </div>
               </div>
               <div class="col-sm-8">
                 <div class="adv-description">
-                  <p>How much you want to be payed per each token ?</p>
+                  <p>How much do you ask for each token ?</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
@@ -123,34 +127,45 @@
               <div class="adv-row-separator d-sm-none"></div>
             </div>
             <!-- Adv enable -->
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="form-group">
-                  <label for="adv-enable">Enable</label>
-                  <select v-model="advertisement.enable" class="form-control" id="adv-enable" name="select1">
-                    <option value="1">enable</option>
-                    <option value="0">disable</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-sm-8">
-                <div class="adv-description">
-                  <p>Trade can be disable at start</p>
-                </div>
-              </div>
-              <div class="adv-row-separator d-sm-none"></div>
-            </div>
+            <!--<div class="row">-->
+              <!--<div class="col-sm-4">-->
+                <!--<div class="form-group">-->
+                  <!--<label for="adv-enable">Enable</label>-->
+                  <!--<select v-model="advertisement.enable" class="form-control" id="adv-enable" name="select1">-->
+                    <!--<option value="1">enable</option>-->
+                    <!--<option value="0">disable</option>-->
+                  <!--</select>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="col-sm-8">-->
+                <!--<div class="adv-description">-->
+                  <!--<p>If you want to hide an advertisement temporarily from search page, disable it.</p>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="adv-row-separator d-sm-none"></div>-->
+            <!--</div>-->
             <!-- Payment window -->
             <div class="row">
               <div class="col-sm-4">
+                <!--<div class="form-group">-->
+                  <!--<label for="adv-payment-window">Payment window</label>-->
+                  <!--<input v-model="advertisement.paymentWindow" class="form-control" id="adv-payment-window" type="text" placeholder="example: 04:30">-->
+                <!--</div>-->
                 <div class="form-group">
-                  <label for="adv-payment-window">Payment window</label>
-                  <input v-model="advertisement.paymentWindow" class="form-control" id="adv-payment-window" type="text" placeholder="example: 04:30">
+                  <label for="adv-payment-window">Payment Window</label>
+                  <TimeSelect
+                    v-model="advertisement.paymentWindow"
+                    class="form-control"
+                    title="Payment Window"
+                    id="adv-payment-window"
+                    style="width: 100%"
+                    return="title"
+                  />
                 </div>
               </div>
               <div class="col-sm-8">
                 <div class="adv-description">
-                  <p>How many time buyer have to confirm payment ?</p>
+                  <p>How much time does the buyer have to confirm payment ?</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
@@ -222,7 +237,7 @@
   import TimeSelect from '@/components/TimeSelect';
   import {mapGetters, mapActions} from 'vuex';
   const emptyAdvertisement = {
-    type: '',
+    type: 'sell',
     token: '',
     paymentMethod: '',
     currency: 'USD',
@@ -246,16 +261,26 @@
       }
     },
     computed: {
-        ... mapGetters('global',['cryptoTokens', 'currencies', 'allPaymentMethods'])
+        ... mapGetters('global',['cryptoTokens', 'currencies', 'allPaymentMethods', 'balance']),
+      userTokens: function () {
+        if(!this.cryptoTokens || this.cryptoTokens.length < 1)
+          return [];
+        let tokens = Object.keys(this.balance).map(tokenCode => this.cryptoTokens.find(ct => ct.code === tokenCode));
+        return tokens;
+      }
+    },
+    mounted(){
+      this.loadUserBalance();
     },
     methods: {
-        ...mapActions('global',['registerNewAdvertisement']),
+        ...mapActions('global',['registerNewAdvertisement', 'loadUserBalance']),
       async createAdv() {
         //alert(JSON.stringify(this.advertisement, null, 2));
         let response = await this.registerNewAdvertisement(this.advertisement);
         if(response.success){
           this.advertisement = {...emptyAdvertisement};
           this.$toast.success('Advertisement created successfully');
+          this.$router.push({name: 'advertisement'});
         }else{
           if(response.errors && response.errors.length > 0)
             this.registerErrors = response.errors;

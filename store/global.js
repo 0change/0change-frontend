@@ -9,12 +9,19 @@ export const state = () => ({
   allPaymentMethods: [],
   // advertisement that user registered for sell or buy
   userAdvertisements: [],
-
   sellSearchResult: [],
   buySearchResult: [],
+  userTransactions:[],
+  userBalance: {}
 });
 
 export const getters = {
+  balance(state) {
+    return state.userBalance;
+  },
+  transactions(state) {
+    return state.userTransactions;
+  },
   cryptoTokens(state) {
     return state.cryptoTokens;
   },
@@ -33,6 +40,10 @@ export const getters = {
 }
 
 export const mutations = {
+  setUserBalanceAndTransactions(state, {transactions, balance}){
+    state.userTransactions = transactions;
+    state.userBalance = balance
+  },
   setCryptoTokens(state, tokens) {
     state.cryptoTokens = tokens;
   },
@@ -52,9 +63,32 @@ export const mutations = {
     state.sellSearchResult = sellResults;
     state.buySearchResult = buyResults;
   },
+  setAdvertisementEnable(state, {_id, enable}){
+    let index = state.userAdvertisements.findIndex(adv => adv._id === _id);
+    if(index >= 0){
+      state.userAdvertisements[index].enable = enable;
+    }
+  },
+  deleteAdvertisement(state, _id){
+    let index = state.userAdvertisements.findIndex(adv => adv._id === _id);
+    if(index >= 0){
+      state.userAdvertisements.splice(index, 1);
+    }
+  }
 }
 
 export const actions = {
+  loadUserBalance({dispatch, commit, state, rootState}) {
+    return this.$axios.post(`/api/v0.1/user/transactions`)
+      .then(({data}) => {
+        if(data.success) {
+          commit('setUserBalanceAndTransactions', data);
+          return {transactions: data.transactions, balance: data.balance};
+        }else {
+          return {transactions: [], balance: {}}
+        }
+      })
+  },
   loadCryptoTokens({dispatch, commit, state, rootState}) {
     return this.$axios.get('/api/v0.1/resource/tokens')
         .then(({data}) => {
@@ -174,8 +208,8 @@ export const actions = {
           return err;
         })
   },
-  setTradePayed({dispatch, commit, state, rootState}, tradeId) {
-    return this.$axios.post('/api/v0.1/trade/set-payed', {id:tradeId})
+  setTradePaid({dispatch, commit, state, rootState}, tradeId) {
+    return this.$axios.post('/api/v0.1/trade/set-paid', {id:tradeId})
         .then(({data}) => {
           return data;
         }).catch(err => {

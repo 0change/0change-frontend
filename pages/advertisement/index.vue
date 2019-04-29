@@ -56,7 +56,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="row in getFilteredAdvertisements">
+              <tr v-for="(row, rowIndex) in getFilteredAdvertisements">
                 <td>
                   <BaseLink :to="{name: 'advertisement-view-id', params: {id: row._id}}">{{row._id}}</BaseLink>
                 </td>
@@ -67,15 +67,15 @@
                 <td>{{row.amount}}</td>
                 <td>
                   <label class="switch switch-sm switch-label switch-outline-success-alt mb-0">
-                    <input class="switch-input" type="checkbox" :checked="row.enable">
+                    <input @click="toggleAdvertisementEnable(rowIndex)" class="switch-input" type="checkbox" :checked="row.enable">
                     <span class="switch-slider" data-checked="On" data-unchecked="Off"></span>
                   </label>
                 </td>
                 <td>
-                  <BaseLink :to="{name: 'advertisement-edit-id',params:{id: row._id}}">
-                    <button class="btn btn-sm btn-primary" style="padding: 0px 0.25em" type="button">edit</button>
-                  </BaseLink>
-                  <button class="btn btn-sm btn-danger" style="padding: 0px 0.25em" type="button">delete</button>
+                  <!--<BaseLink :to="{name: 'advertisement-edit-id',params:{id: row._id}}">-->
+                    <!--<button class="btn btn-sm btn-primary" style="padding: 0px 0.25em" type="button">edit</button>-->
+                  <!--</BaseLink>-->
+                  <button @click="confirmAndDeleteAdvertisement(rowIndex)" class="btn btn-sm btn-danger" style="padding: 0px 0.25em" type="button">delete</button>
                 </td>
               </tr>
               </tbody>
@@ -109,7 +109,7 @@
 </template>
 
 <script>
-  import {mapGetters, mapActions} from 'vuex';
+  import {mapGetters, mapActions, mapMutations} from 'vuex';
   export default {
     layout: 'coreui',
     data() {
@@ -162,6 +162,41 @@
     },
     methods: {
       ...mapActions('global',['loadUserAdvertisementList']),
+      ...mapMutations('global',['setAdvertisementEnable', 'deleteAdvertisement']),
+      toggleAdvertisementEnable(index){
+        let advertisement = this.advertisements[index];
+        let _id = advertisement._id;
+        let enable = advertisement.enable===false;
+        this.setAdvertisementEnable({_id, enable});
+        this.$axios.post('/api/v0.1/advertisement/set-enable',{id: _id, enable})
+          .then(({data}) => data)
+          .catch(error => error.response.data)
+          .then(data => {
+            if(data.success){
+              this.$toast.success("Advertisement saved successfully");
+            }else{
+              this.$toast.error(data.message || "Server side error");
+            }
+          })
+      },
+      confirmAndDeleteAdvertisement(index){
+        let deleteConfirmed = confirm('Are you sure to delete advertisement?');
+        if(deleteConfirmed) {
+          let advertisement = this.advertisements[index];
+          let _id = advertisement._id;
+          this.deleteAdvertisement(_id);
+          this.$axios.post('/api/v0.1/advertisement/delete', {id: _id})
+            .then(({data}) => data)
+            .catch(error => error.response.data)
+            .then(data => {
+              if (data.success) {
+                this.$toast.success("Advertisement deleted successfully");
+              } else {
+                this.$toast.error(data.message || "Server side error");
+              }
+            })
+        }
+      }
     }
   }
   const templateAdvertisements = [

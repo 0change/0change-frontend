@@ -8,7 +8,7 @@
           </div>
           <div class="card-body" v-viewer>
             <p>
-              <strong>Buyer: </strong> I payed the money, but seller does not release the tokens.
+              <strong>Buyer: </strong> I paid the money, but seller does not release the tokens.
               <br>
             </p>
             <p>
@@ -44,7 +44,7 @@
               <strong>Seller: </strong> Hi. lets start. remember you only have 3 hours to confirm payment
             </p>
             <p>
-              <strong>Buyer: </strong> I have payed.
+              <strong>Buyer: </strong> I have paid.
             </p>
             <p>
               <strong>Seller: </strong> I did not receive the money.
