@@ -10,7 +10,9 @@
               <tr>
                 <td>Address</td>
                 <td>
-                  <span class="wallet-address">{{$auth.user.address}}</span>
+                  <a target="_blank" :href="'https://ropsten.etherscan.io/address/' + $auth.user.address">
+                    <span class="wallet-address">{{$auth.user.address}}</span>
+                  </a>
                   <button class="btn btn-block btn-outline-dark copy-button" type="button" @click="copyWalletAddress">
                     <i class="fa fa-copy fa-lg"></i>
                   </button>
@@ -24,12 +26,13 @@
               <tr>
                 <!--<th>Date</th>-->
                 <th>trade</th>
+                <th>tx hash</th>
                 <th>From</th>
                 <th>To</th>
                 <th>Type</th>
                 <th>status</th>
                 <th>Token</th>
-                <th>Amount</th>
+                <th>count</th>
               </tr>
               </thead>
               <tbody>
@@ -40,8 +43,9 @@
                     <span>{{row._id.substr(0,8) + '...'}}</span>
                   </BaseLink>
                 </td>
-                <td><a href="#">{{row.from.substr(0,12) + ' ...'}}</a></td>
-                <td><a href="#">{{row.to.substr(0,12) + ' ...'}}</a></td>
+                <td><a target="_blank" :href="'https://ropsten.etherscan.io/tx/' + row.txHash">{{row.txHash.substr(0,12) + ' ...'}}</a></td>
+                <td><a target="_blank" :href="'https://ropsten.etherscan.io/address/' + row.from">{{row.from.substr(0,12) + ' ...'}}</a></td>
+                <td><a target="_blank" :href="'https://ropsten.etherscan.io/address/' + row.to">{{row.to.substr(0,12) + ' ...'}}</a></td>
                 <td>
                   <span
                     class="badge"
@@ -54,7 +58,7 @@
                 <td>
                   <img class="transaction-coin-icon" :src="'/erc20-tokens/' + row.token + '.png'" alt="">
                   <span>&nbsp;{{getTokenByCode(row.token).title}}</span></td>
-                <td>{{row.amount}}</td>
+                <td>{{row.count}}</td>
               </tr>
               </tbody>
             </table>
@@ -97,8 +101,9 @@
               </tr>
               </tbody>
             </table>
-            <button @click="$refs.depositModal.show($event)" style="margin-top: 1em" type="button" class="btn btn-block btn-primary">Deposit</button>
-            <BaseModal title="Fake deposit" ref="depositModal">
+            <button @click="refreshBalance" style="margin-top: 1em" type="button" class="btn btn-block btn-primary">Refresh</button>
+            <button v-if="false" @click="$refs.depositModal.show($event)" style="margin-top: 1em" type="button" class="btn btn-block btn-primary">Deposit</button>
+            <BaseModal v-if="false" title="Fake deposit" ref="depositModal">
               <div style="padding: 1em">
                 <div class="form-group">
                   <label>Select token to deposit</label>
@@ -172,6 +177,7 @@
     },
     mounted(){
       this.loadUserBalance();
+      this.refreshBalance();
     },
     methods: {
       ...mapActions('global',['fakeDeposit', 'withdraw', 'loadUserBalance']),
@@ -222,6 +228,13 @@
           case 'withdraw': return 'badge-danger';
           default: return 'badge-secondary';
         }
+      },
+      refreshBalance(){
+        this.$axios.post('/api/v0.1/user/check-deposit')
+          .then(response => {
+            if(response.newTransaction > 0)
+              this.loadUserBalance();
+          })
       }
     }
   }

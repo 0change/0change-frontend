@@ -40,7 +40,7 @@
     </td>
     <td>
       <div class="small text-muted">Last login</div>
-      <strong>10 sec ago</strong>
+      <strong>{{lastSeen}}</strong>
     </td>
     <td>
       <BaseLink :to="{name:'advertisement-view-id', params:{id: advertisement._id}}">
@@ -51,10 +51,16 @@
 </template>
 
 <script>
+  import moment from 'moment';
   import LinearProgress from '~/components/LinearProgress';
   export default {
     components: {LinearProgress},
     props: ['advertisement'],
+    computed:{
+      lastSeen: function () {
+        return moment(this.advertisement.user.lastSeen).fromNow();
+      }
+    },
     methods:{
       fullName: function (user) {
         return (user.firstName + ' ' + user.lastName).trim() || user._id;
