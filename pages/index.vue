@@ -19,6 +19,11 @@
           </tr>
           </thead>
           <tbody>
+          <tr v-if="searchInProgress">
+            <td colspan="7" class="text-center">
+              <i style="font-size: 2em" class="fa fa-spinner fa-lg fa-spin"></i>
+            </td>
+          </tr>
           <TradeSearchItem
               v-for="advertisement in sellAdvertisements"
               :key="advertisement._id"
@@ -49,7 +54,7 @@
     components: {TabBox, TradeSearchItem, SearchBox},
     data() {
       return {
-        searchInRefresh: false,
+        searchInProgress: true,
       }
     },
     computed:{
@@ -59,9 +64,9 @@
       }),
     },
     async mounted(){
-      this.searchInRefresh = true;
+      this.searchInProgress = true;
       await this.homeSearch();
-      this.searchInRefresh = false;
+      this.searchInProgress = false;
     },
     methods: {
         ...mapActions('global', ['homeSearch']),
