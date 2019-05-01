@@ -3,7 +3,7 @@
     <div>
       <logo />
       <h1 class="title">
-        localERC20
+        zero change
       </h1>
       <h2 class="subtitle">
         Bye ans sell ethereum ERC20 tokens
