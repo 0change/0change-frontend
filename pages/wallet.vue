@@ -10,7 +10,7 @@
               <tr>
                 <td>Address</td>
                 <td>
-                  <a target="_blank" :href="'https://ropsten.etherscan.io/address/' + $auth.user.address">
+                  <a target="_blank" :href="'https://etherscan.io/address/' + $auth.user.address">
                     <span class="wallet-address">{{$auth.user.address}}</span>
                   </a>
                   <button class="btn btn-block btn-outline-dark copy-button" type="button" @click="copyWalletAddress">
@@ -43,9 +43,9 @@
                     <span>{{row._id.substr(0,8) + '...'}}</span>
                   </BaseLink>
                 </td>
-                <td><a target="_blank" :href="'https://ropsten.etherscan.io/tx/' + row.txHash">{{row.txHash.substr(0,12) + ' ...'}}</a></td>
-                <td><a target="_blank" :href="'https://ropsten.etherscan.io/address/' + row.from">{{row.from.substr(0,12) + ' ...'}}</a></td>
-                <td><a target="_blank" :href="'https://ropsten.etherscan.io/address/' + row.to">{{row.to.substr(0,12) + ' ...'}}</a></td>
+                <td><a target="_blank" :href="'https://etherscan.io/tx/' + row.txHash">{{row.txHash.substr(0,12) + ' ...'}}</a></td>
+                <td><a target="_blank" :href="'https://etherscan.io/address/' + row.from">{{row.from.substr(0,12) + ' ...'}}</a></td>
+                <td><a target="_blank" :href="'https://etherscan.io/address/' + row.to">{{row.to.substr(0,12) + ' ...'}}</a></td>
                 <td>
                   <span
                     class="badge"

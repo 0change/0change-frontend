@@ -20,10 +20,8 @@
           </thead>
           <tbody>
           <tr v-if="searchInProgress">
-            <td colspan="8">
-              <div class="progress">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
+            <td colspan="7" class="text-center">
+              <i style="font-size: 2em" class="fa fa-spinner fa-lg fa-spin"></i>
             </td>
           </tr>
           <TradeSearchItem
@@ -50,7 +48,7 @@
     components: {TabBox, SearchBox, TradeSearchItem},
     data() {
       return {
-        searchInProgress: false,
+        searchInProgress: true,
         searchParams:{
           type: '',
           country: "",
