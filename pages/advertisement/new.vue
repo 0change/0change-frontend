@@ -106,7 +106,7 @@
               </div>
               <div class="col-sm-8">
                 <div class="adv-description">
-                  <p>Optional. Minimum transaction limit in one trade.</p>
+                  <p>Minimum transaction limit in one trade.</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
@@ -121,7 +121,7 @@
               </div>
               <div class="col-sm-8">
                 <div class="adv-description">
-                  <p>Optional. Maximum transaction limit in one trade.</p>
+                  <p>Maximum transaction limit in one trade.</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>

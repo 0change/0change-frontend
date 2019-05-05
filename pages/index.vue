@@ -32,12 +32,12 @@
           />
           </tbody>
         </table>
-        <div class="text-right">
-          <BaseLink :to="{name: 'quickBuy'}">
-            <i class="fa fa-plus-circle fa-lg mt-2 mb-4"></i>
-            <span>See more options ...</span>
-          </BaseLink>
-        </div>
+        <!--<div class="text-right">-->
+          <!--<BaseLink :to="{name: 'quickBuy'}">-->
+            <!--<i class="fa fa-plus-circle fa-lg mt-2 mb-4"></i>-->
+            <!--<span>See more options ...</span>-->
+          <!--</BaseLink>-->
+        <!--</div>-->
 
       </div>
     </div>

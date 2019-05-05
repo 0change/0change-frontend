@@ -10,7 +10,7 @@
               <tr>
                 <td>Address</td>
                 <td>
-                  <a target="_blank" :href="'https://etherscan.io/address/' + $auth.user.address">
+                  <a target="_blank" :href="etherscanWallet($auth.user.address)">
                     <span class="wallet-address">{{$auth.user.address}}</span>
                   </a>
                   <button class="btn btn-block btn-outline-dark copy-button" type="button" @click="copyWalletAddress">
@@ -43,9 +43,9 @@
                     <span>{{row._id.substr(0,8) + '...'}}</span>
                   </BaseLink>
                 </td>
-                <td><a target="_blank" :href="'https://etherscan.io/tx/' + row.txHash">{{row.txHash.substr(0,12) + ' ...'}}</a></td>
-                <td><a target="_blank" :href="'https://etherscan.io/address/' + row.from">{{row.from.substr(0,12) + ' ...'}}</a></td>
-                <td><a target="_blank" :href="'https://etherscan.io/address/' + row.to">{{row.to.substr(0,12) + ' ...'}}</a></td>
+                <td><a v-if="!row.trade" target="_blank" :href="etherscanTx(row.txHash)">{{row.txHash.substr(0,12) + ' ...'}}</a></td>
+                <td><a target="_blank" :href="etherscanWallet(row.from)">{{row.from.substr(0,12) + ' ...'}}</a></td>
+                <td><a target="_blank" :href="etherscanWallet(row.to)">{{row.to.substr(0,12) + ' ...'}}</a></td>
                 <td>
                   <span
                     class="badge"
@@ -62,26 +62,26 @@
               </tr>
               </tbody>
             </table>
-            <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="#">Prev</a>
-              </li>
-              <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">2</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">3</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">4</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-              </li>
-            </ul>
+            <!--<ul class="pagination">-->
+              <!--<li class="page-item">-->
+                <!--<a class="page-link" href="#">Prev</a>-->
+              <!--</li>-->
+              <!--<li class="page-item active">-->
+                <!--<a class="page-link" href="#">1</a>-->
+              <!--</li>-->
+              <!--<li class="page-item">-->
+                <!--<a class="page-link" href="#">2</a>-->
+              <!--</li>-->
+              <!--<li class="page-item">-->
+                <!--<a class="page-link" href="#">3</a>-->
+              <!--</li>-->
+              <!--<li class="page-item">-->
+                <!--<a class="page-link" href="#">4</a>-->
+              <!--</li>-->
+              <!--<li class="page-item">-->
+                <!--<a class="page-link" href="#">Next</a>-->
+              <!--</li>-->
+            <!--</ul>-->
 
           </div>
         </div>
@@ -127,7 +127,7 @@
           <div class="card-body">
             <div class="form-group">
               <label for="company">Send to address</label>
-              <input v-model="withdrawData.to" class="form-control" id="company" type="text" placeholder="3C5ZYoxLko8Z4dgdd...">
+              <input v-model="withdrawData.to" class="form-control" id="company" type="text" placeholder="Wallet address">
             </div>
             <div class="form-group">
               <label>Token</label>
@@ -170,6 +170,7 @@
           to: "", //"0xd86ffb989f06150e17c5b80c2a3751f16da50a61",
           amount: ''
         },
+        etherscanBaseUrl: process.env.ETHERSCAN_BASE_URL
       }
     },
     computed: {
@@ -235,6 +236,12 @@
             if(response.newTransaction > 0)
               this.loadUserBalance();
           })
+      },
+      etherscanWallet(address){
+        return this.etherscanBaseUrl + 'address/' + address;
+      },
+      etherscanTx(tx_hash){
+        return this.etherscanBaseUrl + 'tx/' + tx_hash;
       }
     }
   }

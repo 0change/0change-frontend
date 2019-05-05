@@ -19,7 +19,9 @@
           <div class="pd10">
             <div class="d-fx-ic">
               <span class="fs-20 fx-basis-9">{{fullName}}</span>
-              <span class="pfx-basis-1 number"><i class="fa fa-star fa-sm"><strong>&nbsp;9.8</strong></i></span>
+              <span class="pfx-basis-1 number">
+                <!--<i class="fa fa-star fa-sm"><strong>&nbsp;9.8</strong></i>-->
+              </span>
             </div>
             <h6>{{user.about}}</h6>
 
@@ -204,7 +206,6 @@
   import VueStarRating from 'vue-star-rating';
 
   export default {
-    middleware: 'auth',
     layout: 'coreui',
     components: {UpdateUsername, UpdateEmail, VueStarRating},
     data() {
@@ -222,7 +223,7 @@
     asyncData ({ params, $axios, app }) {
 //      if(params.id.toString() === app.store.$auth.user._id.toString())
 //        return Promise.resolve(app.store.$auth.user);
-      return $axios.post(`/api/v0.1/user/get-info`, {userId: params.id, feedback: true})
+      return $axios.post(`/api/v0.1/profile/get`, {userId: params.id, feedback: true})
           .then(({data}) => {
             if(data.success)
               return {

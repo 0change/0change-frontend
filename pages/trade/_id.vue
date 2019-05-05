@@ -8,8 +8,8 @@
           <div class="card-body">
             <StepProgress
                 v-if="trade.status != 'cancel' && trade.status != 'dispute'"
-                :length="5"
-                :labels="['Request','Start','Payment','Release','Done']"
+                :length="4"
+                :labels="['Request','Start','Payment','Release']"
                 :step="getTradeStatusStep()"
             />
             <div v-else-if="trade.status == 'cancel'" class="alert alert-warning">

@@ -8,7 +8,7 @@
           <div class="mgl10 pdl10 tbl-info fx-basis-8" style="border-left: 1px solid #f7f7f7;">
             <div class="tbl-info-item">
               <div><i class="fa fa-at fa-lg"></i></div>
-              <span>Username:&nbsp;<a href="#"><strong>{{owner.username}}</strong></a></span>
+              <span>Username:&nbsp;<BaseLink :to="{name: 'profile-id', params: {id: owner._id}}"><strong>{{owner.username}}</strong></BaseLink></span>
             </div>
             <div class="tbl-info-item">
               <div><img src="/imgs/brightid-av-1.jpg" alt="" style="width: 1.2em"></div>
@@ -164,10 +164,11 @@
   import moment from 'moment';
   import LoginModal from '../../../components/loginModal.vue';
   import VueStarRating from 'vue-star-rating';
+  import BaseLink from "../../../components/global/BaseLink";
 
   export default {
     layout: 'coreui-no-sidemenu',
-    components:{TradeStartModal, LoginModal, VueStarRating},
+    components:{BaseLink, TradeStartModal, LoginModal, VueStarRating},
     data(){
       return {
         tokenCount: '',

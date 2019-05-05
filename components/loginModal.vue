@@ -16,14 +16,18 @@
           </div>
         </div>
         <div class="alert alert-info">
+          <span>0change.com is an exchange website which doesn't require you to signup or create an account. Verification is done through BrightID. You can get BrightID app for your smartphone by clicking here. For more information, you can go to FAQ section of the site or click here.</span>
+          <span>To log in on your pc:</span>
           <ul style="list-style: decimal; padding: 0 0 0 1em;">
-            <li>
-              Scan the QR-code with BrightID app on you mobile<br />
-              OR<br />
-              In the mobile, tap on the QR-Code to open the BrightID app
-            </li>
-            <li>In BrightID, confirm connection</li>
-            <li>Tap the button below</li>
+            <li>Scan the QR code above with BrightID app on your smartphone.</li>
+            <li>Confirm the connection.</li>
+            <li>Click on I confirmed at the bottom of this window.</li>
+          </ul>
+          <span>log in on your smartphone:</span>
+          <ul>
+            <li>Tap on the QR code above and open it with BrightID.</li>
+            <li>Confirm the connection.</li>
+            <li>Tap the button "I confirmed" below.</li>
           </ul>
         </div>
         <div v-if="authError" class="alert alert-danger">
