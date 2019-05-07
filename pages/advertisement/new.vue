@@ -276,7 +276,16 @@
         ...mapActions('global',['registerNewAdvertisement', 'loadUserBalance']),
       async createAdv() {
         //alert(JSON.stringify(this.advertisement, null, 2));
-        let response = await this.registerNewAdvertisement(this.advertisement);
+        let advertisementData = JSON.parse(JSON.stringify(this.advertisement));
+        for(let i=0 ; i<7 ; i++){
+          if(advertisementData.openingHours[i].enable){
+            if(advertisementData.openingHours[i].start === '')
+              advertisementData.openingHours[i].start = 0;
+            if(advertisementData.openingHours[i].end === '')
+              advertisementData.openingHours[i].end = 95;
+          }
+        }
+        let response = await this.registerNewAdvertisement(advertisementData);
         if(response.success){
           this.advertisement = {...emptyAdvertisement};
           this.$toast.success('Advertisement created successfully');
