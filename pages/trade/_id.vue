@@ -70,7 +70,7 @@
         <div class="alert alert-dark" role="alert">
           <div>
             <strong>Advertisement: </strong>
-            <BaseLink :to="{name: 'advertisement-view-id', params:{id: trade.advertisement._id}}">
+            <BaseLink :to="{name: 'offer-view-id', params:{id: trade.advertisement._id}}">
               <span>{{trade.advertisement._id}}</span>
             </BaseLink>
           </div>

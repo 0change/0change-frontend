@@ -7,7 +7,7 @@ export const state = () => ({
   allCurrencies: [],
   allCountries: [],
   allPaymentMethods: [],
-  // advertisement that user registered for sell or buy
+  // offer that user registered for sell or buy
   userAdvertisements: [],
   sellSearchResult: [],
   buySearchResult: [],
@@ -138,8 +138,8 @@ export const actions = {
         })
   },
   loadUserAdvertisementList({dispatch, commit, state, rootState}) {
-    console.log('loading user advertisement list ...');
-    return this.$axios.get('/api/v0.1/advertisement/list')
+    console.log('loading user offer list ...');
+    return this.$axios.get('/api/v0.1/offer/list')
         .then(({data}) => {
           console.log('loadUserAdvertisementList', data);
           if (data.success) {
@@ -152,7 +152,7 @@ export const actions = {
         })
   },
   registerNewAdvertisement({dispatch, commit, state, rootState}, advertisement) {
-    return this.$axios.post('/api/v0.1/advertisement/new', {advertisement})
+    return this.$axios.post('/api/v0.1/offer/new', {advertisement})
         .then(({data}) => {
           // alert(JSON.stringify(data, null, 2));
           return data;

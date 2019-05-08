@@ -3,14 +3,14 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header"><strong>Create a new advertisement for sell</strong></div>
+          <div class="card-header"><strong>Create a new offer to sell</strong></div>
           <div class="card-body">
             <!-- Trade type row -->
             <!--<div class="row">-->
               <!--<div class="col-sm-4">-->
                 <!--<div class="form-group">-->
                   <!--<label for="adv-type-select">Type</label>-->
-                  <!--<select v-model="advertisement.type" class="form-control" id="adv-type-select" name="select1">-->
+                  <!--<select v-model="offer.type" class="form-control" id="adv-type-select" name="select1">-->
                     <!--<option value="">Please select adv type</option>-->
                     <!--<option value="sell">Sell</option>-->
                     <!--<option value="buy">Buy</option>-->
@@ -19,7 +19,7 @@
               <!--</div>-->
               <!--<div class="col-sm-8">-->
                   <!--<div class="adv-description">-->
-                    <!--<p>What kind of trade advertisement do you wish to create? If you wish to sell tokens make sure you have token in your wallet.</p>-->
+                    <!--<p>What kind of trade offer do you wish to create? If you wish to sell tokens make sure you have token in your wallet.</p>-->
                   <!--</div>-->
               <!--</div>-->
               <!--<div class="adv-row-separator d-sm-none"></div>-->
@@ -131,7 +131,7 @@
               <!--<div class="col-sm-4">-->
                 <!--<div class="form-group">-->
                   <!--<label for="adv-enable">Enable</label>-->
-                  <!--<select v-model="advertisement.enable" class="form-control" id="adv-enable" name="select1">-->
+                  <!--<select v-model="offer.enable" class="form-control" id="adv-enable" name="select1">-->
                     <!--<option value="1">enable</option>-->
                     <!--<option value="0">disable</option>-->
                   <!--</select>-->
@@ -139,7 +139,7 @@
               <!--</div>-->
               <!--<div class="col-sm-8">-->
                 <!--<div class="adv-description">-->
-                  <!--<p>If you want to hide an advertisement temporarily from search page, disable it.</p>-->
+                  <!--<p>If you want to hide an offer temporarily from search page, disable it.</p>-->
                 <!--</div>-->
               <!--</div>-->
               <!--<div class="adv-row-separator d-sm-none"></div>-->
@@ -149,7 +149,7 @@
               <div class="col-sm-4">
                 <!--<div class="form-group">-->
                   <!--<label for="adv-payment-window">Payment window</label>-->
-                  <!--<input v-model="advertisement.paymentWindow" class="form-control" id="adv-payment-window" type="text" placeholder="example: 04:30">-->
+                  <!--<input v-model="offer.paymentWindow" class="form-control" id="adv-payment-window" type="text" placeholder="example: 04:30">-->
                 <!--</div>-->
                 <div class="form-group">
                   <label for="adv-payment-window">Payment Window</label>
@@ -194,7 +194,7 @@
               </div>
               <div class="col-sm-8">
                 <div class="adv-description">
-                  <p>Optional. Days and hours when you want your advertisement to be automatically shown and hidden.</p>
+                  <p>Optional. Days and hours when you want your offer to be automatically shown and hidden.</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
@@ -210,7 +210,7 @@
               <div class="col-sm-8">
                 <div class="adv-description">
                   <p>Other information you wish to tell about your trade.</p>
-                  <p>Example 1: This advertisement is only for cash trades. If you want to pay online, contact localbitcoins.com/ad/1234.</p>
+                  <p>Example 1: This offer is only for cash trades. If you want to pay online, contact localbitcoins.com/ad/1234.</p>
                   <p>Example 2: Please make request only when you can complete the payment with cash within 12 hours.</p>
                 </div>
               </div>
@@ -275,7 +275,7 @@
     methods: {
         ...mapActions('global',['registerNewAdvertisement', 'loadUserBalance']),
       async createAdv() {
-        //alert(JSON.stringify(this.advertisement, null, 2));
+        //alert(JSON.stringify(this.offer, null, 2));
         let advertisementData = JSON.parse(JSON.stringify(this.advertisement));
         for(let i=0 ; i<7 ; i++){
           if(advertisementData.openingHours[i].enable){

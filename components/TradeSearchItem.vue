@@ -9,7 +9,7 @@
     <td>
       <div>{{fullName(advertisement.user)}}</div>
       <div class="small text-muted">
-        <!--<span>{{userAge(advertisement.user)}}</span> | Registered: {{registerDate(advertisement.user)}}-->
+        <!--<span>{{userAge(offer.user)}}</span> | Registered: {{registerDate(offer.user)}}-->
         <img src="/imgs/brightid-av-1.jpg" style="width: 10px"/>
         <strong>{{advertisement.user.brightIdScore}} | </strong>
         <img src="/imgs/star.jpg" alt="" style="width: 10px" />
@@ -22,13 +22,13 @@
     <!--<td>-->
       <!--<div class="clearfix">-->
         <!--<div class="float-left">-->
-          <!--<strong>{{advertisement.user.score}}%</strong>-->
+          <!--<strong>{{offer.user.score}}%</strong>-->
         <!--</div>-->
         <!--<div class="float-right">-->
           <!--<small class="text-muted">3 Star</small>-->
         <!--</div>-->
       <!--</div>-->
-      <!--<LinearProgress v-model="advertisement.user.score" :status="userStatus(advertisement.user)" />-->
+      <!--<LinearProgress v-model="offer.user.score" :status="userStatus(offer.user)" />-->
     <!--</td>-->
     <td class="text-left">
       <img class="cc-token-avatar" :src="'/erc20-tokens/' + advertisement.token.code + '.png'">
@@ -43,7 +43,7 @@
       <strong>{{lastSeen}}</strong>
     </td>
     <td>
-      <BaseLink :to="{name:'advertisement-view-id', params:{id: advertisement._id}}">
+      <BaseLink :to="{name:'offer-view-id', params:{id: advertisement._id}}">
         <button class="btn btn-block btn-outline-primary" type="button">{{advertisement.type == 'sell' ? 'Buy' : 'Sell'}}</button>
       </BaseLink>
     </td>

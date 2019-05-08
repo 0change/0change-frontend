@@ -1,5 +1,8 @@
 <template>
   <div class="app header-fixed">
+    <no-ssr>
+      <SocketIoHandler />
+    </no-ssr>
     <HeaderNoSideMenu />
     <div class="app-body">
       <!--<LeftSideBar />-->
@@ -18,8 +21,8 @@
 </template>
 
 <script>
-
   import HeaderNoSideMenu from './coreui-components/HeaderNoSideMenu';
+  import SocketIoHandler from '../components/SocketIoHandler';
   import Footer from './coreui-components/Footer';
   import LeftSideBar from './coreui-components/LeftSideBar';
   import RightSideBar from './coreui-components/RightSideBar';
@@ -33,7 +36,7 @@
         class: "app header-fixed"
       }
     },
-    components: {HeaderNoSideMenu, Footer, LeftSideBar, RightSideBar, TopStatusBar},
+    components: {HeaderNoSideMenu, Footer, LeftSideBar, RightSideBar, TopStatusBar, SocketIoHandler},
     async mounted(){
       let ct = await this.loadCryptoTokens();
 //      console.log('tokens: ',ct);

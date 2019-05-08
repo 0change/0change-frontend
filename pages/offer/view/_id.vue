@@ -179,7 +179,7 @@
       };
     },
     asyncData ({ params, $axios }) {
-      return $axios.post(`/api/v0.1/advertisement/get`,{id: params.id})
+      return $axios.post(`/api/v0.1/offer/get`,{id: params.id})
           .then(({data}) => {
             if(data.success)
               return {advertisement: data.advertisement};

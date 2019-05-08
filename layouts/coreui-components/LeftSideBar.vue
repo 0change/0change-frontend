@@ -37,23 +37,11 @@
             <span> Disputes</span>
           </BaseLink>
         </li>
-        <li class="nav-item nav-dropdown">
-          <a class="nav-link nav-dropdown-toggle" href="#">
-            <i class="nav-icon fa fa-buysellads"></i> Advertisements</a>
-          <ul class="nav-dropdown-items">
-            <li class="nav-item">
-              <BaseLink class="nav-link" :to="{name: 'advertisement'}">
-                <i class="nav-icon icon-puzzle"></i>
-                <span> List</span>
-              </BaseLink>
-            </li>
-            <li class="nav-item">
-              <BaseLink class="nav-link" :to="{name: 'advertisement-new'}">
-                <i class="nav-icon icon-puzzle"></i>
-                <span> New</span>
-              </BaseLink>
-            </li>
-          </ul>
+        <li class="nav-item">
+          <BaseLink class="nav-link" :to="{name: 'offer'}">
+            <i class="nav-icon icon-puzzle"></i>
+            <span> Offers</span>
+          </BaseLink>
         </li>
         <li class="nav-title">Settings</li>
       </ul>

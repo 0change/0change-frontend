@@ -1,5 +1,8 @@
 <template>
   <div class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <no-ssr>
+      <SocketIoHandler />
+    </no-ssr>
     <Header />
     <div class="app-body">
       <LeftSideBar />
@@ -24,6 +27,7 @@
   import LeftSideBar from './coreui-components/LeftSideBar';
   import RightSideBar from './coreui-components/RightSideBar';
   import TopStatusBar from './coreui-components/TopStatusBar';
+  import SocketIoHandler from '../components/SocketIoHandler';
 
   import {mapActions} from 'vuex';
 
@@ -33,7 +37,7 @@
         class: "app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show"
       }
     },
-    components: {Header, Footer, LeftSideBar, RightSideBar, TopStatusBar},
+    components: {Header, Footer, LeftSideBar, RightSideBar, TopStatusBar, SocketIoHandler},
     async mounted(){
       let ct = await this.loadCryptoTokens();
 //      console.log('tokens: ',ct);

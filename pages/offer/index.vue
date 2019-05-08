@@ -33,11 +33,11 @@
         </div>
         <div class="card">
           <div class="card-header">
-            <strong>Advertisements</strong>
-            <a href="/advertisement/new">
+            <strong>Offers</strong>
+            <a href="/offer/new">
               <button class="btn btn-sm btn-primary pull-right" type="submit">
                 <i class="fa fa-plus-square"></i>
-                <span> New Advertisement</span>
+                <span> New Offer</span>
               </button>
             </a>
           </div>
@@ -58,7 +58,7 @@
               <tbody>
               <tr v-for="(row, rowIndex) in getFilteredAdvertisements">
                 <td>
-                  <BaseLink :to="{name: 'advertisement-view-id', params: {id: row._id}}">{{row._id}}</BaseLink>
+                  <BaseLink :to="{name: 'offer-view-id', params: {id: row._id}}">{{row._id}}</BaseLink>
                 </td>
                 <td><span class="badge" :class="row.type.toLowerCase()=='buy' ? 'badge-success' : 'badge-danger'">{{row.type}}</span></td>
                 <td><img class="transaction-coin-icon" :src="'/erc20-tokens/' + row.token.code + '.png'" alt=""> {{row.token.title}}</td>
@@ -72,7 +72,7 @@
                   </label>
                 </td>
                 <td>
-                  <!--<BaseLink :to="{name: 'advertisement-edit-id',params:{id: row._id}}">-->
+                  <!--<BaseLink :to="{name: 'offer-edit-id',params:{id: row._id}}">-->
                     <!--<button class="btn btn-sm btn-primary" style="padding: 0px 0.25em" type="button">edit</button>-->
                   <!--</BaseLink>-->
                   <button @click="confirmAndDeleteAdvertisement(rowIndex)" class="btn btn-sm btn-danger" style="padding: 0px 0.25em" type="button">delete</button>
@@ -168,7 +168,7 @@
         let _id = advertisement._id;
         let enable = advertisement.enable===false;
         this.setAdvertisementEnable({_id, enable});
-        this.$axios.post('/api/v0.1/advertisement/set-enable',{id: _id, enable})
+        this.$axios.post('/api/v0.1/offer/set-enable',{id: _id, enable})
           .then(({data}) => data)
           .catch(error => error.response.data)
           .then(data => {
@@ -180,12 +180,12 @@
           })
       },
       confirmAndDeleteAdvertisement(index){
-        let deleteConfirmed = confirm('Are you sure to delete advertisement?');
+        let deleteConfirmed = confirm('Are you sure to delete offer?');
         if(deleteConfirmed) {
           let advertisement = this.advertisements[index];
           let _id = advertisement._id;
           this.deleteAdvertisement(_id);
-          this.$axios.post('/api/v0.1/advertisement/delete', {id: _id})
+          this.$axios.post('/api/v0.1/offer/delete', {id: _id})
             .then(({data}) => data)
             .catch(error => error.response.data)
             .then(data => {
