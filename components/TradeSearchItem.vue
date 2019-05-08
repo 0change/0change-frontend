@@ -3,7 +3,7 @@
     <td class="text-left">
       <div class="avatar">
         <img class="img-avatar" :src="advertisement.user.avatar" alt="admin@bootstrapmaster.com">
-        <span class="avatar-status" :class="['badge-success']"></span>
+        <span class="avatar-status" :class="userAvatarStatusClass(advertisement.user)"></span>
       </div>
     </td>
     <td>
@@ -62,6 +62,18 @@
       }
     },
     methods:{
+      userLastVisitMinutes(user){
+        return moment.duration(moment().diff(user.lastSeen)).asMinutes();
+      },
+      userAvatarStatusClass(user){
+        let lastSeenMinutes = this.userLastVisitMinutes(user);
+        if(lastSeenMinutes < 5)
+          return ['badge-success'];
+        else if(lastSeenMinutes < 6)
+          return ['badge-warning'];
+        else
+          return ['badge-secondary'];
+      },
       fullName: function (user) {
         return (user.firstName + ' ' + user.lastName).trim() || user._id;
       },

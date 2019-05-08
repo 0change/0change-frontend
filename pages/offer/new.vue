@@ -289,7 +289,7 @@
         if(response.success){
           this.advertisement = {...emptyAdvertisement};
           this.$toast.success('Advertisement created successfully');
-          this.$router.push({name: 'advertisement'});
+          this.$router.push({name: 'offer'});
         }else{
           if(response.errors && response.errors.length > 0)
             this.registerErrors = response.errors;
