@@ -69,7 +69,7 @@
         let lastSeenMinutes = this.userLastVisitMinutes(user);
         if(lastSeenMinutes < 5)
           return ['badge-success'];
-        else if(lastSeenMinutes < 6)
+        else if(lastSeenMinutes < 30)
           return ['badge-warning'];
         else
           return ['badge-secondary'];
