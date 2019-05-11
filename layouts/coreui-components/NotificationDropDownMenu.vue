@@ -2,10 +2,7 @@
   <div class="dropdown-menu dropdown-menu-right">
     <div class="message-container">
       <div class="message-item" v-for="item in notifications" :key="item.id">
-        <BaseLink v-if="hasLinkToOtherPage(item)" :to="linkToOtherPage(item)">
-          <span>{{item.notification.message}}</span>
-        </BaseLink>
-        <span v-else>{{item.notification.message}}</span>
+        <span>{{item.notification.message}}</span>
       </div>
     </div>
     <div class="dropdown-divider"></div>
