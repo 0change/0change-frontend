@@ -32,7 +32,7 @@
       hasLinkToOtherPage(notification){
         return false;
       },
-      hasLinkToOtherPage(notification){
+      linkToOtherPage(notification){
         return {name: "", params: {}}
       }
     }
