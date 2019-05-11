@@ -12,7 +12,7 @@
 
 - And last but not least, instead of requiring a KYC, it relies on [BrightID](https://www.brightid.org/) which is a decentralized identification system. 
 
-## Build Setup
+## Setup
 
 ``` bash
 # clone 0change-frontend repository
