@@ -58,12 +58,12 @@
     props: ['advertisement'],
     computed:{
       lastSeen: function () {
-        return moment(this.advertisement.user.lastSeen).fromNow();
+        return this.advertisement.user.lastSeenInfo.title;
       }
     },
     methods:{
       userLastVisitMinutes(user){
-        return moment.duration(moment().diff(user.lastSeen)).asMinutes();
+        return user.lastSeenInfo.minutes;
       },
       userAvatarStatusClass(user){
         let lastSeenMinutes = this.userLastVisitMinutes(user);
