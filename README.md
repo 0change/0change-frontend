@@ -10,7 +10,7 @@
 
 - 0Change also can handle the disputes in a decentralized manner and users do not need to trust the admins.
 
-- And last but not least, instead of requiring a KYC, it relies on BrightID which is a decentralized identification system. 
+- And last but not least, instead of requiring a KYC, it relies on [BrightID](https://www.brightid.org/) which is a decentralized identification system. 
 
 ## Build Setup
 
