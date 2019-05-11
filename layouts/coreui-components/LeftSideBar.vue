@@ -3,10 +3,10 @@
     <nav class="sidebar-nav">
       <ul class="nav">
         <li class="nav-item">
-          <a class="nav-link" href="/">
+          <BaseLink class="nav-link" :to="{path: '/'}">
             <i class="nav-icon icon-speedometer"></i> Home
             <span class="badge badge-primary">NEW</span>
-          </a>
+          </BaseLink>
         </li>
         <li class="nav-title">Theme</li>
         <li class="nav-item">
@@ -49,3 +49,9 @@
     <button class="sidebar-minimizer brand-minimizer" type="button"></button>
   </div>
 </template>
+<script>
+  import BaseLink from "../../components/global/BaseLink";
+  export default {
+    components: {BaseLink}
+  }
+</script>

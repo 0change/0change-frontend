@@ -4,10 +4,10 @@
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto h-100" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="/">
+    <BaseLink class="navbar-brand" :to="{path: '/'}">
       <img class="navbar-brand-full" src="/imgs/logo-small.png" width="89" height="25" alt="CoreUI Logo">
       <img class="navbar-brand-minimized" src="/imgs/logo-no-text.png" width="30" height="30" alt="CoreUI Logo">
-    </a>
+    </BaseLink>
     <ul class="nav navbar-nav d-md-down-none">
       <li class="nav-item px-3">
         <BaseLink _class="nav-link" :to="{name: 'search'}">Search</BaseLink>
@@ -44,9 +44,9 @@
         <NotificationDropDownMenu />
       </li>
       <li v-if="loggedIn" class="nav-item d-md-down-none px-3">
-        <a class="nav-link" href="/profile">
+        <BaseLink class="nav-link" :to="{path: '/profile'}">
           {{fullName}}
-        </a>
+        </BaseLink>
       </li>
       <li v-if="loggedIn" class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -79,8 +79,9 @@
   import ProfileDropDownMenu from './ProfileDropDownMenu';
   import NotificationDropDownMenu from './NotificationDropDownMenu';
   import LoginModal from '../../components/loginModal.vue';
+  import BaseLink from "../../components/global/BaseLink";
   export default {
-    components: {LoginModal, ProfileDropDownMenu, NotificationDropDownMenu},
+    components: {BaseLink, LoginModal, ProfileDropDownMenu, NotificationDropDownMenu},
     data(){
       return{
       };

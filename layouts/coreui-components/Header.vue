@@ -4,12 +4,12 @@
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="/">
+    <BaseLink class="navbar-brand" :to="{path: '/'}">
       <!--<img class="navbar-brand-full" src="/coreui/img/brand/logo.svg" width="89" height="25" alt="CoreUI Logo">-->
       <!--<img class="navbar-brand-minimized" src="/coreui/img/brand/sygnet.svg" width="30" height="30" alt="CoreUI Logo">-->
       <img class="navbar-brand-full" src="/imgs/logo-small.png" width="89" height="25" alt="CoreUI Logo">
       <img class="navbar-brand-minimized" src="/imgs/logo-no-text.png" width="30" height="30" alt="CoreUI Logo">
-    </a>
+    </BaseLink>
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -36,7 +36,7 @@
         </a>
       </li>
       <li v-if="loggedIn" class="nav-item d-md-down-none px-3">
-        <a class="nav-link" href="/wallet">Wallet</a>
+        <BaseLink class="nav-link" :to="{path: '/wallet'}">Wallet</BaseLink>
       </li>
       <li v-if="notifications.length > 0" class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
@@ -46,9 +46,9 @@
         <NotificationDropDownMenu />
       </li>
       <li v-if="loggedIn" class="nav-item d-md-down-none px-3">
-        <a class="nav-link" href="/profile">
+        <BaseLink class="nav-link" :to="{path: '/profile'}">
           {{fullName}}
-        </a>
+        </BaseLink>
       </li>
       <li v-if="loggedIn" class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -71,8 +71,9 @@
   import ProfileDropDownMenu from './ProfileDropDownMenu';
   import NotificationDropDownMenu from './NotificationDropDownMenu';
   import LoginModal from '../../components/loginModal.vue';
+  import BaseLink from "../../components/global/BaseLink";
   export default {
-    components: {LoginModal, ProfileDropDownMenu, NotificationDropDownMenu},
+    components: {BaseLink, LoginModal, ProfileDropDownMenu, NotificationDropDownMenu},
     data(){
       return{
       };
