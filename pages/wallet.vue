@@ -43,7 +43,7 @@
                     <span>{{row._id.substr(0,8) + '...'}}</span>
                   </BaseLink>
                 </td>
-                <td><a v-if="!row.trade" target="_blank" :href="etherscanTx(row.txHash)">{{row.txHash.substr(0,12) + ' ...'}}</a></td>
+                <td><a v-if="!row.trade && row.thHash" target="_blank" :href="etherscanTx(row.txHash)">{{row.txHash.substr(0,12) + ' ...'}}</a></td>
                 <td><a target="_blank" :href="etherscanWallet(row.from)">{{row.from.substr(0,12) + ' ...'}}</a></td>
                 <td><a target="_blank" :href="etherscanWallet(row.to)">{{row.to.substr(0,12) + ' ...'}}</a></td>
                 <td>
@@ -223,10 +223,13 @@
           return 'withdraw';
       },
       transactionTypeClass(tx){
+        if(tx.status === 'cancel' || tx.status === 'fail'){
+          return 'badge-danger';
+        }
         let txType = this.transactionType(tx);
         switch (txType){
           case 'deposit': return 'badge-success';
-          case 'withdraw': return 'badge-danger';
+          case 'withdraw': return 'badge-warning';
           default: return 'badge-secondary';
         }
       },

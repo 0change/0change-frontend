@@ -38,11 +38,12 @@
       <li v-if="loggedIn" class="nav-item d-md-down-none px-3">
         <a class="nav-link" href="/wallet">Wallet</a>
       </li>
-      <li v-if="notifications.length > 0" class="nav-item d-md-down-none">
-        <a class="nav-link" href="#">
+      <li v-if="notifications.length > 0" class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="icon-bell"></i>
           <span class="badge badge-pill badge-danger">{{notifications.length}}</span>
         </a>
+        <NotificationDropDownMenu />
       </li>
       <li v-if="loggedIn" class="nav-item d-md-down-none px-3">
         <a class="nav-link" href="/profile">
@@ -68,9 +69,10 @@
 <script>
   import {mapState} from 'vuex';
   import ProfileDropDownMenu from './ProfileDropDownMenu';
+  import NotificationDropDownMenu from './NotificationDropDownMenu';
   import LoginModal from '../../components/loginModal.vue';
   export default {
-    components: {LoginModal, ProfileDropDownMenu},
+    components: {LoginModal, ProfileDropDownMenu, NotificationDropDownMenu},
     data(){
       return{
       };

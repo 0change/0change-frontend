@@ -26,16 +26,29 @@
         socketObject.on('signals', strData => {
           let data = convertJson(strData);
           console.log(data);
-          if (data.type === 'notification') {
-            this.addNotification(data.notification);
-          }
+          // if (data.type === 'notification') {
+          //   this.addNotification(data.notification);
+          // }
+        });
+
+        socketObject.on('notification', strData => {
+          let data = convertJson(strData);
+          console.log('new notification', data);
+          this.addNotification(data);
+          this.onNotificationReceive(data);
         });
         socketObject.emit('join', 'user-' + this.$auth.user._id);
       }
       console.log('SocketIoHandler mounted');
     },
     methods:{
-      ...mapActions('notifications', ['addNotification','clearNotification'])
+      ...mapActions('notifications', ['addNotification','clearNotification']),
+      onNotificationReceive(notification){
+        if(!notification.silent) {
+          let audio = new Audio('/sound/plop.mp3');
+          audio.play();
+        }
+      }
     }
   }
 </script>

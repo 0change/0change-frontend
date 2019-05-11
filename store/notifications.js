@@ -7,8 +7,8 @@ export const state = () => ({
 });
 
 export const mutations = {
-  addNotification(state, message){
-    state.notifications.push({id: randomStr(), message});
+  addNotification(state, notification){
+    state.notifications.push({id: randomStr(), notification});
   },
   readNotification(state, id){
     let index = state.notifications.findIndex(item => item.id===id);
@@ -21,8 +21,8 @@ export const mutations = {
 }
 
 export const actions = {
-  addNotification({dispatch, commit, state, rootState},message) {
-      commit('addNotification', message);
+  addNotification({dispatch, commit, state, rootState},notification) {
+      commit('addNotification', notification);
   },
   readNotification({dispatch, commit, state, rootState}, id) {
       commit('readNotification', id);

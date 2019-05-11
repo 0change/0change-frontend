@@ -197,11 +197,11 @@
       isDisputeBtnVisible: function () {
         // TODO: temporarily disabled
         return false;
-        return this.trade.status === 'payment' && (
-            (this.trade.advertisement.type === 'buy' && this.$auth.user._id === this.trade.advertisement.user)
-            ||
-            (this.trade.advertisement.type === 'sell' && this.$auth.user._id === this.trade.user._id)
-        );
+        // return this.trade.status === 'payment' && (
+        //     (this.trade.advertisement.type === 'buy' && this.$auth.user._id === this.trade.advertisement.user)
+        //     ||
+        //     (this.trade.advertisement.type === 'sell' && this.$auth.user._id === this.trade.user._id)
+        // );
       },
       traderTitle: function () {
         if(this.trade.advertisementOwner._id === this.$auth.user._id){

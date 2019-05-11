@@ -1,7 +1,12 @@
 <template>
   <div class="dropdown-menu dropdown-menu-right">
     <div class="message-container">
-      <div class="message-item" v-for="notif in notifications" :key="notif.id">{{notif.message}}</div>
+      <div class="message-item" v-for="item in notifications" :key="item.id">
+        <BaseLink v-if="hasLinkToOtherPage(item)" :to="linkToOtherPage(item)">
+          <span>{{item.notification.message}}</span>
+        </BaseLink>
+        <span v-else>{{item.notification.message}}</span>
+      </div>
     </div>
     <div class="dropdown-divider"></div>
     <!--<a class="dropdown-item" href="#">-->
@@ -13,16 +18,22 @@
 
 <script>
   import {mapState, mapActions} from 'vuex';
+  import BaseLink from "../../components/global/BaseLink";
   export default {
+    components: {BaseLink},
     computed:{
       ...mapState('notifications', ['notifications'])
     },
     methods:{
       ...mapActions('notifications', ['clearNotifications']),
       clearAll(){
-        // this.clearNotifications();
-        let audio = new Audio('/sound/plop.mp3');
-        audio.play();
+        this.clearNotifications();
+      },
+      hasLinkToOtherPage(notification){
+        return false;
+      },
+      hasLinkToOtherPage(notification){
+        return {name: "", params: {}}
       }
     }
   }
