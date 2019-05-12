@@ -29,6 +29,7 @@
           <BaseLink class="nav-link" :to="{name: 'trades'}">
             <i class="nav-icon fa fa-handshake-o"></i>
             <span> Trades</span>
+            <span v-if="tradeBadgeCount > 0" class="badge badge-danger">{{tradeBadgeCount}}</span>
           </BaseLink>
         </li>
         <li class="nav-item">
@@ -51,7 +52,19 @@
 </template>
 <script>
   import BaseLink from "../../components/global/BaseLink";
+  import {mapState} from 'vuex';
   export default {
-    components: {BaseLink}
+    components: {BaseLink},
+    computed:{
+      ...mapState('notifications', ['unreadMessages']),
+      tradeBadgeCount: function () {
+        if(!this.unreadMessages)
+          return 0;
+        return Object.keys(this.unreadMessages)
+          .map(tradeId => this.unreadMessages[tradeId])
+          .filter(item => item.length > 0)
+          .length;
+      }
+    }
   }
 </script>

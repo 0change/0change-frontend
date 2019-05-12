@@ -93,14 +93,14 @@
             <p v-for="msg in trade.messages">
               <strong v-if="msg.sender._id === $auth.user._id" class="text-primary">You: </strong>
               <strong v-else>
-                <BaseLink :to="{name:'profile-id', params:{id: traderID}}">{{traderUsername}}: </BaseLink>
+                <BaseLink :to="{name:'profile-id', params:{id: msg.sender._id}}">{{msg.sender.username}}: </BaseLink>
               </strong>
 
               <span>{{msg.content}}</span>
-              <br v-if="msg.attachments.length > 0" />
+              <br v-if="!!msg.attachments" />
               <img
                 style="height: 6em; border: 2px solid #aaa; border-radius: 4px; cursor: pointer"
-                v-if="msg.attachments.length > 0"
+                v-if="!!msg.attachments"
                 v-for="attachment in msg.attachments"
                 :src="getAttachmentUrl(attachment)"
               />
@@ -143,10 +143,12 @@
     components:{TradeDisputeModal, BaseLink, StepProgress, VueStarRating, VueFileUpload},
     data(){
       return{
+        chatroom: "",
         message: '',
         sendMessageInProgress: false,
         feedbackStar: 0,
-        feedbackComment: ""
+        feedbackComment: "",
+        liveChatMessages: []
       };
     },
     asyncData ({ params, $axios }) {
@@ -240,8 +242,23 @@
         return ['release','dispute','cancel','done'].indexOf(this.trade.status) >= 0;
       }
     },
+    mounted(){
+      this.chatroom = 'chat-trade-' + this.$route.params.id;
+      this.$socket.join(this.chatroom);
+      this.$socket.on(this.chatroom, message => {
+        console.log(message);
+        let audio = new Audio('/sound/plop.mp3');
+        audio.play();
+        this.trade.messages = [...this.trade.messages, message];
+      })
+      this.readTradeMessages(this.trade._id);
+    },
+    beforeDestroy(){
+      this.$socket.leave(this.chatroom);
+    },
     methods:{
       ...mapActions('global', ['sendTradeMessage', 'startTrade', 'setTradePaid', 'releaseTrade']),
+      ...mapActions('notifications', ['readTradeMessages']),
       async sendMessage(){
         if(!!this.message) {
           this.sendMessageInProgress = true;

@@ -39,14 +39,14 @@
     components: {HeaderNoSideMenu, Footer, LeftSideBar, RightSideBar, TopStatusBar, SocketIoHandler},
     async mounted(){
       let ct = await this.loadCryptoTokens();
-//      console.log('tokens: ',ct);
       let cc = await this.loadCurrencies();
-//      console.log('curencies: ', cc);
       let cn = await this.loadCountries();
-//      console.log('countries: ', cn);
+      let cpml = await this.loadPaymentMethods();
+      let urm = await this.loadUnreadMessages();
     },
     methods: {
-        ... mapActions('global',['loadCryptoTokens','loadCurrencies','loadCountries'])
+        ... mapActions('global',['loadCryptoTokens','loadCurrencies','loadCountries']),
+      ... mapActions('notifications',['loadUnreadMessages']),
     }
   }
 </script>

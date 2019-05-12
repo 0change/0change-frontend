@@ -9,6 +9,7 @@
               <thead>
               <tr>
                 <th>#</th>
+                <th>Msg</th>
                 <th>Status</th>
                 <th>Date</th>
                 <th>Trader</th>
@@ -21,6 +22,9 @@
               <tbody>
               <tr v-for="row in trades">
                 <td><BaseLink :to="{name: 'trade-id', params: {id: row._id}}">{{row.id}}</BaseLink></td>
+                <td>
+                  <span v-if="tradeUnreadMessages(row) > 0" class="badge badge-danger">{{tradeUnreadMessages(row)}}</span>
+                </td>
                 <td>{{row.status}}</td>
                 <td>{{row.createdAt}}</td>
                 <td><BaseLink :to="{name: 'profile-id', params: {id: extractTrader(row)._id}}">{{extractTrader(row).username}}</BaseLink></td>
@@ -32,26 +36,26 @@
               </tbody>
             </table>
             <!--<pre>{{JSON.stringify(trades, null, 2)}}</pre>-->
-            <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="#">Prev</a>
-              </li>
-              <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">2</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">3</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">4</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-              </li>
-            </ul>
+            <!--<ul class="pagination">-->
+              <!--<li class="page-item">-->
+                <!--<a class="page-link" href="#">Prev</a>-->
+              <!--</li>-->
+              <!--<li class="page-item active">-->
+                <!--<a class="page-link" href="#">1</a>-->
+              <!--</li>-->
+              <!--<li class="page-item">-->
+                <!--<a class="page-link" href="#">2</a>-->
+              <!--</li>-->
+              <!--<li class="page-item">-->
+                <!--<a class="page-link" href="#">3</a>-->
+              <!--</li>-->
+              <!--<li class="page-item">-->
+                <!--<a class="page-link" href="#">4</a>-->
+              <!--</li>-->
+              <!--<li class="page-item">-->
+                <!--<a class="page-link" href="#">Next</a>-->
+              <!--</li>-->
+            <!--</ul>-->
 
           </div>
         </div>
@@ -61,7 +65,7 @@
 </template>
 
 <script>
-  import {mapActions} from 'vuex';
+  import {mapActions, mapState} from 'vuex';
   export default {
     layout: 'coreui',
     data() {
@@ -77,12 +81,21 @@
             return {trades: []}
           })
     },
+    computed:{
+      ...mapState('notifications', ['unreadMessages'])
+    },
     methods: {
       extractTrader: function(trade){
         if(trade.user._id === this.$auth.user._id)
           return trade.advertisementOwner;
         else
           return trade.user;
+      },
+      tradeUnreadMessages(trade){
+        if(!!this.unreadMessages && this.unreadMessages[trade._id])
+          return this.unreadMessages[trade._id].length;
+        else
+          return 0;
       }
     }
   }

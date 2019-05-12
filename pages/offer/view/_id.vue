@@ -232,7 +232,7 @@
         }
       },
       userLastSeen: function(){
-        return moment(this.$auth.user.lastSeen).fromNow();
+        return this.$auth.user.lastSeenInfo.title;
       }
     },
     methods: {

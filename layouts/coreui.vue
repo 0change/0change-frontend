@@ -40,16 +40,14 @@
     components: {Header, Footer, LeftSideBar, RightSideBar, TopStatusBar, SocketIoHandler},
     async mounted(){
       let ct = await this.loadCryptoTokens();
-//      console.log('tokens: ',ct);
       let cc = await this.loadCurrencies();
-//      console.log('curencies: ', cc);
       let cn = await this.loadCountries();
-//      console.log('countries: ', cn);
       let cpml = await this.loadPaymentMethods();
-//      console.log('countries: ', cpml);
+      let urm = await this.loadUnreadMessages();
     },
     methods: {
-        ... mapActions('global',['loadCryptoTokens','loadCurrencies','loadCountries','loadPaymentMethods'])
+        ... mapActions('global',['loadCryptoTokens','loadCurrencies','loadCountries','loadPaymentMethods']),
+        ... mapActions('notifications',['loadUnreadMessages']),
     }
   }
 </script>

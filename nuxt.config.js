@@ -68,6 +68,7 @@ module.exports = {
     '~/plugins/v-tooltip.js',
     '~/plugins/vue-clipboard.js',
     '~/plugins/custom-filters.js',
+    {src: '~/plugins/socket-io.js', ssr: false}
   ],
 
   /*

@@ -260,7 +260,7 @@
           return moment(this.user.createdAt).fromNow();
       },
       userLastSeen: function () {
-          return moment(this.user.lastSeen).fromNow();
+          return this.user.lastSeenInfo.title;
       },
       usernameCrop: function () {
         if(this.user.username.length < 20)
