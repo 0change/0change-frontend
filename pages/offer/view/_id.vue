@@ -79,7 +79,7 @@
             </div>
             <div class="tbl-info-item">
               <div><i class="fa fa-credit-card fa-lg"></i></div>
-              <span>Payment&nbsp;methos:&nbsp;<strong>{{advertisement.paymentMethod.title}}</strong></span>
+              <span>Payment&nbsp;method:&nbsp;<strong>{{advertisement.paymentMethod.title}}</strong></span>
             </div>
             <div class="tbl-info-item">
               <div><i class="fa fa-hourglass-half fa-lg"></i></div>

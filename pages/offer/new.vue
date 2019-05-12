@@ -210,7 +210,7 @@
               <div class="col-sm-8">
                 <div class="adv-description">
                   <p>Other information you wish to tell about your trade.</p>
-                  <p>Example 1: This offer is only for cash trades. If you want to pay online, contact localbitcoins.com/ad/1234.</p>
+                  <p>Example 1: This offer is only for cash trades. If you want to pay online, contact 0change.com/ad/1234.</p>
                   <p>Example 2: Please make request only when you can complete the payment with cash within 12 hours.</p>
                 </div>
               </div>

@@ -4,6 +4,9 @@ export const namespaced = true;
 
 export const state = () => ({
   notifications: [],
+  unreadMessages:{
+    //[trageID]: [tradeMessageId]
+  }
 });
 
 export const mutations = {
@@ -18,6 +21,12 @@ export const mutations = {
   clearNotifications(state){
     state.notifications = [];
   },
+  setUnreadMessages(state, messages){
+    state.unreadMessages = messages;
+  },
+  readTradeMessages(state, tradeId){
+    state.unreadMessages[tradeId] = [];
+  },
 }
 
 export const actions = {
@@ -30,4 +39,23 @@ export const actions = {
   clearNotifications({dispatch, commit, state, rootState}) {
       commit('clearNotifications');
   },
+  loadUnreadMessages({dispatch, commit, state, rootState}) {
+    return this.$axios.post('/api/v0.1/user/unread-messages')
+      .then(({data}) => {
+        if(data.success){
+          commit('setUnreadMessages', data.unreadMessages);
+        }
+        return data;
+      })
+  },
+  readTradeMessages({dispatch, commit, state, rootState}, tradeId) {
+    return this.$axios.post('/api/v0.1/user/read-trade-messages', {tradeId})
+      .then(({data}) => {
+        if(data.success){
+          commit('readTradeMessages', tradeId);
+        }
+        return data;
+      })
+  },
+
 }
