@@ -47,6 +47,9 @@ export const actions = {
         }
         return data;
       })
+      .catch(error => {
+        return {}
+      })
   },
   readTradeMessages({dispatch, commit, state, rootState}, tradeId) {
     return this.$axios.post('/api/v0.1/user/read-trade-messages', {tradeId})
