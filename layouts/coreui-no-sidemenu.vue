@@ -45,7 +45,7 @@
       let urm = await this.loadUnreadMessages();
     },
     methods: {
-        ... mapActions('global',['loadCryptoTokens','loadCurrencies','loadCountries']),
+        ... mapActions('global',['loadCryptoTokens','loadCurrencies','loadCountries', 'loadPaymentMethods']),
       ... mapActions('notifications',['loadUnreadMessages']),
     }
   }
