@@ -81,6 +81,11 @@
   import LoginModal from '../../components/loginModal.vue';
   import BaseLink from "../../components/global/BaseLink";
   export default {
+    head () {
+      return {
+        titleTemplate: this.notifications.length > 0 ? `(${this.notifications.length}) %s` : `%s`
+      }
+    },
     components: {BaseLink, LoginModal, ProfileDropDownMenu, NotificationDropDownMenu},
     data(){
       return{
