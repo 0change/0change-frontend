@@ -44,6 +44,20 @@ export const actions = {
       .then(({data}) => {
         if(data.success){
           commit('setUnreadMessages', data.unreadMessages);
+          let tradeCount = 0;
+          let messageCount = 0;
+          Object.keys(data.unreadMessages).map(tradeId => {
+            tradeCount ++;
+            Object.keys(data.unreadMessages[tradeId]).map(userId => {
+              messageCount ++;
+            })
+          });
+          if(messageCount > 0) {
+            dispatch('notifications/addNotification', {
+              message: `You have ${messageCount} unread message on ${tradeCount} trade.`,
+              commands: [{type: 'trades-list'}]
+            }, {root: true});
+          }
         }
         return data;
       })

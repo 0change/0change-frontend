@@ -34,11 +34,16 @@
         return (notification
           && notification.commands
           && notification.commands.length > 0
-          && notification.commands[0].type === 'trade-open');
+          && (
+            notification.commands[0].type === 'trade-open'
+            || notification.commands[0].type === 'trades-list'
+          ));
       },
       linkToNextPage(notification) {
         if (notification.commands[0].type === 'trade-open')
           return {name: "trade-id", params: {id: notification.commands[0].params.id}}
+        if (notification.commands[0].type === 'trades-list')
+          return {name: "trades"}
         else
           return null;
       }
