@@ -232,7 +232,8 @@
         }
       },
       userLastSeen: function(){
-        return this.$auth.user.lastSeenInfo.title;
+        if(this.owner)
+        return this.owner.lastSeenInfo.title;
       }
     },
     methods: {
