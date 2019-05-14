@@ -13,7 +13,10 @@
                 :step="getTradeStatusStep()"
             />
             <div v-else-if="trade.status == 'cancel'" class="alert alert-warning">
-              <h1>Trade canceled by <BaseLink :to="{name: 'profile-id', params: {id: trade.canceledBy._id}}">{{trade.canceledBy.username}}</BaseLink></h1>
+              <h1>Trade canceled by
+                <BaseLink v-if="trade.canceledBy" :to="{name: 'profile-id', params: {id: trade.canceledBy._id}}">{{trade.canceledBy.username}}</BaseLink>
+                <span v-else>ZeroChange</span>
+              </h1>
             </div>
             <div v-else class="alert alert-danger">
               <h1>Trade disputed by <BaseLink :to="{name: 'profile-id', params: {id: trade.disputedBy._id}}">{{trade.disputedBy.username}}</BaseLink></h1>
@@ -162,6 +165,7 @@
           TRADE_EVENT_MESSAGE_RELEASED: 'Trade tokens released',
           TRADE_EVENT_MESSAGE_CANCELED: 'Trade canceled',
           TRADE_EVENT_MESSAGE_DISPUTED: 'Trade disputed',
+          TRADE_EVENT_MESSAGE_PAYMENT_WINDOW_TIMEOUT: 'Trade payment window timed out and canceled'
         }
       };
     },
