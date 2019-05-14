@@ -4,3 +4,6 @@ API_TARGET="http://localhost:5554/"
 
 # used inside wallet page, in order to link address/transaction to etherscan.io.
 ETHERSCAN_BASE_URL="https://ropsten.etherscan.io/"
+
+
+PM2_APP_NAME="zchange-frontend"
