@@ -1,11 +1,11 @@
 <template>
   <div class="dropdown-menu dropdown-menu-right">
     <div class="message-container">
-      <div class="message-item" v-for="item in notifications" :key="item.id">
-        <BaseLink v-if="hasLinkToNextPage(item.notification)" :to="linkToNextPage(item.notification)">
-          <span>{{item.notification.message}}</span>
+      <div class="message-item" v-for="(item, nID) in notifications" :key="nID">
+        <BaseLink v-if="hasLinkToNextPage(item)" :to="linkToNextPage(item)">
+          <span>{{item.message}}</span>
         </BaseLink>
-        <span v-else>{{item.notification.message}}</span>
+        <span v-else>{{item.message}}</span>
       </div>
     </div>
     <div class="dropdown-divider"></div>

@@ -1,25 +1,26 @@
 import randomStr from '../utils/randomStr';
+import Vue from 'vue';
 
 export const namespaced = true;
 
 export const state = () => ({
-  notifications: [],
+  notifications: {},
   unreadMessages:{
     //[trageID]: [tradeMessageId]
   }
 });
 
 export const mutations = {
-  addNotification(state, notification){
-    state.notifications.push({id: randomStr(), notification});
+  addNotification(state, {id, notification}){
+    if(id === undefined)
+      id = randomStr();
+    Vue.set(state.notifications,id,notification);
   },
   readNotification(state, id){
-    let index = state.notifications.findIndex(item => item.id===id);
-    if(index >= 0)
-      state.notifications.splice(index, 1);
+    delete state.notifications[id];
   },
   clearNotifications(state){
-    state.notifications = [];
+    state.notifications = {};
   },
   setUnreadMessages(state, messages){
     state.unreadMessages = messages;
@@ -30,8 +31,8 @@ export const mutations = {
 }
 
 export const actions = {
-  addNotification({dispatch, commit, state, rootState},notification) {
-      commit('addNotification', notification);
+  addNotification({dispatch, commit, state, rootState},payload) {
+      commit('addNotification', payload);
   },
   readNotification({dispatch, commit, state, rootState}, id) {
       commit('readNotification', id);
@@ -53,10 +54,13 @@ export const actions = {
             })
           });
           if(messageCount > 0) {
-            dispatch('notifications/addNotification', {
-              message: `You have ${messageCount} unread message on ${tradeCount} trade.`,
-              commands: [{type: 'trades-list'}]
-            }, {root: true});
+            dispatch('addNotification', {
+              id: 'total_unread_message',
+              notification: {
+                message: `You have ${messageCount} unread message on ${tradeCount} trade.`,
+                commands: [{type: 'trades-list'}]
+              }
+            });
           }
         }
         return data;

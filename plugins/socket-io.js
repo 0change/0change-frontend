@@ -31,7 +31,7 @@ export default ({ app, store }, inject) => {
   socketObject.on('notification', strData => {
     let data = convertJson(strData);
     console.log('new notification', data);
-    store.dispatch('notifications/addNotification',data);
+    store.dispatch('notifications/addNotification',{notification:data});
     onNotificationReceive(data);
   });
 

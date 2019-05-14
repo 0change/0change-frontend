@@ -36,10 +36,10 @@
       <li v-if="loggedIn" class="nav-item d-md-down-none px-3">
         <BaseLink _class="nav-link px-3" :to="{name: 'wallet'}">Wallet</BaseLink>
       </li>
-      <li v-if="notifications.length > 0" class="nav-item dropdown">
+      <li v-if="notificationCount > 0" class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="icon-bell"></i>
-          <span class="badge badge-pill badge-danger">{{notifications.length}}</span>
+          <span class="badge badge-pill badge-danger">{{notificationCount}}</span>
         </a>
         <NotificationDropDownMenu />
       </li>
@@ -83,7 +83,7 @@
   export default {
     head () {
       return {
-        titleTemplate: this.notifications.length > 0 ? `(${this.notifications.length}) %s` : `%s`
+        titleTemplate: this.notificationCount> 0 ? `(${this.notificationCount}) %s` : `%s`
       }
     },
     components: {BaseLink, LoginModal, ProfileDropDownMenu, NotificationDropDownMenu},
@@ -94,6 +94,9 @@
     computed: {
         ...mapState('auth',['loggedIn','user']),
         ...mapState('notifications',['notifications']),
+      notificationCount: function(){
+          return Object.keys(this.notifications).length;
+      },
       fullName: function(){
           return (this.user.firstName + ' ' + this.user.lastName).trim();
       }
