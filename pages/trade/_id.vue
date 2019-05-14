@@ -91,19 +91,25 @@
           <div class="card-header"><strong>Message History</strong></div>
           <div class="card-body" v-viewer>
             <p v-for="msg in trade.messages">
-              <strong v-if="msg.sender._id === $auth.user._id" class="text-primary">You: </strong>
-              <strong v-else>
-                <BaseLink :to="{name:'profile-id', params:{id: msg.sender._id}}">{{msg.sender.username}}: </BaseLink>
-              </strong>
+              <span v-if="msg.type === 'event'">
+                <span>{{msg.createdAt|std_datetime}}: </span>
+                <span class="badge badge-info">{{eventMessages[msg.content]}}</span>
+              </span>
+              <span v-else="msg.type !== 'event'">
+                <strong v-if="msg.sender._id === $auth.user._id" class="text-primary">You: </strong>
+                <strong v-else>
+                  <BaseLink :to="{name:'profile-id', params:{id: msg.sender._id}}">{{msg.sender.username}}: </BaseLink>
+                </strong>
 
-              <span>{{msg.content}}</span>
-              <br v-if="!!msg.attachments" />
-              <img
-                style="height: 6em; border: 2px solid #aaa; border-radius: 4px; cursor: pointer"
-                v-if="!!msg.attachments"
-                v-for="attachment in msg.attachments"
-                :src="getAttachmentUrl(attachment)"
-              />
+                <span>{{msg.content}}</span>
+                <br v-if="!!msg.attachments" />
+                <img
+                  style="height: 6em; border: 2px solid #aaa; border-radius: 4px; cursor: pointer"
+                  v-if="!!msg.attachments"
+                  v-for="attachment in msg.attachments"
+                  :src="getAttachmentUrl(attachment)"
+                />
+              </span>
             </p>
             <textarea v-model="message" class="form-control trade-comment" rows="5" placeholder="Write your message to the trader"></textarea>
 
@@ -148,7 +154,15 @@
         sendMessageInProgress: false,
         feedbackStar: 0,
         feedbackComment: "",
-        liveChatMessages: []
+        liveChatMessages: [],
+        eventMessages: {
+          TRADE_EVENT_MESSAGE_REQUEST: 'Trade requested',
+          TRADE_EVENT_MESSAGE_START: 'Trade started',
+          TRADE_EVENT_MESSAGE_PAID: 'Trade paid',
+          TRADE_EVENT_MESSAGE_RELEASED: 'Trade tokens released',
+          TRADE_EVENT_MESSAGE_CANCELED: 'Trade canceled',
+          TRADE_EVENT_MESSAGE_DISPUTED: 'Trade disputed',
+        }
       };
     },
     asyncData ({ params, $axios }) {
@@ -250,7 +264,14 @@
         let audio = new Audio('/sound/plop.mp3');
         audio.play();
         this.trade.messages = [...this.trade.messages, message];
-      })
+      });
+
+      this.$socket.on('trade-status-changed', data => {
+        console.log(data);
+        if(data.tradeId === this.$route.params.id){
+          Vue.set(this.trade, 'status', data.status);
+        }
+      });
       this.readTradeMessages(this.trade._id);
     },
     beforeDestroy(){
