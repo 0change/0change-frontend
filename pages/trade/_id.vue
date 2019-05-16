@@ -1,104 +1,127 @@
 <template>
   <div>
-    <TradeDisputeModal ref="tradeDisputeModal" @onSuccess="onTradeDispute"/>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header"><strong>Trade Status</strong></div>
-          <div class="card-body">
-            <StepProgress
+    <div v-if="loading" class="row">
+      <div class="col-sm-12">
+        Loading ...
+      </div>
+    </div>
+    <div v-if="trade">
+      <TradeDisputeModal ref="tradeDisputeModal" @onSuccess="onTradeDispute"/>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header"><strong>Trade Status</strong></div>
+            <div class="card-body">
+              <StepProgress
                 v-if="trade.status != 'cancel' && trade.status != 'dispute'"
                 :length="4"
                 :labels="['Request','Start','Payment','Release']"
                 :step="getTradeStatusStep()"
-            />
-            <div v-else-if="trade.status == 'cancel'" class="alert alert-warning">
-              <h1>Trade canceled by
-                <BaseLink v-if="trade.canceledBy" :to="{name: 'profile-id', params: {id: trade.canceledBy._id}}">{{trade.canceledBy.username}}</BaseLink>
-                <span v-else>ZeroChange</span>
-              </h1>
-            </div>
-            <div v-else class="alert alert-danger">
-              <h1>Trade disputed by <BaseLink :to="{name: 'profile-id', params: {id: trade.disputedBy._id}}">{{trade.disputedBy.username}}</BaseLink></h1>
+              />
+              <div v-else-if="trade.status == 'cancel'" class="alert alert-warning">
+                <h1>Trade canceled by
+                  <BaseLink v-if="trade.canceledBy" :to="{name: 'profile-id', params: {id: trade.canceledBy._id}}">{{trade.canceledBy.username}}</BaseLink>
+                  <span v-else>ZeroChange</span>
+                </h1>
+              </div>
+              <div v-else class="alert alert-danger">
+                <h1>Trade disputed
+                  <span v-if="trade.disputedBy"> by <BaseLink :to="{name: 'profile-id', params: {id: trade.disputedBy._id}}">{{trade.disputedBy.username}}</BaseLink></span>
+                </h1>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-        <div v-if="canPostFeedback" class="card">
-          <div class="card-header"><strong>Feedback</strong></div>
-          <div class="card-body">
-            <div style="margin-bottom: 1em">
-              <no-ssr>
-                <VueStarRating
+      <div class="row">
+        <div class="col-md-4">
+          <div v-if="userIsOperator && trade.status==='dispute'" class="card">
+            <div class="card-header">
+              <strong>Operator</strong>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <button @click="operatorCancelTrade" class="btn btn-sm btn-danger" style="width: 100%">Cancel Trade</button>
+                </div>
+                <div class="col-sm-6">
+                  <button @click="operatorAcceptTrade" class="btn btn-sm btn-success" style="width: 100%">Release Tokens</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="canPostFeedback" class="card">
+            <div class="card-header"><strong>Feedback</strong></div>
+            <div class="card-body">
+              <div style="margin-bottom: 1em">
+                <no-ssr>
+                  <VueStarRating
                     :rating="feedbackStar"
                     :star-size="25"
                     :show-rating="false"
                     @rating-selected="setFeedbackStar"
-                />
-              </no-ssr>
+                  />
+                </no-ssr>
+              </div>
+              <textarea v-model="feedbackComment" style="width: 100%" rows="5"></textarea>
             </div>
-            <textarea v-model="feedbackComment" style="width: 100%" rows="5"></textarea>
-          </div>
-          <div class="card-footer">
-            <button class="btn btn-sm btn-primary" @click="postFeedback">Send Feedback</button>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header"><strong>Terms of trade</strong></div>
-          <div class="card-body">
-            <pre style="white-space: pre-line;">{{trade.advertisement.terms}}</pre>
-
-            <button v-if="isStartBtnVisible" @click="doStartTrade" class="btn btn-primary" type="submit" style="width: 100%">Start Trade</button>
-
-            <button v-if="isPaymentBtnVisible" @click="doSetTradePaid" class="btn btn-primary" type="submit" style="width: 100%">I have paid</button>
-
-            <button v-if="isReleaseBtnVisible" @click="doReleaseTrade" class="btn btn-primary" type="submit" style="width: 100%">Release tokens</button>
-
-
-            <div class="row" style="margin-top: 1em">
-              <div class="col-sm-6">
-                <button v-if="isDisputeBtnVisible" @click="doDisputeTrade" class="btn btn-danger" type="submit" style="width: 100%">Dispute</button>
-              </div>
-              <div class="col-sm-6">
-                <button v-if="isCancelBtnVisible" @click="doCancelTrade" class="btn btn-warning" type="submit" style="width: 100%">Cancel Trade</button>
-              </div>
+            <div class="card-footer">
+              <button class="btn btn-sm btn-primary" @click="postFeedback">Send Feedback</button>
             </div>
           </div>
+          <div class="card">
+            <div class="card-header"><strong>Terms of trade</strong></div>
+            <div class="card-body">
+              <pre style="white-space: pre-line;">{{trade.advertisement.terms}}</pre>
+
+              <button v-if="isStartBtnVisible" @click="doStartTrade" class="btn btn-primary" type="submit" style="width: 100%">Start Trade</button>
+
+              <button v-if="isPaymentBtnVisible" @click="doSetTradePaid" class="btn btn-primary" type="submit" style="width: 100%">I have paid</button>
+
+              <button v-if="isReleaseBtnVisible" @click="doReleaseTrade" class="btn btn-primary" type="submit" style="width: 100%">Release tokens</button>
+
+
+              <div class="row" style="margin-top: 1em">
+                <div class="col-sm-6">
+                  <button v-if="isDisputeBtnVisible" @click="doDisputeTrade" class="btn btn-danger" type="submit" style="width: 100%">Dispute</button>
+                </div>
+                <div class="col-sm-6">
+                  <button v-if="isCancelBtnVisible" @click="doCancelTrade" class="btn btn-warning" type="submit" style="width: 100%">Cancel Trade</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="col-md-8">
-        <div class="alert alert-dark" role="alert">
-          <div>
-            <strong>Advertisement: </strong>
-            <BaseLink :to="{name: 'offer-view-id', params:{id: trade.advertisement._id}}">
-              <span>{{trade.advertisement._id}}</span>
-            </BaseLink>
+        <div class="col-md-8">
+          <div class="alert alert-dark" role="alert">
+            <div>
+              <strong>Advertisement: </strong>
+              <BaseLink :to="{name: 'offer-view-id', params:{id: trade.advertisement._id}}">
+                <span>{{trade.advertisement._id}}</span>
+              </BaseLink>
+            </div>
+            <div>
+              <strong>{{traderTitle}}</strong>
+              <BaseLink :to="{name: 'profile-id', params:{id: traderID}}">{{traderUsername}}</BaseLink>
+            </div>
+            <div>
+              <strong>Exchange rate: </strong>
+              <span class="badge badge-primary">{{trade.advertisement.amount}}</span> {{advertisementCurrency}} / TOKEN
+            </div>
+            <div>
+              <strong>Trade volume: </strong>
+              <span class="badge badge-primary">{{trade.tokenCount}}</span> {{tradeToken.code}}
+            </div>
           </div>
-          <div>
-            <strong>{{traderTitle}}</strong>
-            <BaseLink :to="{name: 'profile-id', params:{id: traderID}}">{{traderUsername}}</BaseLink>
-          </div>
-          <div>
-            <strong>Exchange rate: </strong>
-            <span class="badge badge-primary">{{trade.advertisement.amount}}</span> {{advertisementCurrency}} / TOKEN
-          </div>
-          <div>
-            <strong>Trade volume: </strong>
-            <span class="badge badge-primary">{{trade.tokenCount}}</span> {{tradeToken.code}}
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-header"><strong>Message History</strong></div>
-          <div class="card-body" v-viewer>
-            <p v-for="msg in trade.messages">
+          <div class="card">
+            <div class="card-header"><strong>Message History</strong></div>
+            <div class="card-body" v-viewer>
+              <p v-for="msg in trade.messages">
               <span v-if="msg.type === 'event'">
                 <span>{{msg.createdAt|std_datetime}}: </span>
                 <span class="badge badge-info">{{eventMessages[msg.content]}}</span>
               </span>
-              <span v-else="msg.type !== 'event'">
+                <span v-else="msg.type !== 'event'">
                 <strong v-if="msg.sender._id === $auth.user._id" class="text-primary">You: </strong>
                 <strong v-else>
                   <BaseLink :to="{name:'profile-id', params:{id: msg.sender._id}}">{{msg.sender.username}}: </BaseLink>
@@ -113,25 +136,26 @@
                   :src="getAttachmentUrl(attachment)"
                 />
               </span>
-            </p>
-            <textarea v-model="message" class="form-control trade-comment" rows="5" placeholder="Write your message to the trader"></textarea>
+              </p>
+              <textarea v-model="message" class="form-control trade-comment" rows="5" placeholder="Write your message to the trader"></textarea>
 
-            <button @click="sendMessage" class="btn btn-primary" type="submit">Send</button>
-            <button @click="$refs.fileUpload.addFiles()" class="btn btn-primary" type="submit">Attachment</button>
-            <input type="file" value="Attachment" />
-            <VueFileUpload
-              ref="fileUpload"
-              :buttonsVisible="false"
-              targetUrl="/api/v0.1/trade/message"
-              :extraFields="{tradeId: trade._id,type: 'text', message}"
-            />
+              <button @click="sendMessage" class="btn btn-primary" type="submit">Send</button>
+              <button @click="$refs.fileUpload.addFiles()" class="btn btn-primary" type="submit">Attachment</button>
+              <input type="file" value="Attachment" />
+              <VueFileUpload
+                ref="fileUpload"
+                :buttonsVisible="false"
+                targetUrl="/api/v0.1/trade/message"
+                :extraFields="{tradeId: trade._id,type: 'text', message}"
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!--<div class="row" style="padding: 2em">-->
+      <!--<div class="row" style="padding: 2em">-->
       <!--<pre>{{JSON.stringify(trade,null,2)}}</pre>-->
-    <!--</div>-->
+      <!--</div>-->
+    </div>
   </div>
 </template>
 
@@ -152,6 +176,8 @@
     components:{TradeDisputeModal, BaseLink, StepProgress, VueStarRating, VueFileUpload},
     data(){
       return{
+        loading: true,
+        trade: null,
         chatroom: "",
         message: '',
         sendMessageInProgress: false,
@@ -169,24 +195,21 @@
         }
       };
     },
-    asyncData ({ params, $axios }) {
-      return $axios.post(`/api/v0.1/trade/get-info`,{id: params.id})
-          .then(({data}) => {
-            if(data.success){
-              let _data = {trade: data.trade};
-              if(data.feedback) {
-                _data.feedbackStar = data.feedback.star;
-                _data.feedbackComment= data.feedback.comment;
-              }
-              return _data;
-            }
-            return {trade: null}
-          })
-    },
     computed: {
       ...mapGetters('global',['currencies', 'cryptoTokens']),
+      ...mapGetters('auth',['hasPermission']),
       tradeToken: function(){
         return this.cryptoTokens.find(ct => ct._id === this.trade.advertisement.token) || {};
+      },
+      userIsOperator: function(){
+        return (
+          this.$auth.user._id !== this.trade.user._id
+          && this.$auth.user._id !== this.trade.advertisementOwner._id
+          && this.hasPermission('operator')
+        );
+      },
+      userIsTradeParty: function(){
+        return this.$auth.user._id === this.trade.user._id || this.$auth.user._id === this.trade.advertisementOwner._id;
       },
       isStartBtnVisible: function () {
         return this.trade.status==='request' && this.$auth.user._id == this.trade.advertisement.user;
@@ -199,7 +222,7 @@
         );
       },
       isReleaseBtnVisible: function () {
-        return this.trade.status === 'payment' && (
+        return (this.trade.status === 'payment' || this.trade.status === 'dispute') && (
             (this.trade.advertisement.type === 'buy' && this.$auth.user._id == this.trade.user._id)
             ||
             (this.trade.advertisement.type === 'sell' && this.$auth.user._id === this.trade.advertisement.user)
@@ -208,20 +231,19 @@
       isCancelBtnVisible: function () {
         if(this.trade.status === 'request')
           return true;
-        return (this.trade.status === 'start' || this.trade.status === 'payment') && (
+        return (this.trade.status === 'start' || this.trade.status === 'payment' || this.trade.status === 'dispute') && (
             (this.trade.advertisement.type === 'buy' && this.$auth.user._id === this.trade.advertisement.user)
             ||
             (this.trade.advertisement.type === 'sell' && this.$auth.user._id === this.trade.user._id)
         );
       },
       isDisputeBtnVisible: function () {
-        // TODO: temporarily disabled
-        return false;
-        // return this.trade.status === 'payment' && (
-        //     (this.trade.advertisement.type === 'buy' && this.$auth.user._id === this.trade.advertisement.user)
-        //     ||
-        //     (this.trade.advertisement.type === 'sell' && this.$auth.user._id === this.trade.user._id)
-        // );
+        // Only visible for buyer
+        return this.trade.status === 'payment' && (
+            (this.trade.advertisement.type === 'buy' && this.$auth.user._id === this.trade.advertisement.user)
+            ||
+            (this.trade.advertisement.type === 'sell' && this.$auth.user._id === this.trade.user._id)
+        );
       },
       traderTitle: function () {
         if(this.trade.advertisementOwner._id === this.$auth.user._id){
@@ -257,26 +279,11 @@
         return "---"
       },
       canPostFeedback: function () {
-        return ['release','dispute','cancel','done'].indexOf(this.trade.status) >= 0;
+        return ['release','dispute','cancel','done'].indexOf(this.trade.status) >= 0 && this.userIsTradeParty;
       }
     },
     mounted(){
-      this.chatroom = 'chat-trade-' + this.$route.params.id;
-      this.$socket.join(this.chatroom);
-      this.$socket.on(this.chatroom, message => {
-        console.log(message);
-        let audio = new Audio('/sound/plop.mp3');
-        audio.play();
-        this.trade.messages = [...this.trade.messages, message];
-      });
-
-      this.$socket.on('trade-status-changed', data => {
-        console.log(data);
-        if(data.tradeId === this.$route.params.id){
-          Vue.set(this.trade, 'status', data.status);
-        }
-      });
-      this.readTradeMessages(this.trade._id);
+      this.loadTradeInfo();
     },
     beforeDestroy(){
       this.$socket.leave(this.chatroom);
@@ -284,6 +291,41 @@
     methods:{
       ...mapActions('global', ['sendTradeMessage', 'startTrade', 'setTradePaid', 'releaseTrade']),
       ...mapActions('notifications', ['readTradeMessages']),
+      loadTradeInfo(){
+        this.$axios.post(`/api/v0.1/trade/get-info`,{id: this.$route.params.id})
+          .then(({data}) => {
+            if(data.success){
+              this.trade = data.trade;
+              if(data.feedback) {
+                this.feedbackStar = data.feedback.star;
+                this.feedbackComment= data.feedback.comment;
+              }
+              this.initAfterLoad();
+            }
+          })
+          .catch(error => {})
+          .then(() => {
+            this.loading = false;
+          })
+      },
+      initAfterLoad(){
+        this.chatroom = 'chat-trade-' + this.$route.params.id;
+        this.$socket.join(this.chatroom);
+        this.$socket.on(this.chatroom, message => {
+          console.log(message);
+          let audio = new Audio('/sound/plop.mp3');
+          audio.play();
+          this.trade.messages = [...this.trade.messages, message];
+        });
+
+        this.$socket.on('trade-status-changed', data => {
+          console.log(data);
+          if(data.tradeId === this.$route.params.id){
+            Vue.set(this.trade, 'status', data.status);
+          }
+        });
+        this.readTradeMessages(this.trade._id);
+      },
       async sendMessage(){
         if(!!this.message) {
           this.sendMessageInProgress = true;
@@ -356,7 +398,7 @@
         }
 //        this.startTradeInProgress = false;
       },
-      async doCancelTrade(){
+      doCancelTrade(){
        this.cancelTradeInProgress = true;
         this.$axios.post('/api/v0.1/trade/cancel',{id: this.trade._id})
           .then(({data}) => data)
@@ -417,6 +459,16 @@
       },
       getAttachmentUrl(attachment){
         return apiRoot + attachment.substr(1);
+      },
+      operatorCancelTrade(){
+        if(confirm('Are you sure to cancel the trade ?')){
+          this.doCancelTrade();
+        }
+      },
+      operatorAcceptTrade(){
+        if(confirm('Are you sure to accept the trade ?')){
+          this.doReleaseTrade();
+        }
       }
     }
   }

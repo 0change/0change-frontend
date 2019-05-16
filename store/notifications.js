@@ -7,7 +7,10 @@ export const state = () => ({
   notifications: {},
   unreadMessages:{
     //[trageID]: [tradeMessageId]
-  }
+  },
+  operatorUnreadMessage: {
+    //[trageID]: [tradeMessageId]
+  },
 });
 
 export const mutations = {
@@ -23,11 +26,14 @@ export const mutations = {
     state.notifications = {};
   },
   setUnreadMessages(state, messages){
-    state.unreadMessages = messages;
+    Vue.set(state, 'unreadMessages', messages);
   },
   readTradeMessages(state, tradeId){
     state.unreadMessages[tradeId] = [];
   },
+  setOperatorUnreadMessages(state, messages){
+    Vue.set(state, 'operatorUnreadMessages',messages);
+  }
 }
 
 export const actions = {
@@ -77,6 +83,37 @@ export const actions = {
         }
         return data;
       })
+      .catch(error => {})
+      .then(() => {})
   },
+  loadOperatorUnreadMessages({dispatch, commit, state, rootState}) {
+    return this.$axios.post('/api/v0.1/operator/unread-messages')
+      .then(({data}) => {
+        if(data.success){
+          commit('setOperatorUnreadMessages', data.unreadMessages);
+          let tradeCount = 0;
+          let messageCount = 0;
+          Object.keys(data.unreadMessages).map(tradeId => {
+            tradeCount ++;
+            Object.keys(data.unreadMessages[tradeId]).map(userId => {
+              messageCount ++;
+            })
+          });
+          if(messageCount > 0) {
+            dispatch('addNotification', {
+              id: 'total_dispute_unread_message',
+              notification: {
+                message: `You have ${messageCount} unread message on ${tradeCount} dispute.`,
+                commands: [{type: 'disputes-list'}]
+              }
+            });
+          }
+        }
+        return data;
+      })
+      .catch(error => {
+        return {}
+      })
+  }
 
 }

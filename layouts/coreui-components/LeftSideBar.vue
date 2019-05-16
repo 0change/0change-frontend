@@ -45,6 +45,25 @@
           </BaseLink>
         </li>
         <li class="nav-title">Settings</li>
+        <li v-if="hasPermission('operator')" class="nav-title">Operator menu</li>
+        <li v-if="hasPermission('operator')" class="nav-item nav-dropdown open">
+          <a class="nav-link nav-dropdown-toggle" href="#">
+            <i class="nav-icon icon-star"></i> Operator</a>
+          <ul class="nav-dropdown-items">
+            <li class="nav-item">
+              <BaseLink class="nav-link" :to="{path: '/operator/withdrawals'}">
+                <i class="nav-icon icon-star"></i> Withdrawals
+                <!--<span class="badge badge-success">NEW</span>-->
+              </BaseLink>
+            </li>
+            <li class="nav-item">
+              <BaseLink class="nav-link" :to="{path: '/operator/disputes'}">
+                <i class="nav-icon icon-star"></i> Disputes
+                <span v-if="operatorDisputeBadgeCount > 0" class="badge badge-danger">{{operatorDisputeBadgeCount}}</span>
+              </BaseLink>
+            </li>
+          </ul>
+        </li>
       </ul>
     </nav>
     <button class="sidebar-minimizer brand-minimizer" type="button"></button>
@@ -52,16 +71,25 @@
 </template>
 <script>
   import BaseLink from "../../components/global/BaseLink";
-  import {mapState} from 'vuex';
+  import {mapState, mapGetters} from 'vuex';
   export default {
     components: {BaseLink},
     computed:{
-      ...mapState('notifications', ['unreadMessages']),
+      ...mapState('notifications', ['unreadMessages','operatorUnreadMessages']),
+      ...mapGetters('auth', ['hasPermission']),
       tradeBadgeCount: function () {
         if(!this.unreadMessages)
           return 0;
         return Object.keys(this.unreadMessages)
           .map(tradeId => this.unreadMessages[tradeId])
+          .filter(item => item.length > 0)
+          .length;
+      },
+      operatorDisputeBadgeCount: function () {
+        if(!this.operatorUnreadMessages)
+          return 0;
+        return Object.keys(this.operatorUnreadMessages)
+          .map(tradeId => this.operatorUnreadMessages[tradeId])
           .filter(item => item.length > 0)
           .length;
       }

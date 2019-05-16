@@ -28,7 +28,7 @@
   import RightSideBar from './coreui-components/RightSideBar';
   import TopStatusBar from './coreui-components/TopStatusBar';
 
-  import {mapActions} from 'vuex';
+  import {mapActions, mapGetters} from 'vuex';
 
   export default {
     head: {
@@ -43,10 +43,16 @@
       let cn = await this.loadCountries();
       let cpml = await this.loadPaymentMethods();
       let urm = await this.loadUnreadMessages();
+      if(this.hasPermission('operator')){
+        let ourm = await this.loadOperatorUnreadMessages();
+      }
     },
     methods: {
         ... mapActions('global',['loadCryptoTokens','loadCurrencies','loadCountries', 'loadPaymentMethods']),
-      ... mapActions('notifications',['loadUnreadMessages']),
+      ... mapActions('notifications',['loadUnreadMessages','loadOperatorUnreadMessages']),
+    },
+    computed:{
+      ...mapGetters('auth',['hasPermission'])
     }
   }
 </script>

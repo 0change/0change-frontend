@@ -3,57 +3,43 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header">
-            <strong>Disputes</strong>
-          </div>
+          <div class="card-header"><strong>Disputed trades</strong></div>
           <div class="card-body">
-            <table class="table table-responsive-sm table-sm table-advs">
+            <table class="table table-responsive-sm table-sm">
               <thead>
               <tr>
-                <th>Date</th>
+                <th>#</th>
+                <th>Msg</th>
                 <th>Status</th>
+                <th>Date</th>
                 <th>Trader</th>
-                <th>Trade</th>
+                <th>Type</th>
                 <th>Token</th>
-                <th></th>
+                <th>Token Price</th>
+                <th>Token Count</th>
               </tr>
               </thead>
               <tbody>
-
-              <tr v-for="row in disputes">
-                <td>{{row.date}}</td>
-                <td><span class="badge" :class="row.status.toLowerCase()=='open' ? 'badge-danger' : 'badge-success'">{{row.status}}</span></td>
-                <td><a href="/profile/4545445f54f45f">{{row.trader}}</a></td>
-                <td><a href="/buy/4545445f54f45f">{{row.trade}}</a></td>
-                <td><img class="transaction-coin-icon" :src="row.token.icon" alt=""> {{row.token.title}}</td>
-                <td>
-                  <BaseLink :to="{name: 'disputes-id',params:{id: row.id}}">
-                    <button class="btn btn-sm btn-primary" type="button">View</button>
-                  </BaseLink>
+              <tr v-if="loadInProgress">
+                <td colspan="9" class="text-center">
+                  <i style="font-size: 2em" class="fa fa-spinner fa-lg fa-spin"></i>
                 </td>
+              </tr>
+              <tr v-for="row in trades">
+                <td><BaseLink :to="{name: 'trade-id', params: {id: row._id}}">{{row.id}}</BaseLink></td>
+                <td>
+                  <span v-if="tradeUnreadMessages(row) > 0" class="badge badge-danger">{{tradeUnreadMessages(row)}}</span>
+                </td>
+                <td>{{row.status}}</td>
+                <td>{{row.createdAt}}</td>
+                <td><BaseLink :to="{name: 'profile-id', params: {id: extractTrader(row)._id}}">{{extractTrader(row).username}}</BaseLink></td>
+                <td><span class="badge" :class="row.advertisement.type.toLowerCase()=='sell' ? 'badge-success' : 'badge-danger'">{{row.advertisement.type}}</span></td>
+                <td><img class="transaction-coin-icon" :src="'/erc20-tokens/' + row.advertisement.token.code + '.png'" alt=""> {{row.advertisement.token.title}} ({{row.advertisement.token.code}})</td>
+                <td>{{row.advertisement.amount}}</td>
+                <td>{{row.tokenCount}}</td>
               </tr>
               </tbody>
             </table>
-            <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="#">Prev</a>
-              </li>
-              <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">2</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">3</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">4</a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-              </li>
-            </ul>
 
           </div>
         </div>
@@ -63,84 +49,51 @@
 </template>
 
 <script>
+  import {mapActions, mapState} from 'vuex';
   export default {
     layout: 'coreui',
     data() {
       return {
-        filter:{
-          type: "",
-          token: '',
-          paymentMethod: ''
-        },
-        disputes: [
-          {
-            id: '4565fd7c776',
-            date: '2018-10-05',
-            status: 'Open',
-            owner: '465475847538',
-            trader: 'trade_user_1',
-            trade: '465fd65543ffd7',
-            token: {
-              icon: '/erc20-tokens/dai_stablecoin.png',
-              title: 'Dai Stable Coin (DAI)',
-            },
-          },
-          {
-            id: '4565fd7c776',
-            date: '2018-10-05',
-            status: 'Done',
-            owner: '465475847538',
-            trader: 'trade_user_1',
-            trade: '465fd65543ffd7',
-            token: {
-              icon: '/erc20-tokens/dai_stablecoin.png',
-              title: 'Dai Stable Coin (DAI)',
-            },
-          },
-          {
-            id: '4565fd7c776',
-            date: '2018-10-05',
-            status: 'Done',
-            owner: '465475847538',
-            trader: 'trade_user_1',
-            trade: '465fd65543ffd7',
-            token: {
-              icon: '/erc20-tokens/dai_stablecoin.png',
-              title: 'Dai Stable Coin (DAI)',
-            },
-          },
-        ]
+        loadInProgress: true,
+        trades: []
       }
     },
-    computed: {
-      getFilteredAdvertisements(){
-        let filtered = this.advertisements;
-        if(!!this.filter.type) {
-          filtered = filtered.filter(adv => {
-            return adv.type.toLowerCase() === this.filter.type;
-          });
-        }
-        if(!!this.filter.token){
-          filtered = filtered.filter(adv => {
-            return adv.token.title.toLowerCase().includes(this.filter.token.toLowerCase());
-          });
-        }
-        if(!!this.filter.paymentMethod){
-          filtered = filtered.filter(adv => {
-            return adv.payment.method.toLowerCase().includes(this.filter.paymentMethod.toLowerCase());
-          });
-        }
-        return filtered;
-      }
+    computed:{
+      ...mapState('notifications', ['unreadMessages'])
+    },
+    mounted(){
+      this.loadDisputedTrades();
     },
     methods: {
+      loadDisputedTrades: function(){
+        this.$axios.post(`/api/v0.1/trade/list`, {status: 'dispute'})
+        .then(({data}) => {
+          if(data.success)
+            this.trades = data.trades;
+        })
+          .catch(error => {})
+          .then(() => {
+            this.loadInProgress = false;
+          })
+      },
+      extractTrader: function(trade){
+        if(trade.user._id === this.$auth.user._id)
+          return trade.advertisementOwner;
+        else
+          return trade.user;
+      },
+      tradeUnreadMessages(trade){
+        if(!!this.unreadMessages && this.unreadMessages[trade._id])
+          return this.unreadMessages[trade._id].length;
+        else
+          return 0;
+      }
     }
   }
 </script>
 
 <style>
   .cc-token-avatar{width: 30px; height: 30px}
-  .table-advs td {vertical-align: middle}
   .table-coin-count{width: 100%}
   .table-coin-count td{
     padding: 0.5em 1em;

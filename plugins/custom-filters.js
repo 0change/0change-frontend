@@ -7,7 +7,10 @@ Vue.filter('roundNum4d', function (number) {
   return Math.round(number * 10000) / 10000;
 });
 Vue.filter('std_datetime', function (value) {
-  return moment(value).format('YYYY-MM-DD HH:MM');
+  if(!!value)
+    return moment(value).format('YYYY-MM-DD HH:MM');
+  else
+    return value;
 });
 
 

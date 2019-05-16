@@ -12,11 +12,11 @@ export const state = () => ({
 });
 
 export const getters = {
-  hasAccess(state) {
-    return sectionName => {
-      if (!state.user || !state.user.sections)
+  hasPermission(state) {
+    return permission => {
+      if (!state.user || !state.user.permissions || state.user.permissions.length === 0)
         return false;
-      return state.user.sections.includes(sectionName);
+      return state.user.permissions.includes(permission);
     };
   }
 }

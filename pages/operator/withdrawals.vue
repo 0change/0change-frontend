@@ -73,7 +73,7 @@
 <script>
   import Vue from 'vue';
   import {mapGetters, mapActions} from 'vuex';
-  import BaseLink from "../components/global/BaseLink";
+  import BaseLink from "../../components/global/BaseLink";
   import moment from 'moment';
 
   export default {

@@ -37,6 +37,7 @@
           && (
             notification.commands[0].type === 'trade-open'
             || notification.commands[0].type === 'trades-list'
+            || notification.commands[0].type === 'disputes-list'
           ));
       },
       linkToNextPage(notification) {
@@ -44,6 +45,8 @@
           return {name: "trade-id", params: {id: notification.commands[0].params.id}}
         if (notification.commands[0].type === 'trades-list')
           return {name: "trades"}
+        if (notification.commands[0].type === 'disputes-list')
+          return {name: "operator-disputes"}
         else
           return null;
       }
