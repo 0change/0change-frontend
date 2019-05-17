@@ -2,12 +2,17 @@
   <tr>
     <td class="text-left">
       <div class="avatar">
-        <img class="img-avatar" :src="advertisement.user.avatar" alt="admin@bootstrapmaster.com">
+        <!--<img class="img-avatar" :src="advertisement.user.avatar" alt="admin@bootstrapmaster.com">-->
+        <div class="avatar-bg" :style="{background: 'url(' + advertisement.user.avatar+ ')'}"></div>
         <span class="avatar-status" :class="userAvatarStatusClass(advertisement.user)"></span>
       </div>
     </td>
     <td>
-      <div>{{fullName(advertisement.user)}}</div>
+      <div>
+        <BaseLink :to="{name: 'profile-id', params:{id: advertisement.user._id}}">
+          {{fullName(advertisement.user)}}
+        </BaseLink>
+      </div>
       <div class="small text-muted">
         <!--<span>{{userAge(offer.user)}}</span> | Registered: {{registerDate(offer.user)}}-->
         <img src="/imgs/brightid-av-1.jpg" style="width: 10px"/>
@@ -38,6 +43,10 @@
       <div><strong>{{advertisement.amount}}</strong></div>
       <strong>{{advertisement.currency.code}}</strong>
     </td>
+    <td class="text-left">
+      <div>Min: <span class="text-danger">{{advertisement.limitMin}}</span></div>
+      <div>Max: <span class="text-success">{{advertisement.limitMax}}</span></div>
+    </td>
     <td>
       <div class="small text-muted">Last login</div>
       <strong>{{lastSeen}}</strong>
@@ -53,8 +62,9 @@
 <script>
   import moment from 'moment';
   import LinearProgress from '~/components/LinearProgress';
+  import BaseLink from "./global/BaseLink";
   export default {
-    components: {LinearProgress},
+    components: {BaseLink, LinearProgress},
     props: ['advertisement'],
     computed:{
       lastSeen: function () {

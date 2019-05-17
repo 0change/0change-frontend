@@ -14,13 +14,14 @@
             <!--<th>Feedback Score</th>-->
             <th class="text-left">Token</th>
             <th class="text-left">Price</th>
+            <th class="text-left">Min-Max</th>
             <th>Activity</th>
             <th></th>
           </tr>
           </thead>
           <tbody>
           <tr v-if="searchInProgress">
-            <td colspan="7" class="text-center">
+            <td colspan="8" class="text-center">
               <i style="font-size: 2em" class="fa fa-spinner fa-lg fa-spin"></i>
             </td>
           </tr>
