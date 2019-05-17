@@ -219,7 +219,7 @@
           </div>
           <div class="card-footer">
             <button @click="createAdv" class="btn btn-sm btn-success" type="submit">
-              <i class="fa fa-save"></i> Save
+              <i class="fa fa-save"></i> Publish
             </button>
           </div>
         </div>

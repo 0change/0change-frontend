@@ -14,7 +14,7 @@
           </div>
         <!--</div>-->
       </main>
-      <RightSideBar />
+      <!--<RightSideBar />-->
     </div>
     <Footer />
   </div>
