@@ -8,14 +8,32 @@ function convertJson(str) {
   return json;
 }
 
+let joinedRooms = [];
 let socketObject = null;
-socketObject = io.connect(socketUrl);
 
-socketObject.on('connect', function (data) {
-  console.log('socket connected successfully.')
-});
+function joinClientToRoom(room){
+  if(joinedRooms.indexOf(room) < 0)
+    joinedRooms.push(room);
+  if(!socketObject)
+    return;
+  socketObject.emit('join', room);
+}
 
 export default ({ app, store }, inject) => {
+
+  if(store.state.auth.loggedIn){
+    joinedRooms.push('user-' + store.state.auth.user._id);
+  }
+
+  socketObject = io.connect(socketUrl);
+
+  socketObject.on('connect', function (data) {
+    console.log('socket connected successfully.');
+    joinedRooms.map(room => {
+      socketObject.emit('join', room);
+    })
+  });
+
   socketObject.on('signals', strData => {
     let data = convertJson(strData);
     console.log(data);
@@ -38,7 +56,7 @@ export default ({ app, store }, inject) => {
   inject('socket', {
     io: socketObject,
     join: function (room) {
-      socketObject.emit('join', room);
+      joinClientToRoom(room);
     },
     leave: function (room) {
       socketObject.emit('leave', room);
@@ -52,8 +70,4 @@ export default ({ app, store }, inject) => {
       });
     }
   });
-
-  if(store.state.auth.loggedIn){
-    socketObject.emit('join', 'user-' + store.state.auth.user._id);
-  }
 }

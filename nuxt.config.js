@@ -103,8 +103,11 @@ module.exports = {
   */
   build: {
     // analyze: true,
+
+    chunks: 'all',
+    automaticNameDelimiter: '.',
     extractCSS: {
-      allChunks: true
+      //allChunks: true
     },
     splitChunks: {
       layouts: true
