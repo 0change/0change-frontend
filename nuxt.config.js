@@ -102,6 +102,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    analyze: true,
     extractCSS: {
       allChunks: true
     },
