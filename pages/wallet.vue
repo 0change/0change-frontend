@@ -146,6 +146,10 @@
               >
             </div>
             <button @click="doWithdraw" class="btn btn-block btn-primary" type="button">Withdraw</button>
+            <br />
+            <div class="alert alert-warning">
+              <span><strong>Attention: </strong>Withdrawal process is not real-time. After submission of withdrawal, it takes some time for the transaction to be confirmed.</span>
+            </div>
           </div>
         </div>
       </div>
