@@ -5,7 +5,7 @@
   "author": "sadegh",
   "private": true,
   "scripts": {
-    "prod": "nuxt build &&  node server/index.js",
+    "prod": "nuxt build && npm start",
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
