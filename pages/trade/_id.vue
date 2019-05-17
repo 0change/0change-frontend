@@ -204,19 +204,19 @@
       userIsOperator: function(){
         return (
           this.$auth.user._id !== this.trade.user._id
-          && this.$auth.user._id !== this.trade.advertisementOwner._id
+          && this.$auth.user._id !== this.trade.advertisement.user._id
           && this.hasPermission('operator')
         );
       },
       userIsTradeParty: function(){
-        return this.$auth.user._id === this.trade.user._id || this.$auth.user._id === this.trade.advertisementOwner._id;
+        return this.$auth.user._id === this.trade.user._id || this.$auth.user._id === this.trade.advertisement.user._id;
       },
       isStartBtnVisible: function () {
-        return this.trade.status==='request' && this.$auth.user._id == this.trade.advertisement.user;
+        return this.trade.status==='request' && this.$auth.user._id == this.trade.advertisement.user._id;
       },
       isPaymentBtnVisible: function () {
         return this.trade.status==='start' && (
-            (this.trade.advertisement.type === 'buy' && this.$auth.user._id == this.trade.advertisement.user)
+            (this.trade.advertisement.type === 'buy' && this.$auth.user._id == this.trade.advertisement.user._id)
                 ||
             (this.trade.advertisement.type === 'sell' && this.$auth.user._id == this.trade.user._id)
         );
@@ -225,28 +225,28 @@
         return (this.trade.status === 'payment' || this.trade.status === 'dispute') && (
             (this.trade.advertisement.type === 'buy' && this.$auth.user._id == this.trade.user._id)
             ||
-            (this.trade.advertisement.type === 'sell' && this.$auth.user._id === this.trade.advertisement.user)
+            (this.trade.advertisement.type === 'sell' && this.$auth.user._id == this.trade.advertisement.user._id)
         );
       },
       isCancelBtnVisible: function () {
         if(this.trade.status === 'request')
           return true;
         return (this.trade.status === 'start' || this.trade.status === 'payment' || this.trade.status === 'dispute') && (
-            (this.trade.advertisement.type === 'buy' && this.$auth.user._id === this.trade.advertisement.user)
+            (this.trade.advertisement.type === 'buy' && this.$auth.user._id == this.trade.advertisement.user._id)
             ||
-            (this.trade.advertisement.type === 'sell' && this.$auth.user._id === this.trade.user._id)
+            (this.trade.advertisement.type === 'sell' && this.$auth.user._id == this.trade.user._id)
         );
       },
       isDisputeBtnVisible: function () {
         // Only visible for buyer
         return this.trade.status === 'payment' && (
-            (this.trade.advertisement.type === 'buy' && this.$auth.user._id === this.trade.advertisement.user)
+            (this.trade.advertisement.type === 'buy' && this.$auth.user._id === this.trade.advertisement.user._id)
             ||
             (this.trade.advertisement.type === 'sell' && this.$auth.user._id === this.trade.user._id)
         );
       },
       traderTitle: function () {
-        if(this.trade.advertisementOwner._id === this.$auth.user._id){
+        if(this.trade.advertisement.user._id === this.$auth.user._id){
           if(this.trade.advertisement.type === 'sell')
             return 'Buyer';
           else
@@ -259,17 +259,17 @@
         }
       },
       traderID: function () {
-        if(this.trade.advertisementOwner._id === this.$auth.user._id){
+        if(this.trade.advertisement.user._id === this.$auth.user._id){
           return this.trade.user._id;
         }else{
-          return this.trade.advertisementOwner._id;
+          return this.trade.advertisement.user._id;
         }
       },
       traderUsername: function () {
-        if(this.trade.advertisementOwner._id === this.$auth.user._id){
+        if(this.trade.advertisement.user._id === this.$auth.user._id){
           return this.trade.user.username;
         }else{
-          return this.trade.advertisementOwner.username;
+          return this.trade.advertisement.user.username;
         }
       },
       advertisementCurrency: function () {
