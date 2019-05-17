@@ -53,7 +53,7 @@
       <li v-if="loggedIn" class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
           <div style="width: 3em; height: 3em">
-            <div class="avatar-bg" :style="{background: 'url(' + user.avatar + ')'}"></div>
+            <div class="avatar-bg" :style="{background: 'url(' + user.avatar + ')'}">&nbsp;</div>
           </div>
           <!--<img class="img-avatar" :src="user.avatar" alt="admin@bootstrapmaster.com">-->
         </a>
