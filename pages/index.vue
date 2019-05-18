@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <SearchBox @onSearch="onSearchButtonClick"/>
-        <table class="table table-responsive-xs table-hover table-outline mb-0">
+        <table class="table table-responsive-sm table-sm mb-0">
           <thead class="thead-light">
           <tr>
             <th class="text-left">
@@ -26,20 +26,20 @@
             </td>
           </tr>
           <TradeSearchItem
-              v-for="advertisement in sellAdvertisements"
-              :key="advertisement._id"
-              :advertisement="advertisement"
-              buttonTitle="Buy"
+            v-for="advertisement in sellAdvertisements"
+            :key="advertisement._id"
+            :advertisement="advertisement"
+            buttonTitle="Buy"
           />
           </tbody>
         </table>
-        <!--<div class="text-right">-->
-          <!--<BaseLink :to="{name: 'quickBuy'}">-->
-            <!--<i class="fa fa-plus-circle fa-lg mt-2 mb-4"></i>-->
-            <!--<span>See more options ...</span>-->
-          <!--</BaseLink>-->
-        <!--</div>-->
 
+        <!--<div class="text-right">-->
+        <!--<BaseLink :to="{name: 'quickBuy'}">-->
+        <!--<i class="fa fa-plus-circle fa-lg mt-2 mb-4"></i>-->
+        <!--<span>See more options ...</span>-->
+        <!--</BaseLink>-->
+        <!--</div>-->
       </div>
     </div>
   </div>

@@ -14,6 +14,7 @@
             <!--<th>Feedback Score</th>-->
             <th class="text-left">Token</th>
             <th class="text-left">Price</th>
+            <th class="text-left">Min-Max</th>
             <th>Activity</th>
             <th></th>
           </tr>

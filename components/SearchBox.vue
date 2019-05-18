@@ -39,9 +39,7 @@
       <div class="col-md-3">
         <select v-model="searchParams.paymentMethod" class="form-control">
           <option value="">All Payment methods</option>
-          <option value="1">Payment method #1</option>
-          <option value="2">Payment method #2</option>
-          <option value="3">Payment method #3</option>
+          <option v-for="method in paymentMethods" :value="method._id" :key="method._id">{{method.title}}</option>
         </select>
       </div>
       <div class="col-md-3">
@@ -74,6 +72,7 @@
         currencies: 'allCurrencies',
         countries: 'allCountries',
         tokens: 'cryptoTokens',
+        paymentMethods: 'allPaymentMethods'
       }),
     },
     methods: {
