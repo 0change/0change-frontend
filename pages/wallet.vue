@@ -240,9 +240,10 @@
       refreshBalance(){
         this.$axios.post('/api/v0.1/user/check-deposit')
           .then(response => {
-            if(response.newTransaction > 0)
+            //if(response.newTransaction > 0)
               this.loadUserBalance();
           })
+          .catch(error => {});
       },
       etherscanWallet(address){
         return this.etherscanBaseUrl + 'address/' + address;

@@ -139,8 +139,11 @@
               </p>
               <textarea v-model="message" class="form-control trade-comment" rows="5" placeholder="Write your message to the trader"></textarea>
 
-              <button @click="sendMessage" class="btn btn-primary" type="submit">Send</button>
-              <button @click="$refs.fileUpload.addFiles()" class="btn btn-primary" type="submit">Attachment</button>
+              <button v-if="sendMessageInProgress" style="width: 6em" class="btn btn-primary" type="submit">
+                <i style="font-size: 1em" class="fa fa-spinner fa-lg fa-spin"></i>
+              </button>
+              <button v-else @click="sendMessage" class="btn btn-primary" style="width: 6em" type="submit">Send</button>
+              <button v-if="!sendMessageInProgress" @click="$refs.fileUpload.addFiles()" class="btn btn-primary" type="submit">Attachment</button>
               <input type="file" value="Attachment" />
               <VueFileUpload
                 ref="fileUpload"
