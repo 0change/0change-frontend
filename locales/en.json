@@ -1,0 +1,368 @@
+{
+  "helloMessage": "Hello",
+  "serverSideError": "Server side error",
+  "Seller": "Seller",
+  "Buyer": "Buyer",
+  "seller": "seller",
+  "buyer": "buyer",
+  "You": "You",
+  "you": "you",
+  "trade": {
+    "status": {
+      "request": "request",
+      "start": "start",
+      "payment": "payment",
+      "release": "release",
+      "cancel": "cancel",
+      "dispute": "dispute"
+    },
+    "type": {
+      "sell": "Sell",
+      "buy": "Buy"
+    }
+  },
+  "topHeader":{
+    "search": "Search",
+    "postATrade": "Post a trade",
+    "deposit": "Deposit",
+    "help": "Help",
+    "logout": "Logout",
+    "login": "Login",
+    "wallet": "Wallet",
+    "profile": "Profile"
+  },
+  "searchBox":{
+    "amount": "Amount",
+    "allTokens": "All tokens",
+    "allCurrencies": "All currencies",
+    "allCountries": "All countries",
+    "allBScore": "All BrightID scores",
+    "minBScore": "Min BrightID Score {v}",
+    "allFeedbackScore": "All feedback scores",
+    "minFeedbackScore": "Min Feedback Score {v}",
+    "allPaymentMethods": "All payment methods",
+    "search": "All payment methods"
+  },
+  "searchResult": {
+    "head": {
+      "seller": "Seller",
+      "country": "Country",
+      "token": "Token",
+      "price": "Price",
+      "minMax": "Min-Max",
+      "activity": "Activity"
+    },
+    "buy": "Buy",
+    "sell": "Sell"
+  },
+  "leftSideBar":{
+    "home": "Home",
+    "new": "new",
+    "userMenus":"User Menus",
+    "profile": "Profile",
+    "wallet": "Wallet",
+    "notifications": "Notifications",
+    "trades": "Trades",
+    "disputes": "Disputes",
+    "offers": "Offers",
+    "settings": "Settings",
+    "adminMenuTitle": "Admin Menus",
+    "opMenu": "Operator",
+    "opWithdrawals": "Withdrawals",
+    "opDisputes": "Disputes"
+  },
+  "components":{
+    "tradeStartModal":{
+      "title": "Start Trade",
+      "messageToSeller": "Enter message to seller",
+      "messageToBuyer": "Enter message to buyer"
+    },
+    "updateUsername":{
+      "label": "Username",
+      "btnTitle": "Change"
+    },
+    "updateEmail":{
+      "label": "Email",
+      "placeholder": "temp-mail@domain.com",
+      "btnTitle": "Change"
+    }
+  },
+  "pages":{
+    "offerView":{
+      "infoBox":{
+        "titleBuyer": "Buyer info",
+        "titleSeller": "Seller info",
+        "titleTrade": "Trade Info",
+        "username": "Username",
+        "bidScore": "BrightID Score",
+        "lastSeen": "Last Seen",
+        "country": "Country",
+        "confirmedTrades": "Confirmed Trades",
+        "confirmedTradesCount": "{n} Trades",
+        "feedbackScore": "Feedback Score",
+        "token": "Token",
+        "price": "Price",
+        "tradeLimit": "Trade Limit",
+        "paymentMethod": "Payment Method",
+        "paymentWindow": "Payment Window",
+        "paymentWindowVal": "{h} hours and {m} minutes"
+      },
+      "tokenBox":{
+        "titleLimit": "limit"
+      },
+      "termsBox":{
+        "title": "Terms of trade",
+        "checkBoxTitle": "I read and accept the trade terms."
+      },
+      "confirmBtn":{
+        "titleBuy": "Buy",
+        "titleSell": "Sell",
+        "titleLogOuted": "Login / Register to continue"
+      },
+      "errors":{
+        "tokenLimit": "Token count is limited by min:{min} and max:{max}",
+        "termsNotConfirmed": "Terms of trade not confirmed"
+      }
+    },
+    "offerNew": {
+      "mainBox":{
+        "title": "Create new offer",
+        "token":{
+          "label": "Token",
+          "placeholder": "Select token",
+          "description": "What kind of token do you wish to sell/buy ?",
+          "noAnyToken": "You have not any token.",
+          "noAnyTokenAlert": "You hav not any tokens to post a trade. Make deposit and try again."
+        },
+        "paymentMethod":{
+          "label": "Payment method",
+          "placeholder": "Select payment method",
+          "description": "What do you want to receive in exchange for your token?"
+        },
+        "currency":{
+          "label": "Currency",
+          "description": ""
+        },
+        "price":{
+          "label": "Token price",
+          "in": "in",
+          "placeholder": "Example: 2.2145",
+          "description": "How much do you ask for each token ?"
+        },
+        "limitMin":{
+          "label": "Min transaction limit",
+          "placeholder": "Example: 0.1",
+          "description": "Minimum transaction limit in one trade."
+        },
+        "limitMax":{
+          "label": "Max transaction limit",
+          "placeholder": "Example: 50",
+          "description": "Maximum transaction limit in one trade."
+        },
+        "paymentWindow":{
+          "label": "Payment window",
+          "placeholder": "Payment Window",
+          "description": "How much time does the buyer have to confirm payment ?"
+        },
+        "openingHours":{
+          "label": "Opening hours",
+          "description": "Optional. Days and hours when you want your offer to be automatically shown and hidden.",
+          "dayTitles":["Son","Mon","Tue","Wed","Thu","Fri","Sat"],
+          "start": "start",
+          "end": "end"
+        },
+        "terms":{
+          "label": "Terms of trade",
+          "placeholder": "",
+          "description": "Other information you wish to tell about your trade.\nExample 1: This offer is only for cash trades. If you want to pay online, contact 0change.com/ad/1234.\nExample 2: Please make request only when you can complete the payment with cash within 12 hours."
+        },
+        "btn":{
+          "title": "Publish"
+        }
+      }
+    },
+    "tradeView":{
+      "statusBox":{
+        "title": "Trade Status",
+        "msgCanceledBy": "Trade canceled by {v}",
+        "msgDisputedBy": "Trade disputed by {v}",
+        "allStatus": [
+          "Requested",
+          "Started",
+          "Payd",
+          "Released"
+        ]
+      },
+      "feedback":{
+        "title": "Feedback",
+        "btnTitle": "Send feedback"
+      },
+      "infoBox":{
+        "offer": "Offer",
+        "buyer": "Buyer",
+        "seller": "Seller",
+        "exchangeRate": "Exchange Rate",
+        "tradeVolume": "Trade Volume"
+      },
+      "termsBox": {
+        "title": "Terms of trade"
+      },
+      "messageBox":{
+        "title": "Message history",
+        "placeholder": "Write your message to the trader",
+        "btnSend": "Send",
+        "tradeEventMessages": {
+          "TRADE_EVENT_MESSAGE_REQUEST": "Trade requested",
+          "TRADE_EVENT_MESSAGE_START": "Trade started",
+          "TRADE_EVENT_MESSAGE_PAID": "Trade paid",
+          "TRADE_EVENT_MESSAGE_RELEASED": "Trade tokens released",
+          "TRADE_EVENT_MESSAGE_CANCELED": "Trade canceled",
+          "TRADE_EVENT_MESSAGE_DISPUTED": "Trade disputed",
+          "TRADE_EVENT_MESSAGE_PAYMENT_WINDOW_TIMEOUT": "Trade payment window timed out and canceled"
+        }
+      }
+    },
+    "wallet":{
+      "mainBox": {
+        "title": "Wallet info",
+        "address": "Address",
+        "transactions": "Transactions",
+        "tableHead":{
+          "trade": "Trade",
+          "txHash": "tx-Hash",
+          "from": "From",
+          "to": "To",
+          "type": "Type",
+          "status": "Status",
+          "token": "Token",
+          "count": "Count"
+        },
+        "status":{
+          "new": "new",
+          "pending": "pending",
+          "done": "done",
+          "cancel": "cancel",
+          "fail": "fail"
+        },
+        "txType":{
+          "deposit": "deposit",
+          "withdraw": "withdraw",
+          "trade": "trade"
+        }
+      },
+      "balanceBox":{
+        "title": "Balance",
+        "btnTitle": "Refresh"
+      },
+      "withdrawBox":{
+        "title": "Withdraw",
+        "wallet":{
+          "label": "Send to address",
+          "placeholder": "Wallet address"
+        },
+        "token":{
+          "label": "Token"
+        },
+        "amount":{
+          "label": "Amount"
+        },
+        "btnTitle": "Withdraw",
+        "alert":{
+          "title": "Attention: ",
+          "text": "Withdrawal process is not real-time. After submission of withdrawal, it takes some time for the transaction to be confirmed."
+        }
+      }
+    },
+    "trades":{
+      "mainBox":{
+        "title": "Trades List",
+        "table": {
+          "head": {
+            "id": "#",
+            "msg": "Msg",
+            "status": "Status",
+            "date": "Date",
+            "trader": "Trader",
+            "type": "Type",
+            "token": "Token",
+            "price": "Token Price",
+            "count": "Token Count"
+          }
+        }
+      }
+    },
+    "disputeList": {
+      "mainBox":{
+        "title": "Disputed trades"
+      }
+    },
+    "offerList":{
+      "searchBox":{
+        "title": "Search",
+        "typeInput": {
+          "label": "Type",
+          "default": "All Types"
+        },
+        "tokenInput":{
+          "label": "Token",
+          "placeholder": "Token Name or code"
+        },
+        "paymentInput": {
+          "label": "Payment Method",
+          "placeholder": "type method name"
+        }
+      },
+      "mainBox":{
+        "title": "Offers",
+        "table": {
+          "head": {
+            "id": "ID",
+            "type": "Type",
+            "token": "Token",
+            "limit": "Limit",
+            "paymentMethod": "Payment Method",
+            "price": "Price",
+            "enable": "Enable"
+          },
+          "rows":{
+            "btnEditTitle": "edit",
+            "btnDeleteTitle": "delete"
+          }
+        }
+      }
+    },
+    "profile":{
+      "infoBox": {
+        "bidScore": "BrightID score",
+        "location": "Location",
+        "joined": "Joined",
+        "lastSeen": "Last seen",
+        "feedbackScore": "Feedback score"
+      },
+      "editBox": {
+        "firstName": {
+          "label": "First name",
+          "placeholder": "Enter your first name"
+        },
+        "lastName": {
+          "label": "Last name",
+          "placeholder": "Enter your last name"
+        },
+        "about": {
+          "label": "About",
+          "placeholder": "Enter small text about you"
+        },
+        "country": {
+          "label": "Country"
+        },
+        "phone": {
+          "label": "Phone number",
+          "placeholder": "+1x-xxx-xxx-xxxx"
+        }
+      },
+      "feedbackBox":{
+        "title": "User feedback"
+      }
+    }
+  }
+}

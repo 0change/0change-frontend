@@ -10,15 +10,16 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card">
-            <div class="card-header"><strong>Trade Status</strong></div>
+            <div class="card-header"><strong>{{$t('pages.tradeView.statusBox.title')}}</strong></div>
             <div class="card-body">
               <StepProgress
                 v-if="trade.status != 'cancel' && trade.status != 'dispute'"
                 :length="4"
-                :labels="['Request','Start','Payment','Release']"
+                :labels="$t('pages.tradeView.statusBox.allStatus')"
                 :step="getTradeStatusStep()"
               />
               <div v-else-if="trade.status == 'cancel'" class="alert alert-warning">
+                <!-- TODO: not translated -->
                 <h1>Trade canceled by
                   <BaseLink v-if="trade.canceledBy" :to="{name: 'profile-id', params: {id: trade.canceledBy._id}}">{{trade.canceledBy.username}}</BaseLink>
                   <span v-else>ZeroChange</span>
@@ -51,7 +52,7 @@
             </div>
           </div>
           <div v-if="canPostFeedback" class="card">
-            <div class="card-header"><strong>Feedback</strong></div>
+            <div class="card-header"><strong>{{$t('pages.tradeView.feedback.title')}}</strong></div>
             <div class="card-body">
               <div style="margin-bottom: 1em">
                 <no-ssr>
@@ -66,11 +67,11 @@
               <textarea v-model="feedbackComment" style="width: 100%" rows="5"></textarea>
             </div>
             <div class="card-footer">
-              <button class="btn btn-sm btn-primary" @click="postFeedback">Send Feedback</button>
+              <button class="btn btn-sm btn-primary" @click="postFeedback">{{$t('pages.tradeView.feedback.btnTitle')}}</button>
             </div>
           </div>
           <div class="card">
-            <div class="card-header"><strong>Terms of trade</strong></div>
+            <div class="card-header"><strong>{{$t('pages.tradeView.termsBox.title')}}</strong></div>
             <div class="card-body">
               <pre style="white-space: pre-line;">{{trade.advertisement.terms}}</pre>
 
@@ -94,55 +95,62 @@
         </div>
         <div class="col-md-8">
           <div class="alert alert-dark" role="alert">
-            <div>
-              <strong>Advertisement: </strong>
-              <BaseLink :to="{name: 'offer-view-id', params:{id: trade.advertisement._id}}">
-                <span>{{trade.advertisement._id}}</span>
-              </BaseLink>
-            </div>
-            <div>
-              <strong>{{traderTitle}}</strong>
-              <BaseLink :to="{name: 'profile-id', params:{id: traderID}}">{{traderUsername}}</BaseLink>
-            </div>
-            <div>
-              <strong>Exchange rate: </strong>
-              <span class="badge badge-primary">{{trade.advertisement.amount}}</span> {{advertisementCurrency}} / TOKEN
-            </div>
-            <div>
-              <strong>Trade volume: </strong>
-              <span class="badge badge-primary">{{trade.tokenCount}}</span> {{tradeToken.code}}
-            </div>
+            <table>
+              <tr>
+                <td><strong>{{$t('pages.tradeView.infoBox.offer')}}: </strong></td>
+                <td>
+                  <BaseLink :to="{name: 'offer-view-id', params:{id: trade.advertisement._id}}">
+                    <span>{{trade.advertisement._id}}</span>
+                  </BaseLink>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>{{traderTitle}}</strong></td>
+                <td><BaseLink :to="{name: 'profile-id', params:{id: traderID}}">{{traderUsername}}</BaseLink></td>
+              </tr>
+              <tr>
+                <td><strong>{{$t('pages.tradeView.infoBox.exchangeRate')}}: </strong></td>
+                <td><span class="badge badge-primary">{{trade.advertisement.amount}}</span> {{advertisementCurrency}} / TOKEN</td>
+              </tr>
+              <tr>
+                <td><strong>{{$t('pages.tradeView.infoBox.tradeVolume')}}: </strong></td>
+                <td><span class="badge badge-primary">{{trade.tokenCount}}</span> {{tradeToken.code}}</td>
+              </tr>
+            </table>
           </div>
           <div class="card">
-            <div class="card-header"><strong>Message History</strong></div>
+            <div class="card-header"><strong>{{$t('pages.tradeView.messageBox.title')}}</strong></div>
             <div class="card-body" v-viewer>
               <p v-for="msg in trade.messages">
-              <span v-if="msg.type === 'event'">
-                <span>{{msg.createdAt|std_datetime}}: </span>
-                <span class="badge badge-info">{{eventMessages[msg.content]}}</span>
-              </span>
+                <span v-if="msg.type === 'event'">
+                  <span>{{msg.createdAt|std_datetime}}: </span>
+                  <span class="badge badge-info">{{$t('pages.tradeView.messageBox.tradeEventMessages.'+msg.content)}}</span>
+                </span>
                 <span v-else="msg.type !== 'event'">
-                <strong v-if="msg.sender._id === $auth.user._id" class="text-primary">You: </strong>
-                <strong v-else>
-                  <BaseLink :to="{name:'profile-id', params:{id: msg.sender._id}}">{{msg.sender.username}}: </BaseLink>
-                </strong>
-
-                <span>{{msg.content}}</span>
-                <br v-if="!!msg.attachments" />
-                <img
-                  style="height: 6em; border: 2px solid #aaa; border-radius: 4px; cursor: pointer"
-                  v-if="!!msg.attachments"
-                  v-for="attachment in msg.attachments"
-                  :src="getAttachmentUrl(attachment)"
-                />
-              </span>
+                  <div>
+                    <strong v-if="msg.sender._id === $auth.user._id" class="text-primary">{{$t('You')}}: </strong>
+                    <strong v-else>
+                      <BaseLink :to="{name:'profile-id', params:{id: msg.sender._id}}">{{msg.sender.username}}: </BaseLink>
+                    </strong>
+                  </div>
+                  <div>
+                    <span>{{msg.content}}</span>
+                    <br v-if="!!msg.attachments" />
+                    <img
+                      style="height: 6em; border: 2px solid #aaa; border-radius: 4px; cursor: pointer"
+                      v-if="!!msg.attachments"
+                      v-for="attachment in msg.attachments"
+                      :src="getAttachmentUrl(attachment)"
+                    />
+                  </div>
+                </span>
               </p>
-              <textarea v-model="message" class="form-control trade-comment" rows="5" placeholder="Write your message to the trader"></textarea>
+              <textarea v-model="message" class="form-control trade-comment" rows="5" :placeholder="$t('pages.tradeView.messageBox.placeholder')"></textarea>
 
               <button v-if="sendMessageInProgress" style="width: 6em" class="btn btn-primary" type="submit">
                 <i style="font-size: 1em" class="fa fa-spinner fa-lg fa-spin"></i>
               </button>
-              <button v-else @click="sendMessage" class="btn btn-primary" style="width: 6em" type="submit">Send</button>
+              <button v-else @click="sendMessage" class="btn btn-primary" style="width: 6em" type="submit">{{$t('pages.tradeView.messageBox.btnSend')}}</button>
               <button v-if="!sendMessageInProgress" @click="$refs.fileUpload.addFiles()" class="btn btn-primary" type="submit">Attachment</button>
               <input type="file" value="Attachment" />
               <VueFileUpload
@@ -186,16 +194,7 @@
         sendMessageInProgress: false,
         feedbackStar: 0,
         feedbackComment: "",
-        liveChatMessages: [],
-        eventMessages: {
-          TRADE_EVENT_MESSAGE_REQUEST: 'Trade requested',
-          TRADE_EVENT_MESSAGE_START: 'Trade started',
-          TRADE_EVENT_MESSAGE_PAID: 'Trade paid',
-          TRADE_EVENT_MESSAGE_RELEASED: 'Trade tokens released',
-          TRADE_EVENT_MESSAGE_CANCELED: 'Trade canceled',
-          TRADE_EVENT_MESSAGE_DISPUTED: 'Trade disputed',
-          TRADE_EVENT_MESSAGE_PAYMENT_WINDOW_TIMEOUT: 'Trade payment window timed out and canceled'
-        }
+        liveChatMessages: []
       };
     },
     computed: {
@@ -251,14 +250,14 @@
       traderTitle: function () {
         if(this.trade.advertisement.user._id === this.$auth.user._id){
           if(this.trade.advertisement.type === 'sell')
-            return 'Buyer';
+            return this.$t('Buyer');
           else
-            return "Seller"
+            return this.$t('Seller')
         }else{
           if(this.trade.advertisement.type === 'sell')
-            return 'Seller';
+            return this.$t('Seller');
           else
-            return "Buyer"
+            return this.$t('Buyer')
         }
       },
       traderID: function () {

@@ -27,7 +27,7 @@
 
             <div class="tbl-info-item clr-orange-l">
               <div><img style="width: 1.2em" src="/imgs/brightid-av-1.jpg" alt=""></div>
-              <span>BrightID&nbsp;Score:&nbsp;<strong class="clr-orange-l">{{user.brightIdScore}}</strong></span>
+              <span>{{$t('pages.profile.infoBox.bidScore')}}:&nbsp;<strong class="clr-orange-l">{{user.brightIdScore}}</strong></span>
             </div>
             <div v-if="false" class="">
               <button class="btn btn-outline-success mt-2 nomg text-left" type="button" aria-pressed="true">
@@ -72,22 +72,22 @@
         <div class="fx-basis-8 mgl10 tbl-info" style="border-left: 1px solid #f7f7f7;">
           <div class="pd10">
             <div class="d-fx-ic">
-              <h6 class="fx-basis-5">Location:</h6>
+              <h6 class="fx-basis-5">{{$t('pages.profile.infoBox.location')}}:</h6>
               <span class="fx-basis-5">
                 <i v-if="!!user.country" id="ir" title="us" class="flag-icon h6 mb-0" :class="userCountryFlag"></i>
                 <span>{{userCountryName}}</span>
               </span>
             </div>
             <div class="d-fx-ic">
-              <h6 class="fx-basis-5">Joined:</h6>
+              <h6 class="fx-basis-5">{{$t('pages.profile.infoBox.joined')}}:</h6>
               <span class="fx-basis-5">{{userJoinDate}}</span>
             </div>
             <div class="d-fx-ic">
-              <h6 class="fx-basis-5">Last Seen:</h6>
+              <h6 class="fx-basis-5">{{$t('pages.profile.infoBox.lastSeen')}}:</h6>
               <span class="fx-basis-5">{{userLastSeen}}</span>
             </div>
             <div class="d-fx-ic">
-              <h6 class="fx-basis-5">Feedback score:</h6>
+              <h6 class="fx-basis-5">{{$t('pages.profile.infoBox.feedbackScore')}}:</h6>
               <span class="fx-basis-5">
                 <span class="badge badge-success">{{user.score}}</span>
                 <no-ssr>
@@ -153,26 +153,26 @@
         <UpdateEmail />
         <div class="form-space">&nbsp;</div>
         <div class="form-group">
-          <label for="firstNameInput">First name</label>
-          <input class="form-control" v-model="firstName" id="firstNameInput" type="text" placeholder="Enter your first name">
+          <label for="firstNameInput">{{$t('pages.profile.editBox.firstName.label')}}</label>
+          <input class="form-control" v-model="firstName" id="firstNameInput" type="text" :placeholder="$t('pages.profile.editBox.firstName.placeholder')">
         </div>
         <div class="form-group">
-          <label for="lastNameInput">Last name</label>
-          <input class="form-control" v-model="lastName" id="lastNameInput" type="text" placeholder="Enter your last name">
+          <label for="lastNameInput">{{$t('pages.profile.editBox.lastName.label')}}</label>
+          <input class="form-control" v-model="lastName" id="lastNameInput" type="text" :placeholder="$t('pages.profile.editBox.lastName.placeholder')">
         </div>
         <div class="form-group">
-          <label for="aboutInput">About</label>
-          <input class="form-control" v-model="about" id="aboutInput" type="text" placeholder="Enter small text about you">
+          <label for="aboutInput">{{$t('pages.profile.editBox.about.label')}}</label>
+          <input class="form-control" v-model="about" id="aboutInput" type="text" :placeholder="$t('pages.profile.editBox.about.placeholder')">
         </div>
         <div class="form-group">
-          <label for="select1">Country</label>
+          <label for="select1">{{$t('pages.profile.editBox.country.label')}}</label>
           <select class="form-control" v-model="country" id="select1" name="select1">
             <option v-for="c in countries" :selected="c.code===country" :value="c.code">{{c.name}}</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="phone-number">Phone number</label>
-          <input class="form-control" v-model="mobile" id="phone-number" type="text" placeholder="+98-xxx-xxx-xxxx">
+          <label for="phone-number">{{$t('pages.profile.editBox.phone.label')}}</label>
+          <input class="form-control" v-model="mobile" id="phone-number" type="text" :placeholder="$t('pages.profile.editBox.phone.placeholder')">
         </div>
         <button class="btn btn-sm btn-primary" type="submit" @click="saveUserData">
           <i class="fa fa-save fa-lg"></i>
@@ -180,7 +180,7 @@
         </button>
       </div>
     </div>
-    <h3 class="heading-gray">User feedback</h3>
+    <h4 class="heading-gray">{{$t('pages.profile.feedbackBox.title')}}</h4>
     <div v-for="f in feedbacks">
       <div class="mgb10">
         <span>{{feedbackDateTitle(f)}}</span>

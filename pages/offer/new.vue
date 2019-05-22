@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header"><strong>Create a new offer to sell</strong></div>
+          <div class="card-header"><strong>{{$t('pages.offerNew.mainBox.title')}}</strong></div>
           <div class="card-body">
             <!-- Trade type row -->
             <!--<div class="row">-->
@@ -28,20 +28,20 @@
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label for="adv-token-select">Token</label>
+                  <label for="adv-token-select">{{$t('pages.offerNew.mainBox.token.label')}}</label>
                   <select v-if="userTokens.length > 0" v-model="advertisement.token" class="form-control" id="adv-token-select" name="select1">
-                    <option value="">Select token</option>
+                    <option value="">{{$t('pages.offerNew.mainBox.token.placeholder')}}</option>
                     <option v-for="token in userTokens" :value="token.code">{{token.title}} ({{token.code}})</option>
                   </select>
                   <select v-else class="form-control">
-                    <option value="">You have not any token.</option>
+                    <option value="">{{$t('pages.offerNew.mainBox.token.noAnyToken')}}</option>
                   </select>
                 </div>
               </div>
               <div class="col-sm-8">
                 <div class="adv-description">
-                  <p>What kind of token do you wish to sell/buy ?</p>
-                  <p v-if="userTokens.length == 0" class="color-danger">You hav not any tokens to post a trade. Make deposit and try again.</p>
+                  <p>{{$t('pages.offerNew.mainBox.token.description')}}</p>
+                  <p v-if="userTokens.length == 0" class="color-danger">{{$t('pages.offerNew.mainBox.token.noAnyTokenAlert')}}</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
@@ -50,16 +50,16 @@
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label for="adv-payment-method">Payment method</label>
+                  <label for="adv-payment-method">{{$t('pages.offerNew.mainBox.paymentMethod.label')}}</label>
                   <select v-model="advertisement.paymentMethod" class="form-control" id="adv-payment-method">
-                    <option value="">Select payment method</option>
+                    <option value="">{{$t('pages.offerNew.mainBox.paymentMethod.placeholder')}}</option>
                     <option v-for="method in allPaymentMethods" :value="method._id">{{method.title}}</option>
                   </select>
                 </div>
               </div>
               <div class="col-sm-8">
                 <div class="adv-description">
-                  <p>What do you want to receive in exchange for your token?</p>
+                  <p>{{$t('pages.offerNew.mainBox.paymentMethod.description')}}</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
@@ -68,7 +68,7 @@
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label for="adv-payment-currency">Currency</label>
+                  <label for="adv-payment-currency">{{$t('pages.offerNew.mainBox.currency.label')}}</label>
                   <select v-model="advertisement.currency" class="form-control" id="adv-payment-currency" name="currency-select">
                     <option v-for="currency in currencies" :value="currency.code">{{currency.code}} - {{currency.title}}</option>
                   </select>
@@ -76,7 +76,7 @@
               </div>
               <div class="col-sm-8">
                 <div class="adv-description">
-                  <p></p>
+                  <p>{{$t('pages.offerNew.mainBox.currency.description')}}</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
@@ -85,13 +85,13 @@
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label for="adv-token-amount">Token Price <span class="text-primary"><strong>( in {{advertisement.currency}} )</strong></span></label>
-                  <input v-model="advertisement.amount" class="form-control" id="adv-token-amount" type="number" placeholder="example: 2.3241">
+                  <label :dir="pageDirection" for="adv-token-amount">{{$t('pages.offerNew.mainBox.price.label')}} <span class="text-primary"><strong>( {{$t('pages.offerNew.mainBox.price.in')}} {{advertisement.currency}} )</strong></span></label>
+                  <input v-model="advertisement.amount" class="form-control" id="adv-token-amount" type="number" :placeholder="$t('pages.offerNew.mainBox.price.placeholder')">
                 </div>
               </div>
               <div class="col-sm-8">
                 <div class="adv-description">
-                  <p>How much do you ask for each token ?</p>
+                  <p>{{$t('pages.offerNew.mainBox.price.description')}}</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
@@ -100,13 +100,13 @@
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label for="adv-trans-min">Min. transaction limit</label>
-                  <input v-model="advertisement.limitMin" class="form-control" id="adv-trans-min" type="number" placeholder="example: 0">
+                  <label for="adv-trans-min">{{$t('pages.offerNew.mainBox.limitMin.label')}}</label>
+                  <input v-model="advertisement.limitMin" class="form-control" id="adv-trans-min" type="number" :placeholder="$t('pages.offerNew.mainBox.limitMin.placeholder')">
                 </div>
               </div>
               <div class="col-sm-8">
                 <div class="adv-description">
-                  <p>Minimum transaction limit in one trade.</p>
+                  <p>{{$t('pages.offerNew.mainBox.limitMin.description')}}</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
@@ -115,13 +115,13 @@
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label for="adv-trans-max">Max. transaction limit</label>
-                  <input v-model="advertisement.limitMax" class="form-control" id="adv-trans-max" type="number" placeholder="example: 100">
+                  <label for="adv-trans-max">{{$t('pages.offerNew.mainBox.limitMax.label')}}</label>
+                  <input v-model="advertisement.limitMax" class="form-control" id="adv-trans-max" type="number" :placeholder="$t('pages.offerNew.mainBox.limitMax.placeholder')">
                 </div>
               </div>
               <div class="col-sm-8">
                 <div class="adv-description">
-                  <p>Maximum transaction limit in one trade.</p>
+                  <p>{{$t('pages.offerNew.mainBox.limitMax.description')}}</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
@@ -147,16 +147,13 @@
             <!-- Payment window -->
             <div class="row">
               <div class="col-sm-4">
-                <!--<div class="form-group">-->
-                  <!--<label for="adv-payment-window">Payment window</label>-->
-                  <!--<input v-model="offer.paymentWindow" class="form-control" id="adv-payment-window" type="text" placeholder="example: 04:30">-->
-                <!--</div>-->
                 <div class="form-group">
-                  <label for="adv-payment-window">Payment Window</label>
+                  <label for="adv-payment-window">{{$t('pages.offerNew.mainBox.paymentWindow.label')}}</label>
                   <TimeSelect
+                    ref="timeSelect"
                     v-model="advertisement.paymentWindow"
                     class="form-control"
-                    title="Payment Window"
+                    :title="$t('pages.offerNew.mainBox.paymentWindow.placeholder')"
                     id="adv-payment-window"
                     style="width: 100%"
                     return="title"
@@ -165,7 +162,7 @@
               </div>
               <div class="col-sm-8">
                 <div class="adv-description">
-                  <p>How much time does the buyer have to confirm payment ?</p>
+                  <p>{{$t('pages.offerNew.mainBox.paymentWindow.description')}}</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
@@ -173,9 +170,9 @@
             <!-- Opening Hours -->
             <div class="row">
               <div class="col-sm-4">
-                <div style="margin-bottom: 1em">Opening hours</div>
+                <div style="margin-bottom: 1em">{{$t('pages.offerNew.mainBox.openingHours.label')}}</div>
                 <div class="controls">
-                  <div class="row opening_hours_row" v-for="(day, index) in ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']">
+                  <div class="row opening_hours_row" v-for="(day, index) in $t('pages.offerNew.mainBox.openingHours.dayTitles')">
                     <div class="col-md-3">{{day}}</div>
                     <div class="col-sm-3">
                       <label @click="toggleDayEnable(index, $event)" class="switch switch-label switch-success nomg">
@@ -184,17 +181,25 @@
                       </label>
                     </div>
                     <div class="col-md-3">
-                      <TimeSelect v-model="advertisement.openingHours[index].start" title="start" :disabled="advertisement.openingHours[index].enable !== true" />
+                      <TimeSelect
+                        v-model="advertisement.openingHours[index].start"
+                        :title="$t('pages.offerNew.mainBox.openingHours.start')"
+                        :disabled="advertisement.openingHours[index].enable !== true"
+                      />
                     </div>
                     <div class="col-md-3">
-                      <TimeSelect v-model="advertisement.openingHours[index].end" title="end" :disabled="advertisement.openingHours[index].enable != true" />
+                      <TimeSelect
+                        v-model="advertisement.openingHours[index].end"
+                        :title="$t('pages.offerNew.mainBox.openingHours.end')"
+                        :disabled="advertisement.openingHours[index].enable != true"
+                      />
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-sm-8">
-                <div class="adv-description">
-                  <p>Optional. Days and hours when you want your offer to be automatically shown and hidden.</p>
+                <div :dir="pageDirection" class="adv-description">
+                  <p>{{$t('pages.offerNew.mainBox.openingHours.description')}}</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
@@ -203,23 +208,21 @@
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
-                  <label for="company">Terms of trade</label>
-                  <textarea v-model="advertisement.terms" rows="10" class="form-control" id="company" type="number" placeholder=""></textarea>
+                  <label for="company">{{$t('pages.offerNew.mainBox.terms.label')}}</label>
+                  <textarea v-model="advertisement.terms" rows="10" class="form-control" id="company" type="number" :placeholder="$t('pages.offerNew.mainBox.terms.placeholder')"></textarea>
                 </div>
               </div>
               <div class="col-sm-8">
                 <div class="adv-description">
-                  <p>Other information you wish to tell about your trade.</p>
-                  <p>Example 1: This offer is only for cash trades. If you want to pay online, contact 0change.com/ad/1234.</p>
-                  <p>Example 2: Please make request only when you can complete the payment with cash within 12 hours.</p>
+                  <p style="white-space: pre">{{$t('pages.offerNew.mainBox.terms.description')}}</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
             </div>
           </div>
           <div class="card-footer">
-            <button @click="createAdv" class="btn btn-sm btn-success" type="submit">
-              <i class="fa fa-save"></i> Publish
+            <button @click="publishAdv" class="btn btn-sm btn-success" type="submit">
+              <i class="fa fa-save"></i> {{$t('pages.offerNew.mainBox.btn.title')}}
             </button>
           </div>
         </div>
@@ -262,6 +265,10 @@
     },
     computed: {
         ... mapGetters('global',['cryptoTokens', 'currencies', 'allPaymentMethods', 'balance']),
+      ...mapGetters('locales',["pageDirection"]),
+      isEditMode: function(){
+          return !!this.$route.params.id;
+      },
       userTokens: function () {
         if(!this.cryptoTokens || this.cryptoTokens.length < 1)
           return [];
@@ -270,11 +277,34 @@
       }
     },
     mounted(){
+      if(this.isEditMode){
+        this.loadOfferToEdit();
+      }
       this.loadUserBalance();
     },
     methods: {
-        ...mapActions('global',['registerNewAdvertisement', 'loadUserBalance']),
-      async createAdv() {
+        ...mapActions('global',['registerNewAdvertisement', 'editAdvertisement', 'loadUserBalance']),
+      loadOfferToEdit(){
+          let {id} = this.$route.params;
+          this.$axios.post('/api/v0.1/offer/get', {id})
+            .then(({data}) => {
+              console.log(data.advertisement);
+              this.advertisement = {
+                type: data.advertisement.type,
+                token: data.advertisement.token.code,
+                paymentMethod: data.advertisement.paymentMethod._id,
+                currency: data.advertisement.currency.code,
+                amount: data.advertisement.amount,
+                limitMin: data.advertisement.limitMin,
+                limitMax: data.advertisement.limitMax,
+                enable: data.advertisement.enable,
+                paymentWindow: data.advertisement.paymentWindow,
+                openingHours: data.advertisement.openingHours,
+                terms: data.advertisement.terms
+              };
+            });
+      },
+      async publishAdv() {
         //alert(JSON.stringify(this.offer, null, 2));
         let advertisementData = JSON.parse(JSON.stringify(this.advertisement));
         for(let i=0 ; i<7 ; i++){
@@ -285,10 +315,14 @@
               advertisementData.openingHours[i].end = 95;
           }
         }
-        let response = await this.registerNewAdvertisement(advertisementData);
+        let response = null;
+        if(this.isEditMode)
+          response = await this.editAdvertisement({id: this.$route.params.id, advertisement: advertisementData})
+        else
+          response = await this.registerNewAdvertisement(advertisementData);
         if(response.success){
           this.advertisement = {...emptyAdvertisement};
-          this.$toast.success('Advertisement created successfully');
+          this.$toast.success('Advertisement published successfully');
           this.$router.push({name: 'offer'});
         }else{
           if(response.errors && response.errors.length > 0)

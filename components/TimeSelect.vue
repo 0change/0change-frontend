@@ -7,15 +7,15 @@
     name="ad-opening_hours_0_0"
     style="width: auto;"
   >
-    <option value="-1" selected="selected">{{title}}</option>
-    <option v-for="(t, index) in timesList" :value="index">{{t}}</option>
+    <option value="-1" :selected="isSelected(-1)">{{title}}</option>
+    <option v-for="(t, index) in timesList" :value="index" :selected="isSelected(index)">{{t}}</option>
   </select>
 </template>
 <script>
   export default {
     props: {
       title: String,
-      value: String,
+      value: [Number, String],
       disabled: {
         type: Boolean,
         default: false
@@ -71,6 +71,12 @@
       },
       getTimeTitle(index){
         return this.timesList[index];
+      },
+      getTitleIndex(title){
+        return this.timesList.indexOf(title);
+      },
+      isSelected(index){
+        return index === parseInt(this.value) || index===this.timesList.indexOf(this.value);
       }
     }
   }

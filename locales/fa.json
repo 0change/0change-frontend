@@ -1,0 +1,372 @@
+{
+  "helloMessage": "سلام",
+  "serverSideError": "خطا سمت سرور",
+  "Seller": "فروشنده",
+  "Buyer": "خریدار",
+  "seller": "فروشنده",
+  "buyer": "خریدار",
+  "You": "شما",
+  "you": "شما",
+  "trade": {
+    "status": {
+      "request": "درخواست شده",
+      "start": "شروع شده",
+      "payment": "پرداخت شده",
+      "release": "آزاد شذه",
+      "cancel": "لغو شده",
+      "dispute": "شکایت شده"
+    },
+    "type": {
+      "sell": "فروش",
+      "buy": "خرید"
+    }
+  },
+  "topHeader":{
+    "search": "جستجو",
+    "postATrade": "ثبت آگهی",
+    "deposit": "سپرده گذاری",
+    "help": "راهنما",
+    "logout": "خروج",
+    "login": "ورود",
+    "wallet": "کیف پول",
+    "profile": "اظلاعات کاربری"
+  },
+  "searchBox":{
+    "amount": "مقدار",
+    "allTokens": "همه توکن ها",
+    "allCurrencies": "همه ارز ها",
+    "allCountries": "همه کشور ها",
+    "allBScore": "همه امتیاز های برایت آی دی",
+    "minBScore": "حداقل امتیاز برایت آی دی {v}",
+    "allFeedbackScore": "تمام بازخورد ها",
+    "minFeedbackScore": "حداقل امتیاز بازخورد {v}",
+    "allPaymentMethods": "همه روش های پرداخت",
+    "search": "جستجو"
+  },
+  "searchResult":{
+    "head": {
+      "seller": "فروشنده",
+      "country": "کشور",
+      "token": "توکن",
+      "price": "قیمت",
+      "minMax": "حداقل حداکثر",
+      "activity": "فعالیت"
+    },
+    "buy": "خرید",
+    "sell": "فروش"
+  },
+  "leftSideBar":{
+    "home": "خانه",
+    "new": "جدید",
+    "userMenus":"منوی کاربر",
+    "profile": "پروفایل",
+    "wallet": "کیف پول",
+    "notifications": "پیامها",
+    "trades": "معاملات",
+    "disputes": "شکایات من",
+    "offers": "آگهی ها",
+    "settings": "تنظیمات",
+    "adminMenuTitle": "منوی مدیران",
+    "opMenu": "اپراتور",
+    "opWithdrawals": "درخواست های برداشت",
+    "opDisputes": "شکایات کاربران"
+  },
+  "components":{
+    "tradeStartModal":{
+      "title": "شروع معامله",
+      "messageToSeller": "پیامی برای فروشنده در زیر وارد کنید",
+      "messageToBuyer": "پیامی برای خریدار در زیر وارد کنید"
+    },
+    "updateUsername":{
+      "label": "نام کاربری",
+      "btnTitle": "ویرایش"
+    },
+    "updateEmail":{
+      "label": "ایمیل",
+      "placeholder": "temp-mail@domain.com",
+      "btnTitle": "ویرایش"
+    }
+  },
+  "pages":{
+    "offerView":{
+      "infoBox":{
+        "titleBuyer": "اطلاعات خریدار",
+        "titleSeller": "اطلاعات فروشنده",
+        "titleTrade": "اطلاعات معامله",
+        "username": "نام کاربری",
+        "bidScore": "امتیاز BrightID",
+        "lastSeen": "آخرین بازدید",
+        "country": "کشور",
+        "confirmedTrades": "خریدهای انجام شده",
+        "confirmedTradesCount": "{n} خرید",
+        "feedbackScore": "امتیاز بازخوردها",
+        "token": "توکن",
+        "price": "قیمت",
+        "tradeLimit": "محدودیت",
+        "paymentMethod": "نحوه پرداخت",
+        "paymentWindow": "مهلت پرداخت",
+        "paymentWindowVal": "{h} ساعت و {m} دقیقه"
+      },
+      "tokenBox":{
+        "titleLimit": "حدود"
+      },
+      "termsBox":{
+        "title": "قوانین معامل",
+        "checkBoxTitle": "تمامی موارد را خوانده و قبول دارم."
+      },
+      "confirmBtn":{
+        "titleBuy": "خرید",
+        "titleSell": "فروش",
+        "titleLogOuted": "جهت ادامه خرید وارد/عضو شوید"
+      },
+      "errors":{
+        "tokenLimit": "مقدار توکن خریداری شده می بایست حداقل {min} و حداکثر {max} باشد.",
+        "termsNotConfirmed": "قوانبن خرید را مطالعه و تایید نمایید."
+      }
+    },
+    "offerNew": {
+      "mainBox":{
+        "title": "اگهی جدید",
+        "token":{
+          "label": "توکن",
+          "placeholder": "توکن مورد نظر را انتخاب کنید",
+          "description": "قصد خرید یا فروش کدام توکن را دارید ؟",
+          "noAnyToken": "شما توکنی در حساب خود ندارید",
+          "noAnyTokenAlert": "شما توکنی در حساب خود ندارید. لطفا پس از سپرده گذاری مجددا تلاش کنید."
+        },
+        "paymentMethod":{
+          "label": "نحوه پرداخت",
+          "placeholder": "انتخاب کنید",
+          "description": "به کدام روش میخواهید پول خود را دریافت یا پرداخت کنید ؟"
+        },
+        "currency":{
+          "label": "ارز پرداختی",
+          "description": "در قبال توکن مورد نظر قصد دریافت یا پرداخت کدام ارز را دارید ؟"
+        },
+        "price":{
+          "label": "قیمت واحد",
+          "in": "به",
+          "placeholder": "نمونه: 2.2145",
+          "description": "قیمت هر توکن"
+        },
+        "limitMin":{
+          "label": "حداقل مقدار تراکنش",
+          "placeholder": "نمونه: 0.1",
+          "description": "مقدار توکن معامله نمیتواند از این مقدار کمتر باشد"
+        },
+        "limitMax":{
+          "label": "حداکثر مقدار تراکنش",
+          "placeholder": "نمونه: 50",
+          "description": "مقدار توکن معامله نمیتواند از این مقدار بیشتر باشد"
+        },
+        "paymentWindow":{
+          "label": "مهلت پرداخت",
+          "placeholder": "انتخاب کنید",
+          "description": "میزان زمانی که خریدار مهلت دارد که (پس از شروع معامله) پرداخت را انجام دهد. پس از این زمان معامله به صورت خودکار لغو میگردد."
+        },
+        "openingHours":{
+          "label": "زمان نمایش آگهی",
+          "description": "(اختیاری) آگهی شما تنها در زمانهایی که انتخاب میکنید به کاربران نمایش داده میشود.",
+          "dayTitles":["یکشنبه","دوشنبه","سه شنبه","چهارشنبه","پنج شنبه","جمعه","شنبه"],
+          "start": "ابتدا",
+          "end": "انتها"
+        },
+        "terms":{
+          "label": "شرایط معامله",
+          "placeholder": "",
+          "description": "اطلاعات تکمیلی دیگری که در در رابطه با این معامله نیاز رارید بیان کنید.\nنمونه اول:‌ پرداخت فقط حظوری.\nنمونه دوم: لطفا زمانی درخواست معامله دهید که بتوانید ظرف ۱۲ ساعت پرداخت را انجام دهید."
+        },
+        "btn":{
+          "title": "ایجاد"
+        }
+      }
+    },
+    "tradeView":{
+      "statusBox":{
+        "title": "وضعیت معامله",
+        "msgCanceledBy": "معامله توسط {v} لغو شده است",
+        "msgDisputedBy": "کاربر {v} برای این معامله شکایت ثبت کرده است",
+        "allStatus": [
+          "ثبت درخواست",
+          "شروع",
+          "پرداخت",
+          "آزاد شده"
+        ]
+      },
+      "feedback":{
+        "title": "نظر شما",
+        "btnTitle": "ثبت نظر"
+      },
+      "infoBox":{
+        "offer": "آگهی",
+        "buyer": "خریدار",
+        "seller": "فروشنده",
+        "exchangeRate": "نرخ معامله",
+        "tradeVolume": "مقدار معامله"
+      },
+      "termsBox": {
+        "title": "شرایط معامله"
+      },
+      "messageBox":{
+        "title": "پیامها",
+        "placeholder": "متن پیام خود را وارد کنید",
+        "btnSend": "ارسال",
+        "tradeEventMessages": {
+          "TRADE_EVENT_MESSAGE_REQUEST": "درخواست معامله",
+          "TRADE_EVENT_MESSAGE_START": "درخواست معامله تایید و معامله آغاز شد",
+          "TRADE_EVENT_MESSAGE_PAID": "پرداخت انجام شد",
+          "TRADE_EVENT_MESSAGE_RELEASED": "توکن ها آزاد شد",
+          "TRADE_EVENT_MESSAGE_CANCELED": "معامله لغو شد",
+          "TRADE_EVENT_MESSAGE_DISPUTED": "شکایت ثبت شد",
+          "TRADE_EVENT_MESSAGE_PAYMENT_WINDOW_TIMEOUT": "مهلت پرداخت به اتمام رسیده و معامله لغو شد"
+        }
+      }
+    },
+    "wallet":{
+      "mainBox": {
+        "title": "اطلاعات کیف پول",
+        "address": "آدرس",
+        "transactions": "تراکنش ها",
+        "tableHead":{
+          "trade": "معامله",
+          "txHash": "hash تراکنش",
+          "from": "فرستنده",
+          "to": "دریافت کننده",
+          "type": "نوع",
+          "status": "وضعیت",
+          "token": "توکن",
+          "count": "تعداد"
+        },
+        "status":{
+          "new": "جدید",
+          "pending": "در حال انجام",
+          "done": "انجام شده",
+          "cancel": "لغو شده",
+          "fail": "خطا"
+        },
+        "txType":{
+          "deposit": "سرمایه گذاری",
+          "withdraw": "برداشت",
+          "trade": "معامله"
+        }
+      },
+      "balanceBox":{
+        "title": "سرمایه",
+        "btnTitle": "بروزرسانی"
+      },
+      "withdrawBox":{
+        "title": "برداشت",
+        "wallet":{
+          "label": "ارسال به آدرس",
+          "placeholder": "آدرس کیف پول"
+        },
+        "token":{
+          "label": "نوع توکن"
+        },
+        "amount":{
+          "label": "تعداد"
+        },
+        "btnTitle": "برداشت",
+        "alert":{
+          "title": "توجه: ",
+          "text": "پروسه برداشت در لحظه انجام نمی شود. انجام این عملیات ممکن است ساعاتی به طول بیانجامد."
+        }
+      }
+    },
+    "trades": {
+      "mainBox": {
+        "title": "لیست معملات",
+        "table": {
+          "head": {
+            "id": "#",
+            "msg": "پیام",
+            "status": "وضعیت",
+            "date": "تاریخ",
+            "trader": "طرف معامله",
+            "type": "نوع",
+            "token": "توکن",
+            "price": "قیمت واحد",
+            "count": "تعداد"
+          },
+          "type": {
+            "sell": "فروش",
+            "buy": "خرید"
+          }
+        }
+      }
+    },
+    "disputeList": {
+      "mainBox":{
+        "title": "لیست شکایات"
+      }
+    },
+    "offerList":{
+      "searchBox":{
+        "title": "جستجو",
+        "typeInput": {
+          "label": "نوع",
+          "default": "همه نوع ها"
+        },
+        "tokenInput":{
+          "label": "توکن",
+          "placeholder": "نام یا کد توکن"
+        },
+        "paymentInput": {
+          "label": "نوع پرداخت",
+          "placeholder": "نوع  پرداخت"
+        }
+      },
+      "mainBox":{
+        "title": "لیست آگهی ها",
+        "table": {
+          "head": {
+            "id": "شماره",
+            "type": "نوع",
+            "token": "توکن",
+            "limit": "محدودیت",
+            "paymentMethod": "نوع پرداخت",
+            "price": "قیمت",
+            "enable": "فعال"
+          },
+          "rows":{
+            "btnEditTitle": "ویرایش",
+            "btnDeleteTitle": "حذف"
+          }
+        }
+      }
+    },
+    "profile":{
+      "infoBox": {
+        "bidScore": "امتیاز BrightID",
+        "location": "مکان",
+        "joined": "عضویت",
+        "lastSeen": "اخرین بازدید",
+        "feedbackScore": "امتیاز کاربران"
+      },
+      "editBox": {
+        "firstName": {
+          "label": "نام",
+          "placeholder": "نام خود را وارد کنید"
+        },
+        "lastName": {
+          "label": "نام خانوادگی",
+          "placeholder": "نام خانوادگی خود را وارد کنید"
+        },
+        "about": {
+          "label": "درباره",
+          "placeholder": "یک متن کوتاه درباره خود وارد کنید"
+        },
+        "country": {
+          "label": "کشور"
+        },
+        "phone": {
+          "label": "تلفن همراه",
+          "placeholder": "+1x-xxx-xxx-xxxx"
+        }
+      },
+      "feedbackBox":{
+        "title": "امتیاز کاربران"
+      }
+    }
+  }
+}

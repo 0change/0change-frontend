@@ -1,6 +1,6 @@
 <template>
   <div class="form-group">
-    <label for="userNameInput">Username</label>
+    <label for="userNameInput">{{$t('components.updateUsername.label')}}</label>
     <div class="input-group">
       <div class="input-group-prepend">
               <span class="input-group-text">
@@ -16,7 +16,7 @@
           autocomplete="off"
       />
       <span class="input-group-append">
-        <button class="btn btn-primary" @click="updateUsername" type="button">Change</button>
+        <button class="btn btn-primary" @click="updateUsername" type="button">{{$t('components.updateUsername.btnTitle')}}</button>
       </span>
     </div>
     <div v-if="(messageVisible && responseSuccess) || usernameUpdatedSuccessfully" class="valid-feedback" style="display: block">{{responseMessage || 'Username is available.'}}</div>

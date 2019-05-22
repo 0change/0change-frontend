@@ -152,7 +152,16 @@ export const actions = {
         })
   },
   registerNewAdvertisement({dispatch, commit, state, rootState}, advertisement) {
-    return this.$axios.post('/api/v0.1/offer/new', {advertisement})
+    return this.$axios.post('/api/v0.1/offer/publish', {advertisement})
+        .then(({data}) => {
+          // alert(JSON.stringify(data, null, 2));
+          return data;
+        }).catch(err => {
+          return err.response.data;
+        })
+  },
+  editAdvertisement({dispatch, commit, state, rootState}, {id, advertisement}) {
+    return this.$axios.post('/api/v0.1/offer/edit', {id, advertisement})
         .then(({data}) => {
           // alert(JSON.stringify(data, null, 2));
           return data;

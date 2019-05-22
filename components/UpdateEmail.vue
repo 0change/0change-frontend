@@ -1,6 +1,6 @@
 <template>
   <div class="form-group">
-    <label for="userNameInput">Email</label>
+    <label for="userNameInput">{{$t('components.updateEmail.label')}}</label>
     <div class="input-group">
       <div class="input-group-prepend">
               <span class="input-group-text">
@@ -14,10 +14,10 @@
           :class="inputClass"
           id="userNameInput"
           v-model="textToChange"
-          placeholder="temp-mail@domain.com"
+          :placeholder="$t('components.updateEmail.placeholder')"
       />
       <span class="input-group-append">
-        <button class="btn btn-primary" @click="updateEmail" type="button">Change</button>
+        <button class="btn btn-primary" @click="updateEmail" type="button">{{$t('components.updateEmail.btnTitle')}}</button>
       </span>
     </div>
     <div v-if="(messageVisible && responseSuccess) || usernameUpdatedSuccessfully" class="valid-feedback" style="display: block">{{responseMessage || 'Email is available.'}}</div>

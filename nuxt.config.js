@@ -59,10 +59,15 @@ module.exports = {
   css: [
   ],
 
+  router:{
+    middleware: 'i18n'
+  },
+
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/i18n.js',
     '~/plugins/global-component-loader.js',
     '~/plugins/v-viewer.js',
     '~/plugins/v-tooltip.js',
@@ -116,7 +121,8 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
-    }
+    },
+    vendor: ['vue-i18n'],
   },
 
   toast: {

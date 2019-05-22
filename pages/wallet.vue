@@ -3,12 +3,12 @@
     <div class="row">
       <div class="col-md-8">
         <div class="card">
-          <div class="card-header"><strong>Wallet Info</strong></div>
+          <div class="card-header"><strong>{{$t('pages.wallet.mainBox.title')}}</strong></div>
           <div class="card-body">
             <table class="table-wallet-info">
               <tbody>
               <tr>
-                <td>Address</td>
+                <td>{{$t('pages.wallet.mainBox.address')}}</td>
                 <td>
                   <a target="_blank" :href="etherscanWallet($auth.user.address)">
                     <span class="wallet-address">{{$auth.user.address}}</span>
@@ -20,19 +20,19 @@
               </tr>
               </tbody>
             </table>
-            <h3>Transactions</h3>
+            <h3>{{$t('pages.wallet.mainBox.transactions')}}</h3>
             <table class="table table-responsive-sm table-sm">
               <thead>
               <tr>
                 <!--<th>Date</th>-->
-                <th>trade</th>
-                <th>tx hash</th>
-                <th>From</th>
-                <th>To</th>
-                <th>Type</th>
-                <th>status</th>
-                <th>Token</th>
-                <th>count</th>
+                <th>{{$t('pages.wallet.mainBox.tableHead.trade')}}</th>
+                <th>{{$t('pages.wallet.mainBox.tableHead.txHash')}}</th>
+                <th>{{$t('pages.wallet.mainBox.tableHead.from')}}</th>
+                <th>{{$t('pages.wallet.mainBox.tableHead.to')}}</th>
+                <th>{{$t('pages.wallet.mainBox.tableHead.type')}}</th>
+                <th>{{$t('pages.wallet.mainBox.tableHead.status')}}</th>
+                <th>{{$t('pages.wallet.mainBox.tableHead.token')}}</th>
+                <th>{{$t('pages.wallet.mainBox.tableHead.count')}}</th>
               </tr>
               </thead>
               <tbody>
@@ -50,10 +50,10 @@
                   <span
                     class="badge"
                     :class="transactionTypeClass(row)"
-                  >{{row.trade != null ? 'trade' : transactionType(row)}}</span>
+                  >{{$t('pages.wallet.mainBox.txType.' + txTitle(row))}}</span>
                 </td>
                 <td>
-                  <span>{{row.status}}</span>
+                  <span>{{$t('pages.wallet.mainBox.status.' + row.status)}}</span>
                 </td>
                 <td>
                   <img class="transaction-coin-icon" :src="'/erc20-tokens/' + row.token + '.png'" alt="">
@@ -88,7 +88,7 @@
       </div>
       <div class="col-md-4">
         <div class="card">
-          <div class="card-header"><strong>Balance</strong></div>
+          <div class="card-header"><strong>{{$t('pages.wallet.balanceBox.title')}}</strong></div>
           <div class="card-body">
             <table class="table-coin-count">
               <tbody>
@@ -101,7 +101,7 @@
               </tr>
               </tbody>
             </table>
-            <button @click="refreshBalance" style="margin-top: 1em" type="button" class="btn btn-block btn-primary">Refresh</button>
+            <button @click="refreshBalance" style="margin-top: 1em" type="button" class="btn btn-block btn-primary">{{$t('pages.wallet.balanceBox.btnTitle')}}</button>
             <button v-if="false" @click="$refs.depositModal.show($event)" style="margin-top: 1em" type="button" class="btn btn-block btn-primary">Deposit</button>
             <BaseModal v-if="false" title="Fake deposit" ref="depositModal">
               <div style="padding: 1em">
@@ -123,20 +123,20 @@
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><strong>Withdraw</strong></div>
+          <div class="card-header"><strong>{{$t('pages.wallet.withdrawBox.title')}}</strong></div>
           <div class="card-body">
             <div class="form-group">
-              <label for="company">Send to address</label>
-              <input v-model="withdrawData.to" class="form-control" id="company" type="text" placeholder="Wallet address">
+              <label for="company">{{$t('pages.wallet.withdrawBox.wallet.label')}}</label>
+              <input v-model="withdrawData.to" class="form-control" id="company" type="text" :placeholder="$t('pages.wallet.withdrawBox.wallet.placeholder')">
             </div>
             <div class="form-group">
-              <label>Token</label>
+              <label>{{$t('pages.wallet.withdrawBox.token.label')}}</label>
               <select v-model="withdrawData.token" class="form-control">
                 <option v-for="(amount, token) in balance" :value="token">{{getTokenByCode(token).title}} ({{token}})</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="company">Amount</label>
+              <label for="company">{{$t('pages.wallet.withdrawBox.amount.label')}}</label>
               <input
                   v-model="withdrawData.amount"
                   class="form-control"
@@ -145,10 +145,10 @@
                   placeholder="0.0000"
               >
             </div>
-            <button @click="doWithdraw" class="btn btn-block btn-primary" type="button">Withdraw</button>
+            <button @click="doWithdraw" class="btn btn-block btn-primary" type="button">{{$t('pages.wallet.withdrawBox.btnTitle')}}</button>
             <br />
             <div class="alert alert-warning">
-              <span><strong>Attention: </strong>Withdrawal process is not real-time. After submission of withdrawal, it takes some time for the transaction to be confirmed.</span>
+              <span><strong>{{$t('pages.wallet.withdrawBox.alert.title')}}</strong>{{$t('pages.wallet.withdrawBox.alert.text')}}</span>
             </div>
           </div>
         </div>
@@ -225,6 +225,9 @@
           return 'deposit';
         else
           return 'withdraw';
+      },
+      txTitle(row){
+        return row.trade != null ? 'trade' : this.transactionType(row);
       },
       transactionTypeClass(tx){
         if(tx.status === 'cancel' || tx.status === 'fail'){

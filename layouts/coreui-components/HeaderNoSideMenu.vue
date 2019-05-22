@@ -10,31 +10,31 @@
     </BaseLink>
     <ul class="nav navbar-nav d-md-down-none">
       <li class="nav-item px-3">
-        <BaseLink _class="nav-link" :to="{name: 'search'}">Search</BaseLink>
+        <BaseLink _class="nav-link" :to="{name: 'search'}">{{$t('topHeader.search')}}</BaseLink>
       </li>
       <li class="nav-item px-3">
-        <BaseLink _class="nav-link" :loginProtect="true" :to="{name: 'offer-new'}">Post a trade</BaseLink>
+        <BaseLink _class="nav-link" :loginProtect="true" :to="{name: 'offer-new'}">{{$t('topHeader.postATrade')}}</BaseLink>
       </li>
       <li class="nav-item px-3">
-        <BaseLink _class="nav-link px-3" :loginProtect="true" :to="{name: 'wallet'}">Deposit</BaseLink>
+        <BaseLink _class="nav-link px-3" :loginProtect="true" :to="{name: 'wallet'}">{{$t('topHeader.deposit')}}</BaseLink>
       </li>
       <li class="nav-item px-3">
-        <a class="nav-link" href="#">Help</a>
+        <a class="nav-link" href="#">{{$t('topHeader.help')}}</a>
       </li>
     </ul>
     <ul class="nav navbar-nav ml-auto">
       <li v-if="!loggedIn" class="nav-item px-3">
         <a class="nav-link" href="#"  @click="openLoginModal($event)">
-          Log in
+          {{$t('topHeader.login')}}
         </a>
       </li>
       <li v-if="loggedIn" class="nav-item d-md-down-none px-3">
         <a class="nav-link" href="#" @click="logout()">
-          Log out
+          {{$t('topHeader.logout')}}
         </a>
       </li>
       <li v-if="loggedIn" class="nav-item d-md-down-none px-3">
-        <BaseLink _class="nav-link px-3" :to="{name: 'wallet'}">Wallet</BaseLink>
+        <BaseLink _class="nav-link px-3" :to="{name: 'wallet'}">{{$t('topHeader.wallet')}}</BaseLink>
       </li>
       <li v-if="notificationCount > 0" class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
@@ -57,20 +57,21 @@
         </a>
         <ProfileDropDownMenu />
       </li>
+      <LanguageSwitch />
     </ul>
     <div  class="navbar-collapse collapse" id="navbarSupportedContent">
       <ul class="nav navbar-nav nav-v d-lg-none">
         <li class="nav-item">
-          <a class="nav-link px-3" href="/search">Search</a>
+          <a class="nav-link px-3" href="/search">{{$t('topHeader.search')}}</a>
         </li>
         <li class="nav-item">
-          <BaseLink _class="nav-link px-3" :loginProtect="true" :to="{name: 'offer-new'}">Post a trade</BaseLink>
+          <BaseLink _class="nav-link px-3" :loginProtect="true" :to="{name: 'offer-new'}">{{$t('topHeader.postATrade')}}</BaseLink>
         </li>
         <li class="nav-item">
-          <BaseLink _class="nav-link px-3" :loginProtect="true" :to="{name: 'wallet'}">Deposit</BaseLink>
+          <BaseLink _class="nav-link px-3" :loginProtect="true" :to="{name: 'wallet'}">{{$t('topHeader.deposit')}}</BaseLink>
         </li>
         <li class="nav-item">
-          <a class="nav-link px-3" href="#">Help</a>
+          <a class="nav-link px-3" href="#">{{$t('topHeader.help')}}</a>
         </li>
       </ul>
     </div>
@@ -80,6 +81,7 @@
 <script>
   import {mapState} from 'vuex';
   import ProfileDropDownMenu from './ProfileDropDownMenu';
+  import LanguageSwitch from '../../components/LanguageSwitch';
   import NotificationDropDownMenu from './NotificationDropDownMenu';
   import LoginModal from '../../components/loginModal.vue';
   import BaseLink from "../../components/global/BaseLink";
@@ -89,7 +91,7 @@
         titleTemplate: this.notificationCount> 0 ? `(${this.notificationCount}) %s` : `%s`
       }
     },
-    components: {BaseLink, LoginModal, ProfileDropDownMenu, NotificationDropDownMenu},
+    components: {BaseLink, LoginModal, ProfileDropDownMenu, NotificationDropDownMenu, LanguageSwitch},
     data(){
       return{
       };

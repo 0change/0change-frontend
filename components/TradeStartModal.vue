@@ -1,14 +1,14 @@
 <template>
-  <BaseModal title="Start Trade" ref="modal" :floatHeight="true">
+  <BaseModal :title="$t('components.tradeStartModal.title')" ref="modal" :floatHeight="true">
     <div :class="$style.loginModalContent">
-      <h6>Enter message to Seller</h6>
+      <h6>{{$t('components.tradeStartModal.messageToSeller')}}</h6>
       <textarea rows="5" class="form-control" v-model="textMessage">
       </textarea>
     </div>
     <div class="pd5 bdt-1">
       <!--<BaseLink :to="{name: 'buy-id', params:{id: '4a67b3233d7a'}}">-->
       <!--</BaseLink>-->
-        <button @click="callSuccess" class="btn btn-block btn-primary btn-sm" type="button" >Start Trade</button>
+        <button @click="callSuccess" class="btn btn-block btn-primary btn-sm" type="button" >{{$t('components.tradeStartModal.title')}}</button>
     </div>
   </BaseModal>
 </template>

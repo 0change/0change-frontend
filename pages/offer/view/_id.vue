@@ -3,88 +3,106 @@
     <TradeStartModal ref="tradeStartModal" @onSuccess="onTradeStart"/>
     <div class="row bd-1 mb-4">
       <div class="col-sm-6 nosp">
-        <div class="bg-gray-1 pd10 bdb-1">{{advertisement.type==='sell' ? 'Seller info' : 'Buyer info'}}</div>
+        <div class="bg-gray-1 pd10 bdb-1">{{advertisement.type==='sell' ? $t('pages.offerView.infoBox.titleSeller') : $t('pages.offerView.infoBox.titleBuyer')}}</div>
         <div class="pd10">
           <div class="mgl10 pdl10 tbl-info fx-basis-8" style="border-left: 1px solid #f7f7f7;">
-            <div class="tbl-info-item">
-              <div><i class="fa fa-at fa-lg"></i></div>
-              <span>Username:&nbsp;<BaseLink :to="{name: 'profile-id', params: {id: owner._id}}"><strong>{{owner.username}}</strong></BaseLink></span>
-            </div>
-            <div class="tbl-info-item">
-              <div><img src="/imgs/brightid-av-1.jpg" alt="" style="width: 1.2em"></div>
-              <span>BrightID&nbsp;Score:&nbsp;<strong class="clr-orange-l">{{owner.brightIdScore}}</strong></span>
-            </div>
-            <div class="tbl-info-item">
-              <div><i class="fa fa-circle fa-lg" style="color: #4dbd74"></i></div>
-              <span>Last&nbsp;seen:&nbsp;<strong>{{userLastSeen}}</strong></span>
-            </div>
-            <div class="tbl-info-item">
-              <div><i class="fa fa-flag fa-lg"></i></div>
-              <span>
-            <span>Country:&nbsp;</span>
-            <i class="flag-icon h6 mb-0" :class="'flag-icon-' + owner.country.toLowerCase()"></i>
-            <strong>{{ownerCountry ? ownerCountry.name : ''}}</strong>
-          </span>
-            </div>
-            <!--<div class="tbl-info-item">-->
-              <!--<div>&nbsp;</div>-->
-              <!--<span>Trade volume:&nbsp;<strong>430 USD</strong></span>-->
-            <!--</div>-->
-            <div class="tbl-info-item">
-              <div>&nbsp;</div>
-              <span>Confirmed trades:&nbsp;<strong>{{$auth.user.confirmedTrades >> '0'}} trade</strong></span>
-            </div>
-            <div class="tbl-info-item">
-              <div>&nbsp;</div>
-              <span>
-                <span>Feedback score:&nbsp;</span>
-                <span class="badge badge-success">{{owner.score}}</span>
-                <no-ssr>
-                  <VueStarRating
+            <table style="display: inline">
+              <tr>
+                <td><i class="fa fa-at fa-lg"></i></td>
+                <td>{{$t('pages.offerView.infoBox.username')}}:&nbsp;</td>
+                <td><BaseLink :to="{name: 'profile-id', params: {id: owner._id}}"><strong>{{owner.username}}</strong></BaseLink></td>
+              </tr>
+              <tr>
+                <td><img src="/imgs/brightid-av-1.jpg" alt="" style="width: 1.2em"></td>
+                <td>{{$t('pages.offerView.infoBox.bidScore')}}:&nbsp;</td>
+                <td><strong class="clr-orange-l">{{owner.brightIdScore}}</strong></td>
+              </tr>
+              <tr>
+                <td><i class="fa fa-circle fa-lg" style="color: #4dbd74"></i></td>
+                <td>{{$t('pages.offerView.infoBox.lastSeen')}}:&nbsp;</td>
+                <td><strong>{{userLastSeen}}</strong></td>
+              </tr>
+              <tr>
+                <td><i class="fa fa-flag fa-lg"></i></td>
+                <td>{{$t('pages.offerView.infoBox.country')}}:&nbsp;</td>
+                <td>
+                  <span>
+                    <i class="flag-icon h6 mb-0" :class="'flag-icon-' + owner.country.toLowerCase()"></i>
+                    <strong>{{ownerCountry ? ownerCountry.name : ''}}</strong>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>{{$t('pages.offerView.infoBox.confirmedTrades')}}:&nbsp;</td>
+                <td><strong>{{$t('pages.offerView.infoBox.confirmedTradesCount', {n: ($auth.user.confirmedTrades || '0')})}}</strong></td>
+              </tr>
+              <!--<tr>-->
+                <!--<td>&nbsp;</td>-->
+                <!--<td>Trade volume:&nbsp;</td>-->
+                <!--<td><strong>xx trades</strong></td>-->
+              <!--</tr>-->
+              <tr>
+                <td>&nbsp;</td>
+                <td>{{$t('pages.offerView.infoBox.feedbackScore')}}:&nbsp;</td>
+                <td>
+                  <span class="badge badge-success">{{owner.score}}</span>
+                  <no-ssr>
+                    <VueStarRating
                       style="display: inline-block;"
                       :star-size="15"
                       :read-only="true"
                       :rating="owner.score"
                       :show-rating="false"
-                  />
-                </no-ssr>
-              </span>
-            </div>
-            <div v-if="false" class="tbl-info-item">
-              <div><i class="fa fa-check-square fa-lg color-success"></i></div>
-              <span>Trusted By:&nbsp;<strong class="badge badge-success">5 person</strong></span>
-            </div>
-            <div v-if="false" class="tbl-info-item">
-              <div><i class="fa fa-minus-circle fa-lg color-danger"></i></div>
-              <span>Blocked By:&nbsp;<strong class="badge badge-success">not blocked yet</strong></span>
-            </div>
+                    />
+                  </no-ssr>
+                </td>
+              </tr>
+              <tr v-if="false">
+                <td><i class="fa fa-check-square fa-lg color-success"></i></td>
+                <td>Trusted By:&nbsp;</td>
+                <td><strong class="badge badge-success">5 person</strong></td>
+              </tr>
+              <tr v-if="false">
+                <td><i class="fa fa-minus-circle fa-lg color-danger"></i></td>
+                <td>Blocked By:&nbsp;</td>
+                <td><strong class="badge badge-success">not blocked yet</strong></td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
       <div class="col-sm-6 nosp">
-        <div class="bg-gray-1 pd10 bdb-1">Trade info</div>
+        <div class="bg-gray-1 pd10 bdb-1">{{$t('pages.offerView.infoBox.titleTrade')}}</div>
         <div class="pd10">
           <div class="mgl10 pdl10 tbl-info fx-basis-8" style="border-left: 1px solid #f7f7f7;">
-            <div class="tbl-info-item">
-              <div><img :src="'/erc20-tokens/' + advertisement.token.code + '.png'" alt="" style="width: 1.2em"></div>
-              <span>Token:&nbsp;<strong>{{advertisement.token.title}}</strong></span>
-            </div>
-            <div class="tbl-info-item">
-              <div><i class="fa fa-money fa-lg"></i></div>
-              <span>Price&nbsp;<strong class="number">{{advertisement.amount|commafy}} {{advertisement.currency.code}}</strong></span>
-            </div>
-            <div class="tbl-info-item">
-              <div>&nbsp;</div>
-              <span>Trade&nbsp;limit:&nbsp;<strong>{{advertisement.limitMin}} - {{advertisement.limitMax}} {{advertisement.token.code}}</strong></span>
-            </div>
-            <div class="tbl-info-item">
-              <div><i class="fa fa-credit-card fa-lg"></i></div>
-              <span>Payment&nbsp;method:&nbsp;<strong>{{advertisement.paymentMethod.title}}</strong></span>
-            </div>
-            <div class="tbl-info-item">
-              <div><i class="fa fa-hourglass-half fa-lg"></i></div>
-              <span>Payment&nbsp;window:&nbsp;<strong>{{paymentWindow}}</strong></span>
-            </div>
+            <table  style="display: inline">
+              <tr>
+                <td><img :src="'/erc20-tokens/' + advertisement.token.code + '.png'" alt="" style="width: 1.2em"></td>
+                <td>{{$t('pages.offerView.infoBox.token')}}:&nbsp;</td>
+                <td><strong>{{advertisement.token.title}}</strong></td>
+              </tr>
+              <tr>
+                <td><i class="fa fa-money fa-lg"></i></td>
+                <td>{{$t('pages.offerView.infoBox.price')}}:&nbsp;</td>
+                <td><strong class="number">{{advertisement.amount|commafy}} {{advertisement.currency.code}}</strong></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>{{$t('pages.offerView.infoBox.tradeLimit')}}:&nbsp;</td>
+                <td><strong>{{advertisement.limitMin}} - {{advertisement.limitMax}} {{advertisement.token.code}}</strong></td>
+              </tr>
+              <tr>
+                <td><i class="fa fa-credit-card fa-lg"></i></td>
+                <td>{{$t('pages.offerView.infoBox.paymentMethod')}}:&nbsp;</td>
+                <td><strong>{{advertisement.paymentMethod.title}}</strong></td>
+              </tr>
+              <tr>
+                <td><i class="fa fa-hourglass-half fa-lg"></i></td>
+                <td>{{$t('pages.offerView.infoBox.paymentWindow')}}:&nbsp;</td>
+                <td><strong>{{paymentWindow}}</strong></td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
@@ -116,7 +134,7 @@
                 <input placeholder="0.0" v-model="tradeTokenCount" type="text" class="no-border fs-15">
               </div>
               <div class="token-limit" :data-min="advertisement.limitMin" :data-max="advertisement.limitMax">
-                <span>limit</span>
+                <span>{{$t('pages.offerView.tokenBox.titleLimit')}}</span>
               </div>
             </div>
           </div>
@@ -125,12 +143,12 @@
     </div>
     <div class="row bd-1 mb-4">
       <div class="col-sm-12 nosp">
-        <div class="bg-gray-1 bdb-1 pd10">Terms of trade</div>
+        <div class="bg-gray-1 bdb-1 pd10">{{$t('pages.offerView.termsBox.title')}}</div>
         <div class=" pd10">
           <pre style="white-space: pre-line; width: 100%">{{advertisement.terms}}</pre>
           <div class="form-check checkbox">
             <input class="form-check-input" id="check1" type="checkbox" v-model="termsConfirmed">
-            <label class="form-check-label" for="check1">I read and accept the trade terms.</label>
+            <label class="form-check-label" for="check1">{{$t('pages.offerView.termsBox.checkBoxTitle')}}</label>
           </div>
         </div>
       </div>
@@ -143,7 +161,7 @@
             @click="startTrade($event)"
             type="button"
             v-tooltip.top="{show: (showTermsConfirmTooltip && tooltipMessage), content: tooltipMessage, trigger: 'manual', classes:['tooltip-danger', 'text-left']}"
-        >{{advertisement.type=='sell'?'Buy':'Sell'}}</button>
+        >{{advertisement.type=='sell'?$t('pages.offerView.confirmBtn.titleBuy'):$t('pages.offerView.confirmBtn.titleSell')}}</button>
       </div>
       <div class="col-sm-4" v-else>
         <LoginModal ref="advViewLoginModal"/>
@@ -151,7 +169,7 @@
             class="btn btn-pill btn-block btn-success"
             type="button"
             @click="$refs.advViewLoginModal.show($event)"
-        >Login / Register to continue</button>
+        >{{$t('pages.offerView.confirmBtn.titleLogOuted')}}</button>
       </div>
       <div class="col-sm-4"></div>
     </div>
@@ -193,7 +211,7 @@
       },
       paymentWindow: function () {
         let parts = this.advertisement.paymentWindow.split(':');
-        return `${parseInt(parts[0])} hours and ${parseInt(parts[1])} minutes`;
+        return this.$t('pages.offerView.infoBox.paymentWindowVal',{h: parseInt(parts[0]), m: parseInt(parts[1])});;
       },
       ownerCountry: function () {
         let owner = this.owner;
@@ -208,9 +226,9 @@
           ||
           (this.advertisement.limitMax && this.tokenCount > this.advertisement.limitMax)
         )
-          message.push(`Token count is limited by min:${this.advertisement.limitMin} and max:${this.advertisement.limitMax}`);
+          message.push(this.$t('pages.offerView.errors.tokenLimit',{min: this.advertisement.limitMin, max:this.advertisement.limitMax}));
         if(!this.termsConfirmed)
-          message.push('Terms of trade not confirmed');
+          message.push(this.$t('pages.offerView.errors.termsNotConfirmed'));
         return message.join('<br />');
       },
       tradeTokenCount: {

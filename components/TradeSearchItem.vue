@@ -53,7 +53,7 @@
     </td>
     <td>
       <BaseLink :to="{name:'offer-view-id', params:{id: advertisement._id}}">
-        <button class="btn btn-block btn-outline-primary" type="button">{{advertisement.type == 'sell' ? 'Buy' : 'Sell'}}</button>
+        <button class="btn btn-block btn-outline-primary" type="button">{{advertisement.type == 'sell' ? $t('searchResult.buy') : $t('searchResult.sell')}}</button>
       </BaseLink>
     </td>
   </tr>

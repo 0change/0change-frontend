@@ -4,61 +4,61 @@
       <ul class="nav">
         <li class="nav-item">
           <BaseLink class="nav-link" :to="{path: '/'}">
-            <i class="nav-icon icon-speedometer"></i> Home
-            <span class="badge badge-primary">NEW</span>
+            <i class="nav-icon icon-speedometer"></i> {{$t('leftSideBar.home')}}
+            <span class="badge badge-primary">{{$t('leftSideBar.new')}}</span>
           </BaseLink>
         </li>
-        <li class="nav-title">Theme</li>
+        <li class="nav-title">{{$t('leftSideBar.userMenus')}}</li>
         <li class="nav-item">
           <BaseLink class="nav-link" :to="{name: 'profile-id'}">
             <i class="nav-icon icon-user"></i>
-            <span> Profile</span>
+            <span> {{$t('leftSideBar.profile')}}</span>
           </BaseLink>
         </li>
         <li class="nav-item">
           <BaseLink class="nav-link" :to="{name: 'wallet'}">
             <i class="nav-icon icon-wallet"></i>
-            <span> Wallet</span>
+            <span> {{$t('leftSideBar.wallet')}}</span>
           </BaseLink>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
-            <i class="nav-icon icon-bell"></i> Notifications</a>
+            <i class="nav-icon icon-bell"></i> {{$t('leftSideBar.notifications')}}</a>
         </li>
         <li class="nav-item">
           <BaseLink class="nav-link" :to="{name: 'trades'}">
             <i class="nav-icon fa fa-handshake-o"></i>
-            <span> Trades</span>
+            <span> {{$t('leftSideBar.trades')}}</span>
             <span v-if="tradeBadgeCount > 0" class="badge badge-danger">{{tradeBadgeCount}}</span>
           </BaseLink>
         </li>
         <li class="nav-item">
           <BaseLink class="nav-link" :to="{name: 'disputes'}">
             <i class="nav-icon fa fa-balance-scale"></i>
-            <span> Disputes</span>
+            <span> {{$t('leftSideBar.disputes')}}</span>
           </BaseLink>
         </li>
         <li class="nav-item">
           <BaseLink class="nav-link" :to="{name: 'offer'}">
             <i class="nav-icon icon-puzzle"></i>
-            <span> Offers</span>
+            <span> {{$t('leftSideBar.offers')}}</span>
           </BaseLink>
         </li>
-        <li class="nav-title">Settings</li>
-        <li v-if="hasPermission('operator')" class="nav-title">Operator menu</li>
+        <li class="nav-title">{{$t('leftSideBar.settings')}}</li>
+        <li v-if="hasPermission('operator')" class="nav-title">{{$t('leftSideBar.adminMenuTitle')}}</li>
         <li v-if="hasPermission('operator')" class="nav-item nav-dropdown open">
           <a class="nav-link nav-dropdown-toggle" href="#">
-            <i class="nav-icon icon-star"></i> Operator</a>
+            <i class="nav-icon icon-star"></i> {{$t('leftSideBar.opMenu')}}</a>
           <ul class="nav-dropdown-items">
             <li class="nav-item">
               <BaseLink class="nav-link" :to="{path: '/operator/withdrawals'}">
-                <i class="nav-icon icon-star"></i> Withdrawals
+                <i class="nav-icon icon-star"></i> {{$t('leftSideBar.opWithdrawals')}}
                 <!--<span class="badge badge-success">NEW</span>-->
               </BaseLink>
             </li>
             <li class="nav-item">
               <BaseLink class="nav-link" :to="{path: '/operator/disputes'}">
-                <i class="nav-icon icon-star"></i> Disputes
+                <i class="nav-icon icon-star"></i> {{$t('leftSideBar.opDisputes')}}
                 <span v-if="operatorDisputeBadgeCount > 0" class="badge badge-danger">{{operatorDisputeBadgeCount}}</span>
               </BaseLink>
             </li>

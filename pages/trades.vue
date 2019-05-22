@@ -3,20 +3,20 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header"><strong>Trades List</strong></div>
+          <div class="card-header"><strong>{{$t('pages.trades.mainBox.title')}}</strong></div>
           <div class="card-body">
             <table class="table table-responsive-sm table-sm">
               <thead>
               <tr>
-                <th>#</th>
-                <th>Msg</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>Trader</th>
-                <th>Type</th>
-                <th>Token</th>
-                <th>Token Price</th>
-                <th>Token Count</th>
+                <th>{{$t('pages.trades.mainBox.table.head.id')}}</th>
+                <th>{{$t('pages.trades.mainBox.table.head.msg')}}</th>
+                <th>{{$t('pages.trades.mainBox.table.head.status')}}</th>
+                <th>{{$t('pages.trades.mainBox.table.head.date')}}</th>
+                <th>{{$t('pages.trades.mainBox.table.head.trader')}}</th>
+                <th>{{$t('pages.trades.mainBox.table.head.type')}}</th>
+                <th>{{$t('pages.trades.mainBox.table.head.token')}}</th>
+                <th>{{$t('pages.trades.mainBox.table.head.price')}}</th>
+                <th>{{$t('pages.trades.mainBox.table.head.count')}}</th>
               </tr>
               </thead>
               <tbody>
@@ -28,15 +28,15 @@
                   <span v-if="tradeUnreadMessages(row) > 0"
                         class="badge badge-danger">{{tradeUnreadMessages(row)}}</span>
                 </td>
-                <td>{{row.status}}</td>
-                <td>{{row.createdAt}}</td>
+                <td>{{$t('trade.status.'+row.status)}}</td>
+                <td>{{row.createdAt | std_datetime}}</td>
                 <td>
                   <BaseLink :to="{name: 'profile-id', params: {id: extractTrader(row)._id}}">
                     {{extractTrader(row).username}}
                   </BaseLink>
                 </td>
                 <td><span class="badge"
-                          :class="row.advertisement.type.toLowerCase()=='sell' ? 'badge-success' : 'badge-danger'">{{row.advertisement.type}}</span>
+                          :class="row.advertisement.type.toLowerCase()=='sell' ? 'badge-success' : 'badge-danger'">{{$t('trade.type.'+row.advertisement.type)}}</span>
                 </td>
                 <td><img class="transaction-coin-icon" :src="'/erc20-tokens/' + row.advertisement.token.code + '.png'"
                          alt=""> {{row.advertisement.token.title}} ({{row.advertisement.token.code}})

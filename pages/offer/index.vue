@@ -3,29 +3,43 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header"><strong>Online Filter</strong></div>
+          <div class="card-header"><strong>{{$t('pages.offerList.searchBox.title')}}</strong></div>
           <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label for="select3">Type</label>
+                  <label for="select3">{{$t('pages.offerList.searchBox.typeInput.label')}}</label>
                   <select v-model="filter.type" class="form-control" id="select3" name="select3">
-                    <option value="">All types</option>
-                    <option value="sell">Sell</option>
-                    <option value="buy">Buy</option>
+                    <option value="">{{$t('pages.offerList.searchBox.typeInput.default')}}</option>
+                    <option value="sell">{{$t('trade.type.sell')}}</option>
+                    <option value="buy">{{$t('trade.type.buy')}}</option>
                   </select>
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label for="token-search-input">Token</label>
-                  <input v-model="filter.token" class="form-control" id="token-search-input" type="text" name="text-input" placeholder="Token name">
+                  <label for="token-search-input">{{$t('pages.offerList.searchBox.tokenInput.label')}}</label>
+                  <input
+                    v-model="filter.token"
+                    class="form-control"
+                    id="token-search-input"
+                    type="text"
+                    name="text-input"
+                    :placeholder="$t('pages.offerList.searchBox.tokenInput.placeholder')"
+                  >
                 </div>
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label for="token-search-pm">Payment method</label>
-                  <input v-model="filter.paymentMethod" class="form-control" id="token-search-pm" type="text" name="text-input" placeholder="type method">
+                  <label for="token-search-pm">{{$t('pages.offerList.searchBox.paymentInput.label')}}</label>
+                  <input
+                    v-model="filter.paymentMethod"
+                    class="form-control"
+                    id="token-search-pm"
+                    type="text"
+                    name="text-input"
+                    :placeholder="$t('pages.offerList.searchBox.paymentInput.placeholder')"
+                  >
                 </div>
               </div>
             </div>
@@ -33,7 +47,7 @@
         </div>
         <div class="card">
           <div class="card-header">
-            <strong>Offers</strong>
+            <strong>{{$t('pages.offerList.mainBox.title')}}</strong>
             <a href="/offer/new">
               <button class="btn btn-sm btn-primary pull-right" type="submit">
                 <i class="fa fa-plus-square"></i>
@@ -45,13 +59,13 @@
             <table class="table table-responsive-sm table-sm table-advs">
               <thead>
               <tr>
-                <th>ID</th>
-                <th>Type</th>
-                <th>Token</th>
-                <th>Limit</th>
-                <th>Payment method</th>
-                <th>Price</th>
-                <th>Enable</th>
+                <th>{{$t('pages.offerList.mainBox.table.head.id')}}</th>
+                <th>{{$t('pages.offerList.mainBox.table.head.type')}}</th>
+                <th>{{$t('pages.offerList.mainBox.table.head.token')}}</th>
+                <th>{{$t('pages.offerList.mainBox.table.head.limit')}}</th>
+                <th>{{$t('pages.offerList.mainBox.table.head.paymentMethod')}}</th>
+                <th>{{$t('pages.offerList.mainBox.table.head.price')}}</th>
+                <th>{{$t('pages.offerList.mainBox.table.head.enable')}}</th>
                 <th></th>
               </tr>
               </thead>
@@ -60,7 +74,7 @@
                 <td>
                   <BaseLink :to="{name: 'offer-view-id', params: {id: row._id}}">{{row._id}}</BaseLink>
                 </td>
-                <td><span class="badge" :class="row.type.toLowerCase()=='buy' ? 'badge-success' : 'badge-danger'">{{row.type}}</span></td>
+                <td><span class="badge" :class="row.type.toLowerCase()=='buy' ? 'badge-success' : 'badge-danger'">{{$t('trade.type.'+row.type)}}</span></td>
                 <td><img class="transaction-coin-icon" :src="'/erc20-tokens/' + row.token.code + '.png'" alt=""> {{row.token.title}}</td>
                 <td>{{row.limitMin}} - {{row.limitMax}}</td>
                 <td>{{row.paymentMethod.title}}</a></td>
@@ -75,7 +89,8 @@
                   <!--<BaseLink :to="{name: 'offer-edit-id',params:{id: row._id}}">-->
                     <!--<button class="btn btn-sm btn-primary" style="padding: 0px 0.25em" type="button">edit</button>-->
                   <!--</BaseLink>-->
-                  <button @click="confirmAndDeleteAdvertisement(rowIndex)" class="btn btn-sm btn-danger" style="padding: 0px 0.25em" type="button">delete</button>
+                  <button @click="editAdvertisement(row._id)" class="btn btn-sm btn-primary" style="padding: 0px 0.25em" type="button">{{$t('pages.offerList.mainBox.table.rows.btnEditTitle')}}</button>
+                  <button @click="confirmAndDeleteAdvertisement(rowIndex)" class="btn btn-sm btn-danger" style="padding: 0px 0.25em" type="button">{{$t('pages.offerList.mainBox.table.rows.btnDeleteTitle')}}</button>
                 </td>
               </tr>
               </tbody>
@@ -196,6 +211,9 @@
               }
             })
         }
+      },
+      editAdvertisement(id){
+        this.$router.push({name: "offer-edit-id", params: {id}});
       }
     }
   }

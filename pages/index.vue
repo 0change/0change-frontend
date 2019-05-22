@@ -9,13 +9,13 @@
             <th class="text-left">
               <i class="icon-people"></i>
             </th>
-            <th>Seller</th>
-            <th class="text-left">Country</th>
+            <th>{{$t('searchResult.head.seller')}}</th>
+            <th class="text-left">{{$t('searchResult.head.country')}}</th>
             <!--<th>Feedback Score</th>-->
-            <th class="text-left">Token</th>
-            <th class="text-left">Price</th>
-            <th class="text-left">Min-Max</th>
-            <th>Activity</th>
+            <th class="text-left">{{$t('searchResult.head.token')}}</th>
+            <th class="text-left">{{$t('searchResult.head.price')}}</th>
+            <th class="text-left">{{$t('searchResult.head.minMax')}}</th>
+            <th>{{$t('searchResult.head.activity')}}</th>
             <th></th>
           </tr>
           </thead>
