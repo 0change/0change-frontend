@@ -77,6 +77,11 @@
       "messageToSeller": "Enter message to seller",
       "messageToBuyer": "Enter message to buyer"
     },
+    "tradeDisputeModal":{
+      "title": "Trade dispute",
+      "messageLabel": "Are you sure to dispute ? Enter a message.",
+      "btnTitle": "Dispute"
+    },
     "updateUsername":{
       "label": "Username",
       "btnTitle": "Change"
@@ -189,7 +194,7 @@
         "allStatus": [
           "Requested",
           "Started",
-          "Payd",
+          "Paid",
           "Released"
         ]
       },
@@ -220,6 +225,13 @@
           "TRADE_EVENT_MESSAGE_DISPUTED": "Trade disputed",
           "TRADE_EVENT_MESSAGE_PAYMENT_WINDOW_TIMEOUT": "Trade payment window timed out and canceled"
         }
+      },
+      "btnTitle":{
+        "start": "Start trade",
+        "pay": "I have paid",
+        "release": "Release tokens",
+        "cancel": "Cancel trade",
+        "dispute": "Dispute"
       }
     },
     "wallet":{

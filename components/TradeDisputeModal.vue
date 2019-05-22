@@ -1,14 +1,14 @@
 <template>
-  <BaseModal title="Dispute Trade" ref="modal" :floatHeight="true">
+  <BaseModal :title="$t('components.tradeDisputeModal.title')" ref="modal" :floatHeight="true">
     <div :class="$style.loginModalContent">
-      <h6>Are you sure to dispute ? Enter a message.</h6>
+      <h6>{{$t('components.tradeDisputeModal.messageLabel')}}</h6>
       <textarea rows="5" class="form-control" v-model="textMessage">
       </textarea>
     </div>
     <div class="pd5 bdt-1">
       <!--<BaseLink :to="{name: 'buy-id', params:{id: '4a67b3233d7a'}}">-->
       <!--</BaseLink>-->
-        <button @click="callSuccess" class="btn btn-block btn-primary btn-sm" type="button" >Dispute</button>
+        <button @click="callSuccess" class="btn btn-block btn-primary btn-sm" type="button" >{{$t('components.tradeDisputeModal.btnTitle')}}</button>
     </div>
   </BaseModal>
 </template>

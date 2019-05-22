@@ -77,6 +77,11 @@
       "messageToSeller": "پیامی برای فروشنده در زیر وارد کنید",
       "messageToBuyer": "پیامی برای خریدار در زیر وارد کنید"
     },
+    "tradeDisputeModal":{
+      "title": "ثبت شکایت",
+      "messageLabel": "اگر از ثبت شکایت اطمینان دارید دلیل شکایت خود را در کادر زیر وارد کنید.",
+      "btnTitle": "ثبت شکایت"
+    },
     "updateUsername":{
       "label": "نام کاربری",
       "btnTitle": "ویرایش"
@@ -220,6 +225,13 @@
           "TRADE_EVENT_MESSAGE_DISPUTED": "شکایت ثبت شد",
           "TRADE_EVENT_MESSAGE_PAYMENT_WINDOW_TIMEOUT": "مهلت پرداخت به اتمام رسیده و معامله لغو شد"
         }
+      },
+      "btnTitle":{
+        "start": "شروع معامله",
+        "pay": "پرداخت کردم",
+        "release": "آزاد کردن توکن ها",
+        "cancel": "لغو معامله",
+        "dispute": "ثبت شکایت"
       }
     },
     "wallet":{

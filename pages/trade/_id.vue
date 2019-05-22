@@ -75,19 +75,19 @@
             <div class="card-body">
               <pre style="white-space: pre-line;">{{trade.advertisement.terms}}</pre>
 
-              <button v-if="isStartBtnVisible" @click="doStartTrade" class="btn btn-primary" type="submit" style="width: 100%">Start Trade</button>
+              <button v-if="isStartBtnVisible" @click="doStartTrade" class="btn btn-primary" type="submit" style="width: 100%">{{$t('pages.tradeView.btnTitle.start')}}</button>
 
-              <button v-if="isPaymentBtnVisible" @click="doSetTradePaid" class="btn btn-primary" type="submit" style="width: 100%">I have paid</button>
+              <button v-if="isPaymentBtnVisible" @click="doSetTradePaid" class="btn btn-primary" type="submit" style="width: 100%">{{$t('pages.tradeView.btnTitle.pay')}}</button>
 
-              <button v-if="isReleaseBtnVisible" @click="doReleaseTrade" class="btn btn-primary" type="submit" style="width: 100%">Release tokens</button>
+              <button v-if="isReleaseBtnVisible" @click="doReleaseTrade" class="btn btn-primary" type="submit" style="width: 100%">{{$t('pages.tradeView.btnTitle.release')}}</button>
 
 
               <div class="row" style="margin-top: 1em">
                 <div class="col-sm-6">
-                  <button v-if="isDisputeBtnVisible" @click="doDisputeTrade" class="btn btn-danger" type="submit" style="width: 100%">Dispute</button>
+                  <button v-if="isDisputeBtnVisible" @click="doDisputeTrade" class="btn btn-danger" type="submit" style="width: 100%">{{$t('pages.tradeView.btnTitle.dispute')}}</button>
                 </div>
                 <div class="col-sm-6">
-                  <button v-if="isCancelBtnVisible" @click="doCancelTrade" class="btn btn-warning" type="submit" style="width: 100%">Cancel Trade</button>
+                  <button v-if="isCancelBtnVisible" @click="doCancelTrade" class="btn btn-warning" type="submit" style="width: 100%">{{$t('pages.tradeView.btnTitle.cancel')}}</button>
                 </div>
               </div>
             </div>
