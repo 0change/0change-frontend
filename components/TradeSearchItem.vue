@@ -44,11 +44,11 @@
       <strong>{{advertisement.currency.code}}</strong>
     </td>
     <td class="text-left">
-      <div>Max: <span class="text-success">{{advertisement.limitMax}}</span></div>
-      <div>Min: <span class="text-danger">{{advertisement.limitMin}}</span></div>
+      <div>{{$t('searchResult.max')}}: <span class="text-success">{{advertisement.limitMax}}</span></div>
+      <div>{{$t('searchResult.min')}}: <span class="text-danger">{{advertisement.limitMin}}</span></div>
     </td>
     <td>
-      <div class="small text-muted">Last login</div>
+      <div class="small text-muted">{{$t('searchResult.lastSeen')}}</div>
       <strong>{{lastSeen}}</strong>
     </td>
     <td>

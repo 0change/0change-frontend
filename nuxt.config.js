@@ -68,6 +68,7 @@ module.exports = {
   */
   plugins: [
     '~/plugins/i18n.js',
+    '~/plugins/axios.js',
     '~/plugins/global-component-loader.js',
     '~/plugins/v-viewer.js',
     '~/plugins/v-tooltip.js',

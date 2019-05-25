@@ -52,8 +52,11 @@
       "minMax": "Min-Max",
       "activity": "Activity"
     },
+    "min": "Min",
+    "max": "Max",
     "buy": "Buy",
-    "sell": "Sell"
+    "sell": "Sell",
+    "lastSeen": "Last Seen"
   },
   "leftSideBar":{
     "home": "Home",

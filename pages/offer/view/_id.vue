@@ -7,6 +7,7 @@
         <div class="pd10">
           <div class="mgl10 pdl10 tbl-info fx-basis-8" style="border-left: 1px solid #f7f7f7;">
             <table style="display: inline">
+              <tbody>
               <tr>
                 <td><i class="fa fa-at fa-lg"></i></td>
                 <td>{{$t('pages.offerView.infoBox.username')}}:&nbsp;</td>
@@ -20,7 +21,7 @@
               <tr>
                 <td><i class="fa fa-circle fa-lg" style="color: #4dbd74"></i></td>
                 <td>{{$t('pages.offerView.infoBox.lastSeen')}}:&nbsp;</td>
-                <td><strong>{{userLastSeen}}</strong></td>
+                <td><strong :dir="pageDirection">{{userLastSeen}}</strong></td>
               </tr>
               <tr>
                 <td><i class="fa fa-flag fa-lg"></i></td>
@@ -35,7 +36,7 @@
               <tr>
                 <td>&nbsp;</td>
                 <td>{{$t('pages.offerView.infoBox.confirmedTrades')}}:&nbsp;</td>
-                <td><strong>{{$t('pages.offerView.infoBox.confirmedTradesCount', {n: ($auth.user.confirmedTrades || '0')})}}</strong></td>
+                <td><strong :dir="pageDirection">{{$t('pages.offerView.infoBox.confirmedTradesCount', {n: ($auth.user.confirmedTrades || '0')})}}</strong></td>
               </tr>
               <!--<tr>-->
                 <!--<td>&nbsp;</td>-->
@@ -68,6 +69,7 @@
                 <td>Blocked By:&nbsp;</td>
                 <td><strong class="badge badge-success">not blocked yet</strong></td>
               </tr>
+              </tbody>
             </table>
           </div>
         </div>
@@ -77,6 +79,7 @@
         <div class="pd10">
           <div class="mgl10 pdl10 tbl-info fx-basis-8" style="border-left: 1px solid #f7f7f7;">
             <table  style="display: inline">
+              <tbody>
               <tr>
                 <td><img :src="'/erc20-tokens/' + advertisement.token.code + '.png'" alt="" style="width: 1.2em"></td>
                 <td>{{$t('pages.offerView.infoBox.token')}}:&nbsp;</td>
@@ -100,8 +103,9 @@
               <tr>
                 <td><i class="fa fa-hourglass-half fa-lg"></i></td>
                 <td>{{$t('pages.offerView.infoBox.paymentWindow')}}:&nbsp;</td>
-                <td><strong>{{paymentWindow}}</strong></td>
+                <td><strong :dir="pageDirection">{{paymentWindow}}</strong></td>
               </tr>
+              </tbody>
             </table>
           </div>
         </div>
@@ -206,6 +210,7 @@
     },
     computed: {
       ...mapGetters('global', ['countries']),
+      ...mapGetters('locales', ['pageDirection']),
       owner: function () {
         return this.advertisement ? this.advertisement.user : null;
       },

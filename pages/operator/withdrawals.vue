@@ -27,8 +27,13 @@
                 <td>
                   <span>{{transactionDate(row)}}</span>
                 </td>
-                <td><a v-if="!row.trade && row.txHash" target="_blank" :href="etherscanTx(row.txHash)">{{row.txHash.substr(0,12)
-                  + ' ...'}}</a></td>
+                <td>
+                  <span v-if="needToPayManually(row)" class="badge badge-success" style="cursor: pointer" @click="payTransactionManually(row, index)">
+                    <i class="icons cui-note"></i>
+                  </span>
+                  <a v-if="!row.trade && row.txHash" target="_blank" :href="etherscanTx(row.txHash)">{{row.txHash.substr(0,12)
+                  + ' ...'}}</a>
+                </td>
                 <td><a target="_blank" :href="etherscanWallet(row.from)">{{row.from.substr(0,12) + ' ...'}}</a></td>
                 <td><a target="_blank" :href="etherscanWallet(row.to)">{{row.to.substr(0,12) + ' ...'}}</a></td>
                 <td>
@@ -154,6 +159,9 @@
       needToPay(tx) {
         return (tx.status === 'new' || tx.status === 'fail');
       },
+      needToPayManually(tx) {
+        return (tx.status === 'new' || tx.status === 'fail' || tx.status === 'pending');
+      },
       needToUpdate(tx) {
         return (tx.status === 'pending');
       },
@@ -245,6 +253,24 @@
         } catch (e) {
           alert(e.message || 'fatal error')
           console.log(e);
+        }
+      },
+      payTransactionManually(item, index){
+        let txHash = prompt('Enter transaction hash :');
+        if(txHash) {
+          this.$axios.post('/api/v0.1/operator/set-paid-manually', {id: item._id, txHash})
+            .then(({data}) => {
+              if (data.success) {
+                this.$toast.success('Transaction update successfully');
+                Vue.set(this.transactions[index], 'status', 'pending');
+                Vue.set(this.transactions[index], 'txHash', txHash);
+              } else {
+                this.$toast.error(data.message || "Somethings went wrong.")
+              }
+            })
+            .catch(error => {
+              this.$toast.error(error.response.message || "Somethings went wrong.")
+            })
         }
       },
       updateTransaction(item, index) {
