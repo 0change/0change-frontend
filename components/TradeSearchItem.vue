@@ -49,7 +49,7 @@
     </td>
     <td>
       <div class="small text-muted">{{$t('searchResult.lastSeen')}}</div>
-      <strong>{{lastSeen}}</strong>
+      <strong :dir="pageDirection">{{lastSeen}}</strong>
     </td>
     <td>
       <BaseLink :to="{name:'offer-view-id', params:{id: advertisement._id}}">
@@ -60,13 +60,14 @@
 </template>
 
 <script>
-  import moment from 'moment';
+  import {mapGetters} from 'vuex';
   import LinearProgress from '~/components/LinearProgress';
   import BaseLink from "./global/BaseLink";
   export default {
     components: {BaseLink, LinearProgress},
     props: ['advertisement'],
     computed:{
+      ...mapGetters('locales', ['pageDirection']),
       lastSeen: function () {
         return this.advertisement.user.lastSeenInfo.title;
       }
