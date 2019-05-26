@@ -93,6 +93,27 @@
       "label": "ایمیل",
       "placeholder": "temp-mail@domain.com",
       "btnTitle": "ویرایش"
+    },
+    "loginModal":{
+      "header": "ورود به {website}",
+      "comments":{
+        "global": "برای ورود نیاز است که شما نرم اقزار BrightID را روی تلفن همراه خود نصب کرده باشید. برای اطلاعات بیشتر, به قسمت FAQ مراجعه یا {hear} را کلیک کنید.",
+        "hear": "اینجا",
+        "pc":{
+          "head": "برای ورود از طریق کامپیوتر شخصی:",
+          "items": [
+            "Scan the QR code above with BrightID app on your smartphone.",
+            "Confirm the connection."
+          ]
+        },
+        "smartPhone":{
+          "head": "برای ورود از طریق تلفن همراه:",
+          "items":[
+            "Tap on the QR code above and open it with BrightID.",
+            "Confirm the connection."
+          ]
+        }
+      }
     }
   },
   "pages":{

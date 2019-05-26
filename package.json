@@ -1,7 +1,7 @@
 {
   "name": "zchange-frontend",
   "version": "1.0.0",
-  "description": "Bye ans sell ethereum ERC20 tokens",
+  "description": "A Zero-fee gateway into the world of cryptocurrency trading",
   "author": "sadegh",
   "private": true,
   "scripts": {

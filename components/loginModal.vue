@@ -1,5 +1,5 @@
 <template>
-  <BaseModal title="Login to LocalERC20" ref="modal" :floatHeight="true" @show="onShow" @hide="onHide">
+  <BaseModal :pageDirection="pageDirection" :title="modalTitle" ref="modal" :floatHeight="true" @show="onShow" @hide="onHide">
     <div :class="$style.loginModalContent">
       <div v-if="message" class="notification is-info">
         <span>{{message}}</span>
@@ -15,19 +15,16 @@
             />
           </div>
         </div>
-        <div class="alert alert-info">
-          <span>0change.com is an exchange website which doesn't require you to signup or create an account. Verification is done through BrightID. You can get BrightID app for your smartphone by clicking here. For more information, you can go to FAQ section of the site or click here.</span>
-          <span>To log in on your pc:</span>
-          <ul style="list-style: decimal; padding: 0 0 0 1em;">
-            <li>Scan the QR code above with BrightID app on your smartphone.</li>
-            <li>Confirm the connection.</li>
-            <li>Click on I confirmed at the bottom of this window.</li>
+        <div :dir="pageDirection" class="alert alert-info" :style="{textAlign: (pageDirection=='rtl' ? 'right' : 'left')}">
+          <div>{{$t('components.loginModal.comments.global', {hear: $t('components.loginModal.comments.hear')})}}</div>
+          <h6>&nbsp;</h6>
+          <h6>{{$t('components.loginModal.comments.pc.head')}}</h6>
+          <ul style="list-style: decimal; padding: 0 1em 0 1em;">
+            <li v-for="item in $t('components.loginModal.comments.pc.items')">{{item}}</li>
           </ul>
-          <span>log in on your smartphone:</span>
-          <ul>
-            <li>Tap on the QR code above and open it with BrightID.</li>
-            <li>Confirm the connection.</li>
-            <li>Tap the button "I confirmed" below.</li>
+          <h6>{{$t('components.loginModal.comments.smartPhone.head')}}</h6>
+          <ul style="list-style: decimal; padding: 0 1em 0 1em;">
+            <li v-for="item in $t('components.loginModal.comments.smartPhone.items')">{{item}}</li>
           </ul>
         </div>
         <div v-if="authError" class="alert alert-danger">
@@ -42,7 +39,7 @@
 </template>
 
 <script>
-  import {mapState, mapActions} from 'vuex';
+  import {mapState, mapActions, mapGetters} from 'vuex';
 
   export default {
     data() {
@@ -58,7 +55,11 @@
       }
     },
     computed: {
-      ...mapState('auth',['qrImage','loginId'])
+      ...mapState('auth',['qrImage','loginId']),
+      ...mapGetters('locales',['pageDirection']),
+      modalTitle: function () {
+        return this.$t('components.loginModal.header', {website: process.env.WEBSITE_BASE_TITLE})
+      }
     },
     methods: {
       ...mapActions('auth', ['generateQrCode','tryToLogin']),

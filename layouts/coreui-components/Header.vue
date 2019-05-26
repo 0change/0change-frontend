@@ -21,7 +21,7 @@
         <BaseLink _class="nav-link" :loginProtect="true" :to="{name: 'wallet'}">{{$t('topHeader.deposit')}}</BaseLink>
       </li>
       <li class="nav-item px-3">
-        <a class="nav-link" href="#">{{$t('topHeader.help')}}</a>
+        <a class="nav-link" target="_blank" href="https://docs.google.com/document/d/1lO7LQ1W7gL_srVp-rpUQdAMAvWew3ZSPvCTuuRP00U0/edit#heading=h.6j9iv1dzd39h">{{$t('topHeader.help')}}</a>
       </li>
     </ul>
     <ul class="nav navbar-nav ml-auto">

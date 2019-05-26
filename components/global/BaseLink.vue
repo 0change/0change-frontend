@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     protectionAlert(){
-      alert('You are not logged in. Login please and try again.');
+      alert('You are not logged in. Please Login and try again.');
     },
     // Perform more complex prop validations than is possible
     // inside individual validator functions for each prop.

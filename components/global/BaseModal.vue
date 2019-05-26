@@ -4,7 +4,7 @@
     <div ref="modalBox" class="generalModalContent" :class="{floatHeight:floatHeight}">
       <div class="modalHeader flexContainer">
         <div class="flexItem">
-          <span class="modal-title">{{title}}</span>
+          <span :dir="pageDirection" class="modal-title">{{title}}</span>
         </div>
         <div class="btnCloseModal" @click="hide()">
           <BaseIcon name="times"/>
@@ -129,6 +129,7 @@
       },
     },
     props: {
+      pageDirection: {type: String, default: 'ltr'},
       title: {
         type: String,
       },

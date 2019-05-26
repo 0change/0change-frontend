@@ -93,6 +93,27 @@
       "label": "Email",
       "placeholder": "temp-mail@domain.com",
       "btnTitle": "Change"
+    },
+    "loginModal":{
+      "header": "Login to {website}",
+      "comments":{
+        "global": "To log in, you need to have BrightID app installed on your smartphone. For more information, you can go to FAQ section of the site or click {{hear}}.",
+        "hear": "hear",
+        "pc":{
+          "head": "To log in on your pc:",
+          "items": [
+            "Scan the QR code above with BrightID app on your smartphone.",
+            "Confirm the connection."
+          ]
+        },
+        "smartPhone":{
+          "head": "To log in on your smartphone:",
+          "items":[
+            "Tap on the QR code above and open it with BrightID.",
+            "Confirm the connection."
+          ]
+        }
+      }
     }
   },
   "pages":{

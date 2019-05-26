@@ -3,13 +3,13 @@ export const state = () => ({
     {
       code: 'en',
       flag: 'us',
-      name: 'EN',
+      name: 'English',
       direction: 'ltr'
     },
     {
       code: 'fa',
       flag: 'ir',
-      name: 'FA',
+      name: 'فارسی',
       direction: 'rtl'
     }
 

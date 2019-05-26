@@ -80,11 +80,11 @@
             </div>
             <div class="d-fx-ic">
               <h6 class="fx-basis-5">{{$t('pages.profile.infoBox.joined')}}:</h6>
-              <span class="fx-basis-5">{{userJoinDate}}</span>
+              <span :dir="pageDirection" class="fx-basis-5">{{userJoinDate}}</span>
             </div>
             <div class="d-fx-ic">
               <h6 class="fx-basis-5">{{$t('pages.profile.infoBox.lastSeen')}}:</h6>
-              <span class="fx-basis-5">{{userLastSeen}}</span>
+              <span :dir="pageDirection" class="fx-basis-5">{{userLastSeen}}</span>
             </div>
             <div class="d-fx-ic">
               <h6 class="fx-basis-5">{{$t('pages.profile.infoBox.feedbackScore')}}:</h6>
@@ -244,6 +244,7 @@
     computed: {
         ...mapState('auth', ['loggedIn', 'countries']),
         ...mapGetters('global', ['countries']),
+        ...mapGetters('locales', ['pageDirection']),
       isCurrentUser: function () {
         return this.user && this.user._id === this.$auth.user._id;
       },
@@ -257,7 +258,7 @@
         return 'Not defined'
       },
       userJoinDate: function () {
-          return moment(this.user.createdAt).fromNow();
+          return this.user.joinedInfo.title;
       },
       userLastSeen: function () {
           return this.user.lastSeenInfo.title;

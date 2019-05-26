@@ -6,7 +6,7 @@
         zero change
       </h1>
       <h2 class="subtitle">
-        Bye ans sell ethereum ERC20 tokens
+        Buy and sell crypto-tokens
       </h2>
       <div class="links">
         <a

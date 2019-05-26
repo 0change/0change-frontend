@@ -14,7 +14,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: "zero change",
+    title: process.env.WEBSITE_BASE_TITLE || "zero change",
     htmlAttrs: {
       lang: 'en'
     },
