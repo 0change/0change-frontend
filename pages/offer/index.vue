@@ -51,7 +51,7 @@
             <a href="/offer/new">
               <button class="btn btn-sm btn-primary pull-right" type="submit">
                 <i class="fa fa-plus-square"></i>
-                <span> New Offer</span>
+                <span> {{$t('pages.offerList.mainBox.newBtnTitle')}}</span>
               </button>
             </a>
           </div>

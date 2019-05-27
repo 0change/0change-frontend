@@ -71,6 +71,7 @@
     "settings": "Settings",
     "adminMenuTitle": "Admin Menus",
     "opMenu": "Operator",
+    "opWithdrawWallet": "Withdraw user wallet",
     "opWithdrawals": "Withdrawals",
     "opDisputes": "Disputes"
   },
@@ -206,7 +207,8 @@
           "description": "Other information you wish to tell about your trade.\nExample 1: This offer is only for cash trades. If you want to pay online, contact 0change.com/ad/1234.\nExample 2: Please make request only when you can complete the payment with cash within 12 hours."
         },
         "btn":{
-          "title": "Publish"
+          "titlePublish": "Publish",
+          "titleEdit": "Edit"
         }
       }
     },
@@ -350,6 +352,7 @@
       },
       "mainBox":{
         "title": "Offers",
+        "newBtnTitle": "New Offer",
         "table": {
           "head": {
             "id": "ID",

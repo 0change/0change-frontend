@@ -51,6 +51,12 @@
             <i class="nav-icon icon-star"></i> {{$t('leftSideBar.opMenu')}}</a>
           <ul class="nav-dropdown-items">
             <li class="nav-item">
+              <BaseLink class="nav-link" :to="{path: '/operator/withdraw-wallet'}">
+                <i class="nav-icon icon-star"></i> {{$t('leftSideBar.opWithdrawWallet')}}
+                <!--<span class="badge badge-success">NEW</span>-->
+              </BaseLink>
+            </li>
+            <li class="nav-item">
               <BaseLink class="nav-link" :to="{path: '/operator/withdrawals'}">
                 <i class="nav-icon icon-star"></i> {{$t('leftSideBar.opWithdrawals')}}
                 <!--<span class="badge badge-success">NEW</span>-->

@@ -222,7 +222,7 @@
           </div>
           <div class="card-footer">
             <button @click="publishAdv" class="btn btn-sm btn-success" type="submit">
-              <i class="fa fa-save"></i> {{$t('pages.offerNew.mainBox.btn.title')}}
+              <i class="fa fa-save"></i> {{isEditMode ? $t('pages.offerNew.mainBox.btn.titleEdit') : $t('pages.offerNew.mainBox.btn.titlePublish')}}
             </button>
           </div>
         </div>

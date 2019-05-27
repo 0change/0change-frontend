@@ -19,7 +19,7 @@
       <div class="col-md-3">
         <select v-model="searchParams.country" class="form-control">
           <option value="" >{{$t('searchBox.allCountries')}}</option>
-          <option v-for="c in countries" :value="c.code">{{c.code}} - {{c.title}}</option>
+          <option v-for="c in countries" :value="c.code">{{c.code}} - {{c.name}}</option>
         </select>
       </div>
     </div>
@@ -57,9 +57,9 @@
       return {
         searchParams:{
           type: "",
-          country: "",
+          country: process.env.SEARCH_DEFAULT_COUNTRY || "US",
           token: "",
-          currency: '',
+          currency: process.env.SEARCH_DEFAULT_CURRENCY || 'USD',
           amount: "",
           paymentMethod: "",
           brightid: "",

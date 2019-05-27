@@ -1,5 +1,5 @@
 <template>
-  <tr>
+  <tr v-if="advertisement">
     <td class="text-left">
       <div class="avatar">
         <!--<img class="img-avatar" :src="advertisement.user.avatar" alt="admin@bootstrapmaster.com">-->
@@ -57,6 +57,36 @@
       </BaseLink>
     </td>
   </tr>
+  <tr v-else>
+    <td class="text-left">
+        <div class="circle animated-background">&nbsp;</div>
+    </td>
+    <td>
+      <div class="loading-placeholder animated-background">&nbsp;</div>
+      <div class="loading-placeholder animated-background">&nbsp;</div>
+    </td>
+    <td>
+      <div class="loading-placeholder animated-background">&nbsp;</div>
+      <div class="loading-placeholder animated-background">&nbsp;</div>
+    </td>
+    <td>
+      <div class="loading-placeholder animated-background">&nbsp;</div>
+      <div class="loading-placeholder animated-background">&nbsp;</div>
+    </td>
+    <td>
+      <div class="loading-placeholder animated-background">&nbsp;</div>
+      <div class="loading-placeholder animated-background">&nbsp;</div>
+    </td>
+    <td>
+      <div class="loading-placeholder animated-background">&nbsp;</div>
+      <div class="loading-placeholder animated-background">&nbsp;</div>
+    </td>
+    <td>
+      <div class="loading-placeholder animated-background">&nbsp;</div>
+      <div class="loading-placeholder animated-background">&nbsp;</div>
+    </td>
+    <td></td>
+  </tr>
 </template>
 
 <script>
@@ -104,5 +134,34 @@
   }
 </script>
 
-<style>
+<style lang="SCSS" scoped>
+  .loading-placeholder{
+    height: 1em;
+    margin: 4px 0;
+  }
+  .circle{
+    width: 3em;
+    height: 3em;
+    display: block;
+    border-radius: 50%;
+  }
+  @keyframes placeHolderShimmer{
+    0%{
+      background-position: -468px 0
+    }
+    100%{
+      background-position: 468px 0
+    }
+  }
+  .animated-background {
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    background-size: 800px 104px;
+    position: relative;
+  }
 </style>
