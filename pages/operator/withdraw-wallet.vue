@@ -19,7 +19,7 @@
               <tbody>
               <tr v-for="(row,index) in wallets">
                 <td><a target="_blank" :href="etherscanWallet(row.address)">{{row.address}}</a></td>
-                <td>{{row.user.username}}</td>
+                <td><span v-if="row.user">{{row.user.username}}</span></td>
                 <td v-if="getBalanceInProgress">
                   <i style="font-size: 2em" class="fa fa-spinner fa-spin"></i>
                 </td>
@@ -31,6 +31,11 @@
               </tr>
               </tbody>
             </table>
+            <!--<Pagination-->
+              <!--:count="5"-->
+              <!--:current="2"-->
+              <!--@change="onPageChange"-->
+            <!--/>-->
           </div>
         </div>
       </div>
@@ -41,17 +46,22 @@
 <script>
   import Vue from 'vue';
   import {mapGetters, mapActions} from 'vuex';
-  import BaseLink from "../../components/global/BaseLink";
+  import Pagination from "../../components/Pagination";
   import moment from 'moment';
 
   export default {
-    components: {BaseLink},
+    components: {Pagination},
     layout: 'coreui',
     data() {
       return {
         wallets: [],
         getBalanceInProgress: true,
-        etherscanBaseUrl: process.env.ETHERSCAN_BASE_URL
+        etherscanBaseUrl: process.env.ETHERSCAN_BASE_URL,
+        pagination: {
+          currentPage: 0,
+          itemPerPage: 20,
+          totalCount: 0
+        },
       }
     },
     computed: {
@@ -63,13 +73,23 @@
     methods: {
       getWalletList() {
         // return;
-        this.$axios.post('/api/v0.1/operator/get-withdraw-wallets')
+        let {page, per_page} = this.$route.query;
+        this.$axios.post('/api/v0.1/operator/get-withdraw-wallets',{
+          page: page||0,
+          itemPerPage: per_page || this.pagination.itemPerPage
+        })
           .then(({data}) => {
             if (data.success && data.wallets) {
               this.wallets = data.wallets;
+              Vue.set(this.pagination, 'currentPage', data.page);
+              Vue.set(this.pagination, 'itemPerPage', data.itemPerPage);
+              Vue.set(this.pagination, 'totalCount', data.totalCount);
               this.getAllWalletBalance()
             }
           })
+      },
+      onPageChange(page){
+        alert(`page: ${page}`);
       },
       getAllWalletBalance() {
         this.getBalanceInProgress = true;
