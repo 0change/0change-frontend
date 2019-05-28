@@ -27,7 +27,7 @@
       <div class="col-md-3">
         <select v-model="searchParams.brightid" class="form-control">
           <option value="" >{{$t('searchBox.allBScore')}}</option>
-          <option v-for="v in [10, 20, 30, 40, 50, 60, 70, 80 ,90, 95, 98, 99, 100]" :value="v"></option>
+          <option v-for="v in [10, 20, 30, 40, 50, 60, 70, 80 ,90, 95, 98, 99, 100]" :value="v">{{$t('searchBox.minBScore', {v})}}</option>
         </select>
       </div>
       <div class="col-md-3">

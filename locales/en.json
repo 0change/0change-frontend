@@ -290,7 +290,8 @@
       },
       "balanceBox":{
         "title": "Balance",
-        "btnTitle": "Refresh"
+        "btnTitle": "Refresh",
+        "refreshSuccess": "Balance update successfully"
       },
       "withdrawBox":{
         "title": "Withdraw",

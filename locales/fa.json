@@ -290,7 +290,8 @@
       },
       "balanceBox":{
         "title": "سرمایه",
-        "btnTitle": "بروزرسانی"
+        "btnTitle": "بروزرسانی",
+        "refreshSuccess": "بروزرسانی با موفقیت انجام شد"
       },
       "withdrawBox":{
         "title": "برداشت",

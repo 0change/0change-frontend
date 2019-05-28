@@ -101,7 +101,10 @@
               </tr>
               </tbody>
             </table>
-            <button @click="refreshBalance" style="margin-top: 1em" type="button" class="btn btn-block btn-primary">{{$t('pages.wallet.balanceBox.btnTitle')}}</button>
+            <button v-if="balanceRefreshInProgress" style="margin-top: 1em" type="button" class="btn btn-block btn-primary">
+              <i class="fa fa-spinner fa-spin"></i>
+            </button>
+            <button v-else @click="refreshBalance" style="margin-top: 1em" type="button" class="btn btn-block btn-primary">{{$t('pages.wallet.balanceBox.btnTitle')}}</button>
             <button v-if="false" @click="$refs.depositModal.show($event)" style="margin-top: 1em" type="button" class="btn btn-block btn-primary">Deposit</button>
             <BaseModal v-if="false" title="Fake deposit" ref="depositModal">
               <div style="padding: 1em">
@@ -165,6 +168,7 @@
     layout: 'coreui',
     data() {
       return {
+        balanceRefreshInProgress: false,
         depositData: {
           token: null,
           amount: ''
@@ -212,7 +216,7 @@
         if(response.success){
           this.transactions = response.transactions;
           this.balance = response.balance;
-          this.withdrawData = {to: '0xd86ffb989f06150e17c5b80c2a3751f16da50a61', token: null, amount: ''};
+          this.withdrawData = {to: '', token: null, amount: ''};
         }else{
           alert(response.message || "Server side error");
         }
@@ -241,10 +245,13 @@
         }
       },
       refreshBalance(){
+        this.balanceRefreshInProgress = true;
         this.$axios.post('/api/v0.1/user/check-deposit')
-          .then(response => {
+          .then(async response => {
             //if(response.newTransaction > 0)
-              this.loadUserBalance();
+              await this.loadUserBalance();
+              this.balanceRefreshInProgress = false;
+              this.$toast.success(this.$t('pages.wallet.balanceBox.refreshSuccess'))
           })
           .catch(error => {});
       },
