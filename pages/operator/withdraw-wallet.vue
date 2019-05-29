@@ -17,6 +17,11 @@
               </tr>
               </thead>
               <tbody>
+              <tr v-if="walletListInProgress">
+                <td colspan="4" class="text-center">
+                  <i style="font-size: 2em" class="fa fa-spinner fa-lg fa-spin"></i>
+                </td>
+              </tr>
               <tr v-for="(row,index) in wallets">
                 <td><a target="_blank" :href="etherscanWallet(row.address)">{{row.address}}</a></td>
                 <td><span v-if="row.user">{{row.user.username}}</span></td>
@@ -56,6 +61,7 @@
       return {
         wallets: [],
         getBalanceInProgress: true,
+        walletListInProgress: true,
         etherscanBaseUrl: process.env.ETHERSCAN_BASE_URL,
         pagination: {
           currentPage: 0,
@@ -74,6 +80,7 @@
       getWalletList() {
         // return;
         let {page, per_page} = this.$route.query;
+        this.walletListInProgress = true;
         this.$axios.post('/api/v0.1/operator/get-withdraw-wallets',{
           page: page||0,
           itemPerPage: per_page || this.pagination.itemPerPage
@@ -86,6 +93,10 @@
               Vue.set(this.pagination, 'totalCount', data.totalCount);
               this.getAllWalletBalance()
             }
+          })
+          .catch(error => {})
+          .then(()=>{
+            this.walletListInProgress = false;
           })
       },
       onPageChange(page){

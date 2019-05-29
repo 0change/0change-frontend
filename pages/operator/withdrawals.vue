@@ -22,6 +22,11 @@
               </tr>
               </thead>
               <tbody>
+              <tr v-if="loading">
+                <td colspan="9" class="text-center">
+                  <i style="font-size: 2em" class="fa fa-spinner fa-lg fa-spin"></i>
+                </td>
+              </tr>
               <tr v-for="(row,index) in transactions">
                 <!--<td>{{row.txTime}}</td>-->
                 <td>
@@ -86,6 +91,7 @@
     layout: 'coreui',
     data() {
       return {
+        loading: true,
         transactions: [],
         pagination: {
           currentPage: 0,
@@ -139,6 +145,7 @@
       refreshTransactions() {
         // return;
         let {page, per_page} = this.$route.query;
+        this.loading = true;
         this.$axios.post('/api/v0.1/operator/get-withdrawals',{page: page||0, itemPerPage: per_page || this.pagination.itemPerPage})
           .then(({data}) => {
             if (data.success && data.transactions) {
@@ -148,6 +155,10 @@
               Vue.set(this.pagination, 'itemPerPage', data.itemPerPage);
               Vue.set(this.pagination, 'totalCount', data.totalCount);
             }
+          })
+          .catch(error => {})
+          .then(()=>{
+            this.loading = false;
           })
       },
       etherscanWallet(address) {

@@ -16,7 +16,7 @@
           </div>
         </div>
         <div :dir="pageDirection" class="alert alert-info" :style="{textAlign: (pageDirection=='rtl' ? 'right' : 'left')}">
-          <div>{{$t('components.loginModal.comments.global', {hear: $t('components.loginModal.comments.hear')})}}</div>
+          <div v-html="globalComment"></div>
           <h6>&nbsp;</h6>
           <h6>{{$t('components.loginModal.comments.pc.head')}}</h6>
           <ul style="list-style: decimal; padding: 0 1em 0 1em;">
@@ -30,9 +30,9 @@
         <div v-if="authError" class="alert alert-danger">
           {{authError}}
         </div>
-        <div style="text-align: center">
-          <input @click="login()" style="width: 10em" type="submit" class="button is-link" value="I Confirmed">
-        </div>
+        <!--<div style="text-align: center">-->
+          <!--<input @click="login()" style="width: 10em" type="submit" class="button is-link" value="I Confirmed">-->
+        <!--</div>-->
       </div>
     </div>
   </BaseModal>
@@ -59,6 +59,12 @@
       ...mapGetters('locales',['pageDirection']),
       modalTitle: function () {
         return this.$t('components.loginModal.header', {website: process.env.WEBSITE_BASE_TITLE})
+      },
+      globalComment: function () {
+        return this.$t('components.loginModal.comments.global', {
+          'BrightID': '<a target="_blank" href="https://www.brightid.org/">' + this.$t('components.loginModal.comments.brightID') + '</a>',
+          'user guide': '<a target="_blank" href="https://docs.google.com/document/d/1lO7LQ1W7gL_srVp-rpUQdAMAvWew3ZSPvCTuuRP00U0/edit#heading=h.6j9iv1dzd39h">' + this.$t('components.loginModal.comments.userGuide') + '</a>',
+        })
       }
     },
     methods: {

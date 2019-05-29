@@ -80,6 +80,7 @@
     },
     methods: {
       loadDisputedTrades: function () {
+        this.loadInProgress = true;
         this.$axios.post(`/api/v0.1/operator/get-disputes`)
           .then(({data}) => {
             if (data.success)

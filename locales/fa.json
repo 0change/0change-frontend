@@ -98,20 +98,22 @@
     "loginModal":{
       "header": "ورود به {website}",
       "comments":{
-        "global": "برای ورود نیاز است که شما نرم اقزار BrightID را روی تلفن همراه خود نصب کرده باشید. برای اطلاعات بیشتر, به قسمت FAQ مراجعه یا {hear} را کلیک کنید.",
+        "global": "برای ورود نیاز است که شما نرم اقزار BrightID را روی تلفن همراه خود نصب کرده باشید. برای اطلاعات بیشتر, میتوانید قسمت {user guide} را مطالعه یا به وبسایت {BrightID} مراجعه کنید.",
         "hear": "اینجا",
+        "brightID": "BrightID",
+        "userGuide": "راهنما",
         "pc":{
           "head": "برای ورود از طریق کامپیوتر شخصی:",
           "items": [
-            "Scan the QR code above with BrightID app on your smartphone.",
-            "Confirm the connection."
+            "با استفاده از نرم افزار BrightID در تلفن همراه خود کد QR بالا را اسکن کنید.",
+            "بر روی دکمه تایید کلیک کنید."
           ]
         },
         "smartPhone":{
           "head": "برای ورود از طریق تلفن همراه:",
           "items":[
-            "Tap on the QR code above and open it with BrightID.",
-            "Confirm the connection."
+            "بر روی کد QR بالا کلیک کرده و آن را توسط نرم افزار BrightID باز کنید.",
+            "بر روی دکمه تایید کلیک کنید."
           ]
         }
       }

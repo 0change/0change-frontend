@@ -98,8 +98,10 @@
     "loginModal":{
       "header": "Login to {website}",
       "comments":{
-        "global": "To log in, you need to have BrightID app installed on your smartphone. For more information, you can go to FAQ section of the site or click {{hear}}.",
+        "global": "To log in, you need to have BrightID app installed on your smartphone. For more information, you can read our {user guide} or visit {BrightID} website.",
         "hear": "hear",
+        "brightID": "BrightID",
+        "userGuide": "user guide",
         "pc":{
           "head": "To log in on your pc:",
           "items": [

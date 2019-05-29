@@ -20,6 +20,11 @@
               </tr>
               </thead>
               <tbody>
+              <tr v-if="loading">
+                <td colspan="9" class="text-center">
+                  <i style="font-size: 2em" class="fa fa-spinner fa-lg fa-spin"></i>
+                </td>
+              </tr>
               <tr v-for="row in trades">
                 <td>
                   <BaseLink :to="{name: 'trade-id', params: {id: row._id}}">{{row.id}}</BaseLink>
