@@ -1,6 +1,8 @@
-NUXT_HOST="localhost"
-NUXT_PORT="4000"
-API_TARGET="http://localhost:5554/"
+SITE_HOST="localhost"
+SITE_PORT="4000"
+
+_AXIOS_BASE_URL_="http://localhost:5554/"
+_SOCKET_IO_URL_="http://localhost:5554/"
 
 # used inside wallet page, in order to link address/transaction to etherscan.io.
 ETHERSCAN_BASE_URL="https://ropsten.etherscan.io/"

@@ -1,4 +1,4 @@
-let socketUrl = process.env._AXIOS_BASE_URL_;
+let socketUrl = process.env._SOCKET_IO_URL_;
 function convertJson(str) {
   let json = {empty: true};
   try {
