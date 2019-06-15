@@ -25,7 +25,7 @@ export default ({ app, store }, inject) => {
     joinedRooms.push('user-' + store.state.auth.user._id);
   }
 
-  socketObject = io.connect(socketUrl);
+  socketObject = io.connect(socketUrl, { forceNew: true });
 
   socketObject.on('connect', function (data) {
     console.log('socket connected successfully.');
