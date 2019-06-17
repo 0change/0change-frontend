@@ -4,7 +4,7 @@
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto h-100" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <BaseLink class="navbar-brand" :to="{path: '/'}">
+    <BaseLink class="navbar-brand" style="height: auto" :to="{path: '/'}">
       <img class="navbar-brand-full" src="/imgs/logo-small.png" width="89" height="25" alt="CoreUI Logo">
       <img class="navbar-brand-minimized" src="/imgs/logo-no-text.png" width="30" height="30" alt="CoreUI Logo">
     </BaseLink>
