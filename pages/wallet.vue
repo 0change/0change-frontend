@@ -186,7 +186,7 @@
     },
     mounted(){
       this.loadUserBalance();
-      this.refreshBalance();
+      this.refreshBalance('silent');
     },
     methods: {
       ...mapActions('global',['fakeDeposit', 'withdraw', 'loadUserBalance']),
@@ -244,14 +244,15 @@
           default: return 'badge-secondary';
         }
       },
-      refreshBalance(){
+      refreshBalance(type){
         this.balanceRefreshInProgress = true;
         this.$axios.post('/api/v0.1/user/check-deposit')
           .then(async response => {
             //if(response.newTransaction > 0)
               await this.loadUserBalance();
               this.balanceRefreshInProgress = false;
-              this.$toast.success(this.$t('pages.wallet.balanceBox.refreshSuccess'))
+              if(type !=='silent')
+                this.$toast.success(this.$t('pages.wallet.balanceBox.refreshSuccess'))
           })
           .catch(error => {});
       },
