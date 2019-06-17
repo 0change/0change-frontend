@@ -137,12 +137,6 @@ module.exports = {
       // changeOrigin: true,
       // pathRewrite: {'^/api': '/api'}
     },
-    '/socket.io': {
-      target: process.env._AXIOS_BASE_URL_,
-      //target: "http://localhost:5554",
-      changeOrigin: true,
-      // pathRewrite: {'^/socket.io': '/'}
-    },
     '/back-script':{
       target: process.env._AXIOS_BASE_URL_,
       pathRewrite: {
