@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <SearchBox @onSearch="onSearchButtonClick"/>
 
-        <h4>Buy Tokens from this offers</h4>
+        <h4>{{$t('pages.home.buyListTitle')}}</h4>
         <table class="table table-responsive-sm table-sm mb-0">
           <thead class="thead-light">
           <tr>
@@ -43,7 +43,7 @@
           </BaseLink>
         </div>
 
-        <h4>Sell your Tokens to this offers</h4>
+        <h4>{{$t('pages.home.sellListTitle')}}</h4>
         <table class="table table-responsive-sm table-sm mb-0">
           <thead class="thead-light">
           <tr>

@@ -32,6 +32,7 @@
     "profile": "Profile"
   },
   "searchBox":{
+    "tabTitles": ["QUICK BUY", "QUICK SELL"],
     "amount": "Amount",
     "allTokens": "All tokens",
     "allCurrencies": "All currencies",
@@ -121,6 +122,10 @@
     }
   },
   "pages":{
+    "home":{
+      "buyListTitle": "Buy Tokens from this offers",
+      "sellListTitle": "Sell your Tokens to this offers"
+    },
     "offerView":{
       "infoBox":{
         "titleBuyer": "Buyer info",

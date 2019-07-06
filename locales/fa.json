@@ -32,6 +32,7 @@
     "profile": "اظلاعات کاربری"
   },
   "searchBox":{
+    "tabTitles": ["خرید سریع", "فروش سریع"],
     "amount": "مقدار",
     "allTokens": "همه توکن ها",
     "allCurrencies": "همه ارز ها",
@@ -121,6 +122,10 @@
     }
   },
   "pages":{
+    "home":{
+      "buyListTitle": "از میان این پیشنهاد ها خرید کنید",
+      "sellListTitle": "توکن خود را به این پیشنهاد ها بفروشید"
+    },
     "offerView":{
       "infoBox":{
         "titleBuyer": "اطلاعات خریدار",
