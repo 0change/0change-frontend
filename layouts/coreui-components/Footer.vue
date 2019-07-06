@@ -10,3 +10,21 @@
     </div>
   </footer>
 </template>
+<!--<script>-->
+  <!--if(process.browser){-->
+    <!--window.onload = () => {-->
+      <!--window.onerror = function (message, url, lineNo, columnNo, error) {-->
+        <!--var errorReport = {-->
+          <!--location: window.location.href,-->
+          <!--message,-->
+          <!--url,-->
+          <!--lineNo,-->
+          <!--columnNo,-->
+          <!--stack: error.stack-->
+        <!--};-->
+        <!--console.log('error report: ', errorReport);-->
+      <!--}-->
+    <!--}-->
+
+  <!--}-->
+<!--</script>-->

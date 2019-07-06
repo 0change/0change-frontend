@@ -6,32 +6,32 @@
           <div class="card-header"><strong>{{$t('pages.offerNew.mainBox.title')}}</strong></div>
           <div class="card-body">
             <!-- Trade type row -->
-            <!--<div class="row">-->
-              <!--<div class="col-sm-4">-->
-                <!--<div class="form-group">-->
-                  <!--<label for="adv-type-select">Type</label>-->
-                  <!--<select v-model="offer.type" class="form-control" id="adv-type-select" name="select1">-->
-                    <!--<option value="">Please select adv type</option>-->
-                    <!--<option value="sell">Sell</option>-->
-                    <!--<option value="buy">Buy</option>-->
-                  <!--</select>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<div class="col-sm-8">-->
-                  <!--<div class="adv-description">-->
-                    <!--<p>What kind of trade offer do you wish to create? If you wish to sell tokens make sure you have token in your wallet.</p>-->
-                  <!--</div>-->
-              <!--</div>-->
-              <!--<div class="adv-row-separator d-sm-none"></div>-->
-            <!--</div>-->
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="adv-type-select">Type</label>
+                  <select v-model="advertisement.type" class="form-control" id="adv-type-select" name="select1">
+                    <option value="">Please select adv type</option>
+                    <option value="sell">Sell</option>
+                    <option value="buy">Buy</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-8">
+                  <div class="adv-description">
+                    <p>What kind of trade offer do you wish to create? If you wish to sell tokens make sure you have token in your wallet.</p>
+                  </div>
+              </div>
+              <div class="adv-row-separator d-sm-none"></div>
+            </div>
             <!-- Token row -->
             <div class="row">
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="adv-token-select">{{$t('pages.offerNew.mainBox.token.label')}}</label>
-                  <select v-if="userTokens.length > 0" v-model="advertisement.token" class="form-control" id="adv-token-select" name="select1">
+                  <select v-if="tokensToTrade.length > 0" v-model="advertisement.token" class="form-control" id="adv-token-select" name="select1">
                     <option value="">{{$t('pages.offerNew.mainBox.token.placeholder')}}</option>
-                    <option v-for="token in userTokens" :value="token.code">{{token.title}} ({{token.code}})</option>
+                    <option v-for="token in tokensToTrade" :value="token.code">{{token.title}} ({{token.code}})</option>
                   </select>
                   <select v-else class="form-control">
                     <option value="">{{$t('pages.offerNew.mainBox.token.noAnyToken')}}</option>
@@ -41,7 +41,7 @@
               <div class="col-sm-8">
                 <div class="adv-description">
                   <p>{{$t('pages.offerNew.mainBox.token.description')}}</p>
-                  <p v-if="userTokens.length == 0" class="color-danger">{{$t('pages.offerNew.mainBox.token.noAnyTokenAlert')}}</p>
+                  <p v-if="advertisement.type=='sell' && tokensToTrade.length == 0" class="color-danger">{{$t('pages.offerNew.mainBox.token.noAnyTokenAlert')}}</p>
                 </div>
               </div>
               <div class="adv-row-separator d-sm-none"></div>
@@ -240,7 +240,7 @@
   import TimeSelect from '@/components/TimeSelect';
   import {mapGetters, mapActions} from 'vuex';
   const emptyAdvertisement = {
-    type: 'sell',
+    type: '',
     token: '',
     paymentMethod: '',
     currency: 'USD',
@@ -274,6 +274,14 @@
           return [];
         let tokens = Object.keys(this.balance).map(tokenCode => this.cryptoTokens.find(ct => ct.code === tokenCode));
         return tokens;
+      },
+      tokensToTrade: function () {
+        if(this.advertisement.type === 'sell')
+          return this.userTokens;
+        else if(this.advertisement.type === 'buy')
+          return this.cryptoTokens;
+        else
+          return [];
       }
     },
     mounted(){

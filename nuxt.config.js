@@ -71,6 +71,7 @@ module.exports = {
     '~/plugins/axios.js',
     '~/plugins/global-component-loader.js',
     '~/plugins/v-viewer.js',
+    '~/plugins/vue-observe-visibility.js',
     '~/plugins/v-tooltip.js',
     '~/plugins/vue-clipboard.js',
     '~/plugins/custom-filters.js',
@@ -137,6 +138,11 @@ module.exports = {
       // changeOrigin: true,
       // pathRewrite: {'^/api': '/api'}
     },
+    /**
+     * This proxy only cover http & https protocol
+     * You also need to add server side proxy (like nginx proxy) to cover [ws://] protocol
+     * this proxy should forward frontend "/socket.io" path to backend root "/"
+     */
     '/socket.io': {
       target: process.env._AXIOS_BASE_URL_,
       //target: "http://localhost:5554",

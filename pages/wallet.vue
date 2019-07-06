@@ -1,25 +1,32 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-lg-8">
         <div class="card">
           <div class="card-header"><strong>{{$t('pages.wallet.mainBox.title')}}</strong></div>
           <div class="card-body">
-            <table class="table-wallet-info">
-              <tbody>
-              <tr>
-                <td>{{$t('pages.wallet.mainBox.address')}}</td>
-                <td>
-                  <a target="_blank" :href="etherscanWallet($auth.user.address)">
-                    <span class="wallet-address">{{$auth.user.address}}</span>
-                  </a>
-                  <button class="btn btn-block btn-outline-dark copy-button" type="button" @click="copyWalletAddress">
-                    <i class="fa fa-copy fa-lg"></i>
-                  </button>
-                </td>
-              </tr>
-              </tbody>
-            </table>
+            <h3 class="col-md-3">
+              {{$t('pages.wallet.mainBox.address')}}
+            </h3>
+            <button class="btn btn-outline-dark" type="button" @click="copyWalletAddress">
+              <span>{{$auth.user.address}}</span>
+              <i class="fa fa-copy fa-lg"></i>
+            </button>
+            <!--<table class="table-wallet-info">-->
+              <!--<tbody>-->
+              <!--<tr>-->
+                <!--<td>{{$t('pages.wallet.mainBox.address')}}</td>-->
+                <!--<td>-->
+                  <!--<a target="_blank" :href="etherscanWallet($auth.user.address)">-->
+                    <!--<span class="wallet-address">{{$auth.user.address}}</span>-->
+                  <!--</a>-->
+                  <!--<button class="btn btn-block btn-outline-dark copy-button" type="button" @click="copyWalletAddress">-->
+                    <!--<i class="fa fa-copy fa-lg"></i>-->
+                  <!--</button>-->
+                <!--</td>-->
+              <!--</tr>-->
+              <!--</tbody>-->
+            <!--</table>-->
             <h3>{{$t('pages.wallet.mainBox.transactions')}}</h3>
             <table class="table table-responsive-sm table-sm">
               <thead>
@@ -86,7 +93,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-lg-4">
         <div class="card">
           <div class="card-header"><strong>{{$t('pages.wallet.balanceBox.title')}}</strong></div>
           <div class="card-body">

@@ -255,8 +255,9 @@
         }
       },
       userLastSeen: function(){
-        if(this.owner)
-        return this.owner.lastSeenInfo.title;
+        if(this.owner) {
+          return moment().add(this.owner.lastSeenInfo.duration).fromNow();
+        }
       }
     },
     methods: {

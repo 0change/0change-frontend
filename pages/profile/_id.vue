@@ -151,6 +151,7 @@
       <div class="col-md-6 pd10">
         <UpdateUsername />
         <UpdateEmail />
+        <UpdateRecoveryWallet />
         <div class="form-space">&nbsp;</div>
         <div class="form-group">
           <label for="firstNameInput">{{$t('pages.profile.editBox.firstName.label')}}</label>
@@ -202,12 +203,13 @@
   import {mapState, mapGetters} from 'vuex';
   import UpdateUsername from '../../components/UpdateUsername';
   import UpdateEmail from '../../components/UpdateEmail';
+  import UpdateRecoveryWallet from '../../components/UpdateRecoveryWallet';
   import moment from 'moment';
   import VueStarRating from 'vue-star-rating';
 
   export default {
     layout: 'coreui',
-    components: {UpdateUsername, UpdateEmail, VueStarRating},
+    components: {UpdateUsername, UpdateEmail, UpdateRecoveryWallet, VueStarRating},
     data() {
       return {
         user: null,
@@ -261,7 +263,8 @@
           return this.user.joinedInfo.title;
       },
       userLastSeen: function () {
-          return this.user.lastSeenInfo.title;
+          // return this.user.lastSeenInfo.title;
+        return moment().add(this.user.lastSeenInfo.duration).fromNow();
       },
       usernameCrop: function () {
         if(this.user.username.length < 20)

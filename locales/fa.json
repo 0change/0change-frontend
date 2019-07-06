@@ -46,6 +46,7 @@
   "searchResult":{
     "head": {
       "seller": "فروشنده",
+      "buyer": "خریدار",
       "country": "کشور",
       "token": "توکن",
       "price": "قیمت",
@@ -231,6 +232,7 @@
         "btnTitle": "ثبت نظر"
       },
       "infoBox":{
+        "tradeType": "نوع معامله",
         "offer": "آگهی",
         "buyer": "خریدار",
         "seller": "فروشنده",

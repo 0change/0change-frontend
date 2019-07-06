@@ -1,3 +1,4 @@
+// let socketUrl = "/socket.io";
 let socketUrl = "/socket.io";
 function convertJson(str) {
   let json = {empty: true};
@@ -32,7 +33,18 @@ export default ({ app, store }, inject) => {
     joinedRooms.map(room => {
       socketObject.emit('join', room);
     })
+    if(app.$auth.loggedIn) {
+      app.$axios.post('/api/v0.1/user/new-socket-id')
+        .then(({data}) => {
+          console.log('socket-id', data.socketId);
+          socketObject.emit('socket-id', data.socketId);
+        })
+    }
   });
+
+  socketObject.on('disconnect', function (data) {
+    console.log('client disconnect');
+  })
 
   socketObject.on('signals', strData => {
     let data = convertJson(strData);
@@ -42,14 +54,15 @@ export default ({ app, store }, inject) => {
   function onNotificationReceive(notification){
     if(!notification.silent) {
       let audio = new Audio('/sound/plop.mp3');
-      audio.play();
+      // When user not interacted with the web page, this line throws an error.
+      // audio.play().catch(error => {});
     }
   }
 
   socketObject.on('notification', strData => {
     let data = convertJson(strData);
     console.log('new notification', data);
-    store.dispatch('notifications/addNotification',{notification:data});
+    store.dispatch('notifications/addNotification',data);
     onNotificationReceive(data);
   });
 
@@ -60,6 +73,13 @@ export default ({ app, store }, inject) => {
     },
     leave: function (room) {
       socketObject.emit('leave', room);
+    },
+    readNotification: function(notification){
+      if(store.state.auth.loggedIn){
+        if(notification._id)
+          notification = notification._id;
+        socketObject.emit('read-notification', notification.toString())
+      }
     },
     on: function (event, callback) {
       socketObject.on(event, data => {

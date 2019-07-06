@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export default function ({ isHMR, app, store, route, params, req, error, redirect }) {
   if (isHMR) { // ignore if called from hot module replacement
     return;
@@ -21,7 +23,7 @@ export default function ({ isHMR, app, store, route, params, req, error, redirec
       if (!locale) {
         locale = req.headers['accept-language'].split(',')[0].toLocaleLowerCase().substring(0, 2);
       }
-
+      moment.locale(locale);
       store.commit('locales/SET_LANG', locale);
       app.i18n.locale = store.state.locales.locale;
     }

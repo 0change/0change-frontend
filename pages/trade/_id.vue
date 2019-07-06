@@ -97,6 +97,10 @@
           <div class="alert alert-dark" role="alert">
             <table>
               <tr>
+                <td><strong>{{$t('pages.tradeView.infoBox.tradeType')}}: </strong></td>
+                <td>{{tradeType}}</td>
+              </tr>
+              <tr>
                 <td><strong>{{$t('pages.tradeView.infoBox.offer')}}: </strong></td>
                 <td>
                   <BaseLink :to="{name: 'offer-view-id', params:{id: trade.advertisement._id}}">
@@ -200,6 +204,13 @@
     computed: {
       ...mapGetters('global',['currencies', 'cryptoTokens']),
       ...mapGetters('auth',['hasPermission']),
+      tradeType: function(){
+        let type = this.trade.advertisement.type;
+        let reverseMap = {sell: 'buy', buy: 'sell'};
+        if(this.$auth.user._id !== this.trade.advertisementOwner)
+          type = reverseMap[type];
+        return this.$t('trade.type.'+type);
+      },
       tradeToken: function(){
         return this.cryptoTokens.find(ct => ct._id === this.trade.advertisement.token) || {};
       },
@@ -312,6 +323,7 @@
       },
       initAfterLoad(){
         this.chatroom = 'chat-trade-' + this.$route.params.id;
+        console.log('joining to room:', this.chatroom);
         this.$socket.join(this.chatroom);
         this.$socket.on(this.chatroom, message => {
           console.log(message);

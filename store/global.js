@@ -171,13 +171,19 @@ export const actions = {
   },
   homeSearch({dispatch, commit, state, rootState}, filters) {
     let sellAdvs = [], buyAdvs = [];
-    return this.$axios.post('/api/v0.1/trade/search', {filters: {type: 'sell', ...filters},skip: 0, limit: 20})
-        .then(({data}) => {
-          if(data.success)
-            commit('setSearchResult', {sellResults: data.advertisements, buyResults: []});
-        }).catch(err => {
-          return err;
-        })
+    return Promise.all([
+      this.$axios.post('/api/v0.1/trade/search', {filters: {type: 'sell', ...filters},skip: 0, limit: 20})
+        .then(({data}) => data),
+      this.$axios.post('/api/v0.1/trade/search', {filters: {type: 'buy', ...filters},skip: 0, limit: 20})
+        .then(({data}) => data)
+    ])
+      .then(results => {
+          commit('setSearchResult', {
+            sellResults: results[0].success ? results[0].advertisements : [],
+            buyResults: results[1].success ? results[1].advertisements : []
+          });
+      })
+      .catch(console.error)
   },
   search({dispatch, commit, state, rootState}, filters) {
     return this.$axios.post('/api/v0.1/trade/search', {filters})

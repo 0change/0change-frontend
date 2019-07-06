@@ -31,6 +31,8 @@
 
 <script>
   import {mapState, mapActions} from 'vuex';
+  import moment from 'moment';
+
   export default {
     computed:{
       ...mapState('locales', ['locales', 'locale']),
@@ -43,6 +45,7 @@
       onItemSelect(item){
         let locale = item.code;
         document.cookie = `locale=${locale}`;
+        moment.locale(locale);
 
         //location.reload();
 

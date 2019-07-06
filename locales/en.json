@@ -46,6 +46,7 @@
   "searchResult": {
     "head": {
       "seller": "Seller",
+      "buyer": "Buyer",
       "country": "Country",
       "token": "Token",
       "price": "Price",
@@ -231,6 +232,7 @@
         "btnTitle": "Send feedback"
       },
       "infoBox":{
+        "tradeType": "Trade Type",
         "offer": "Offer",
         "buyer": "Buyer",
         "seller": "Seller",

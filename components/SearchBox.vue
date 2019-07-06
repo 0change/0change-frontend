@@ -1,5 +1,5 @@
 <template>
-  <TabBox ref="searchTab" :tabs="['']">
+  <TabBox ref="searchTab" :tabs="['QUICK BUY', 'QUICK SELL']">
     <div class="row">
       <div class="col-md-3">
         <input v-model="searchParams.amount" type="text" class="form-control" :placeholder="$t('searchBox.amount')">

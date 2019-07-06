@@ -31,17 +31,12 @@
         </a>
       </li>
       <li v-if="loggedIn" class="nav-item d-md-down-none px-3">
-        <a class="nav-link" href="#" @click="logout()">
-          {{$t('topHeader.logout')}}
-        </a>
-      </li>
-      <li v-if="loggedIn" class="nav-item d-md-down-none px-3">
         <BaseLink class="nav-link" :to="{path: '/wallet'}">{{$t('topHeader.wallet')}}</BaseLink>
       </li>
-      <li v-if="notificationCount > 0" class="nav-item dropdown">
+      <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="icon-bell"></i>
-          <span class="badge badge-pill badge-danger">{{notificationCount}}</span>
+          <span v-if="unseanNotificationCount > 0" class="badge badge-pill badge-danger">{{unseanNotificationCount}}</span>
         </a>
         <NotificationDropDownMenu />
       </li>
@@ -65,16 +60,16 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex';
+  import {mapState, mapGetters} from 'vuex';
   import ProfileDropDownMenu from './ProfileDropDownMenu';
   import LanguageSwitch from '../../components/LanguageSwitch';
-  import NotificationDropDownMenu from './NotificationDropDownMenu';
+  import NotificationDropDownMenu from '../../components/NotificationDropDownMenu';
   import LoginModal from '../../components/loginModal.vue';
   import BaseLink from "../../components/global/BaseLink";
   export default {
     head () {
       return {
-        titleTemplate: this.notificationCount > 0 ? `(${this.notificationCount}) %s` : `%s`
+        titleTemplate: this.unseanNotificationCount > 0 ? `(${this.unseanNotificationCount}) %s` : `%s`
       }
     },
     components: {BaseLink, LoginModal, ProfileDropDownMenu, NotificationDropDownMenu, LanguageSwitch},
@@ -84,7 +79,7 @@
     },
     computed: {
         ...mapState('auth',['loggedIn','user']),
-        ...mapState('notifications',['notifications']),
+      ...mapGetters('notifications',['notifications', 'unseanNotificationCount']),
       notificationCount: function(){
         return Object.keys(this.notifications).length;
       },

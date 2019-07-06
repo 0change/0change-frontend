@@ -93,13 +93,15 @@
   import {mapGetters} from 'vuex';
   import LinearProgress from '~/components/LinearProgress';
   import BaseLink from "./global/BaseLink";
+  import moment from 'moment';
+
   export default {
     components: {BaseLink, LinearProgress},
     props: ['advertisement'],
     computed:{
       ...mapGetters('locales', ['pageDirection']),
       lastSeen: function () {
-        return this.advertisement.user.lastSeenInfo.title;
+        return moment().add(this.advertisement.user.lastSeenInfo.duration).fromNow();
       }
     },
     methods:{

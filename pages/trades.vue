@@ -40,14 +40,20 @@
                     {{extractTrader(row).username}}
                   </BaseLink>
                 </td>
-                <td><span class="badge"
-                          :class="row.advertisement.type.toLowerCase()=='sell' ? 'badge-success' : 'badge-danger'">{{$t('trade.type.'+row.advertisement.type)}}</span>
+                <td>
+                  <span
+                    class="badge"
+                    :class="row.advertisement.type.toLowerCase()=='sell' ? 'badge-success' : 'badge-danger'"
+                  >
+                    {{currentUserTradeType(row)}}
+                  </span>
                 </td>
                 <td><img class="transaction-coin-icon" :src="'/erc20-tokens/' + row.advertisement.token.code + '.png'"
                          alt=""> {{row.advertisement.token.title}} ({{row.advertisement.token.code}})
                 </td>
                 <td>{{row.advertisement.amount}}</td>
                 <td>{{row.tokenCount}}</td>
+                <!--<pre>{{row}}</pre>-->
               </tr>
               </tbody>
             </table>
@@ -121,6 +127,13 @@
           return this.unreadMessages[trade._id].length;
         else
           return 0;
+      },
+      currentUserTradeType(row){
+        let type = row.advertisement.type;
+        let reverseMap = {sell: 'buy', buy: 'sell'};
+        if(this.$auth.user._id !== row.advertisementOwner._id)
+          type = reverseMap[type];
+        return this.$t('trade.type.'+type);
       }
     }
   }

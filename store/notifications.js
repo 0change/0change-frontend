@@ -13,17 +13,46 @@ export const state = () => ({
   },
 });
 
+
+
+export const getters = {
+  notifications(state){
+    let result =  Object.keys(state.notifications)
+      .map(id => state.notifications[id]);
+    result = JSON.parse(JSON.stringify(result));
+    result.sort((a, b) => {
+      // console.log(`a:${a.sortIndex} b:${b.sortIndex} compare: ${a.sortIndex > b.sortIndex}`);
+      return b.sortIndex - a.sortIndex;
+    });
+    return result.slice(0, 10);
+  },
+  unseanNotificationCount(state) {
+    let n = 0;
+    Object.keys(state.notifications).map(id => {
+      if (!state.notifications[id].seen)
+        n++;
+    })
+    return n;
+  }
+}
+
 export const mutations = {
-  addNotification(state, {id, notification}){
-    if(id === undefined)
-      id = randomStr();
-    Vue.set(state.notifications,id,notification);
+  addNotification(state, notification){
+    if(notification._id === undefined){
+      notification._id = randomStr();
+    }
+    if(notification.createdAt)
+      notification.sortIndex = (new Date(notification.createdAt)).getTime();
+    else
+      notification.sortIndex = Date.now();
+
+    Vue.set(state.notifications,notification._id,notification);
   },
   readNotification(state, id){
-    delete state.notifications[id];
+    Vue.set(state.notifications[id], 'seen', true);
   },
   clearNotifications(state){
-    state.notifications = {};
+    //state.notifications = {};
   },
   setUnreadMessages(state, messages){
     Vue.set(state, 'unreadMessages', messages);
@@ -37,8 +66,8 @@ export const mutations = {
 }
 
 export const actions = {
-  addNotification({dispatch, commit, state, rootState},payload) {
-      commit('addNotification', payload);
+  addNotification({dispatch, commit, state, rootState},notification) {
+      commit('addNotification', notification);
   },
   readNotification({dispatch, commit, state, rootState}, id) {
       commit('readNotification', id);
@@ -59,15 +88,13 @@ export const actions = {
               messageCount ++;
             })
           });
-          if(messageCount > 0) {
-            dispatch('addNotification', {
-              id: 'total_unread_message',
-              notification: {
-                message: `You have ${messageCount} unread message on ${tradeCount} trade.`,
-                commands: [{type: 'trades-list'}]
-              }
-            });
-          }
+          // if(messageCount > 0) {
+          //   dispatch('addNotification', {
+          //     _id: 'total_unread_message',
+          //     message: `You have ${messageCount} unread message on ${tradeCount} trade.`,
+          //     data: {commands: [{type: 'trades-list'}]}
+          //   });
+          // }
         }
         return data;
       })
@@ -99,15 +126,13 @@ export const actions = {
               messageCount ++;
             })
           });
-          if(messageCount > 0) {
-            dispatch('addNotification', {
-              id: 'total_dispute_unread_message',
-              notification: {
-                message: `You have ${messageCount} unread message on ${tradeCount} dispute.`,
-                commands: [{type: 'disputes-list'}]
-              }
-            });
-          }
+          // if(messageCount > 0) {
+          //   dispatch('addNotification', {
+          //       _id: 'total_dispute_unread_message',
+          //       message: `You have ${messageCount} unread message on ${tradeCount} dispute.`,
+          //       data: {commands: [{type: 'disputes-list'}]}
+          //   });
+          // }
         }
         return data;
       })
