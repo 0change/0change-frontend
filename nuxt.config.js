@@ -174,4 +174,9 @@ module.exports = {
       home: false
     }
   },
+  generate: {
+    minify: {
+      collapseWhitespace: false
+    }
+  }
 }
