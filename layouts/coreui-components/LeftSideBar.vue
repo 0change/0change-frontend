@@ -82,7 +82,7 @@
     components: {BaseLink},
     computed:{
       ...mapState('notifications', ['unreadMessages','operatorUnreadMessages']),
-      ...mapGetters('auth', ['hasPermission']),
+      ...mapGetters('auth-brightid', ['hasPermission']),
       tradeBadgeCount: function () {
         if(!this.unreadMessages)
           return 0;

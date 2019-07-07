@@ -1,22 +1,17 @@
 export const namespaced = true;
 
 export const state = () => ({
-  // no extra state field
-  busy: false,
-  loggedIn: false,
-  strategy: "local",
-  user: false,
   qrImage: null,
   loginId: null,
   qrImageTime: 0
 });
 
 export const getters = {
-  hasPermission(state) {
+  hasPermission(state, getters, rootState) {
     return permission => {
-      if (!state.user || !state.user.permissions || state.user.permissions.length === 0)
+      if (!rootState.auth.user || !rootState.auth.user.permissions || rootState.auth.user.permissions.length === 0)
         return false;
-      return state.user.permissions.includes(permission);
+      return rootState.auth.user.permissions.includes(permission);
     };
   }
 }
@@ -40,20 +35,21 @@ export const actions = {
     if(Date.now() - state.qrImageTime > 3*60*1000){
       commit('clearQrImage');
       this.$axios.get('/api/v0.1/auth/genqr')
-          .then(({data}) => {
-            if(data.success) {
-              commit('setQrImage', {
-                qrImage: data.qrImage,
-                loginId: data.id,
-                timestamp: Date.now()
-              });
-            }
-          })
+        .then(({data}) => {
+          console.log('generateQrCode', data);
+          if(data.success) {
+            commit('setQrImage', {
+              qrImage: data.qrImage,
+              loginId: data.id,
+              timestamp: Date.now()
+            });
+          }
+        })
     }
   },
   tryToLogin({dispatch, commit, state, rootState}){
     return this.$auth.loginWith('local',{data:{
-      id: state.loginId
-    }});
+        id: state.loginId
+      }});
   }
 }

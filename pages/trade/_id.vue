@@ -203,7 +203,7 @@
     },
     computed: {
       ...mapGetters('global',['currencies', 'cryptoTokens']),
-      ...mapGetters('auth',['hasPermission']),
+      ...mapGetters('auth-brightid',['hasPermission']),
       tradeType: function(){
         let type = this.trade.advertisement.type;
         let reverseMap = {sell: 'buy', buy: 'sell'};

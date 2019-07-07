@@ -53,7 +53,7 @@
         ... mapActions('notifications',['loadUnreadMessages','loadOperatorUnreadMessages']),
     },
     computed:{
-      ...mapGetters('auth',['hasPermission'])
+      ...mapGetters('auth-brightid',['hasPermission'])
     }
   }
 </script>

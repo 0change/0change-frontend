@@ -55,7 +55,7 @@
       }
     },
     computed: {
-      ...mapState('auth',['qrImage','loginId']),
+      ...mapState('auth-brightid',['qrImage', 'loginId']),
       ...mapGetters('locales',['pageDirection']),
       modalTitle: function () {
         return this.$t('components.loginModal.header', {website: process.env.WEBSITE_BASE_TITLE})
@@ -68,7 +68,7 @@
       }
     },
     methods: {
-      ...mapActions('auth', ['generateQrCode','tryToLogin']),
+      ...mapActions('auth-brightid', ['generateQrCode','tryToLogin']),
       login(silent) {
         this.tryingToLogIn = true
         // Reset the authError if it existed.
