@@ -101,7 +101,7 @@
     computed:{
       ...mapGetters('locales', ['pageDirection']),
       lastSeen: function () {
-        return moment().add(this.advertisement.user.lastSeenInfo.duration).fromNow();
+        return moment().add(-this.advertisement.user.lastSeenInfo.duration).fromNow();
       }
     },
     methods:{

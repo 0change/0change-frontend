@@ -264,7 +264,7 @@
       },
       userLastSeen: function () {
           // return this.user.lastSeenInfo.title;
-        return moment().add(this.user.lastSeenInfo.duration).fromNow();
+        return moment().add(-this.user.lastSeenInfo.duration).fromNow();
       },
       usernameCrop: function () {
         if(this.user.username.length < 20)
