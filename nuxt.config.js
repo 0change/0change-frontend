@@ -21,7 +21,17 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      { hid: 'description', name: 'description', content: pkg.description },
+      { "http-equiv": "Pragma", content: "no-cache"},
+      { "http-equiv": "Expires", content: "-1"},
+      { "http-equiv": "CACHE-CONTROL", content: "NO-CACHE"}
+      /**
+       * prevent page cache
+       *
+       <meta http-equiv="Pragma" content="no-cache">
+       <meta http-equiv="Expires" content="-1">
+       <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
+       */
     ],
     script:[
       {src: "/coreui/vendors/jquery/js/jquery.min.js"},
