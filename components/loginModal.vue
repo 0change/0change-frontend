@@ -110,6 +110,7 @@
       },
       async logout() {
         await this.$auth.logout();
+        window.location.reload(true);
       },
       onShow(){
         this.loginInterval = setInterval(()=>{

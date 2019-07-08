@@ -16,7 +16,18 @@
     <div class="dropdown-divider"></div>
     <!--<a class="dropdown-item" href="#">-->
       <!--<i class="fa fa-shield"></i> Lock Account</a>-->
-    <a class="dropdown-item" href="#" @click="$auth.logout()">
+    <a class="dropdown-item" href="#" @click="logout">
       <i class="fa fa-lock"></i> {{$t('topHeader.logout')}}</a>
   </div>
 </template>
+
+<script>
+  export default {
+    methods: {
+      async logout(){
+        await this.$auth.logout();
+        window.location.reload(true);
+      }
+    }
+  }
+</script>
