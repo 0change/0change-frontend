@@ -74,4 +74,5 @@
     v-else-if="source === 'custom'"
     :class="customIconClass"
   />
+  <span v-else></span>
 </template>

@@ -1,8 +1,5 @@
 <template>
   <div class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-    <no-ssr>
-      <SocketIoHandler />
-    </no-ssr>
     <Header />
     <div class="app-body">
       <LeftSideBar />
