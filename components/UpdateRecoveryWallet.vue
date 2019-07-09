@@ -9,7 +9,7 @@
               </span>
       </div>
       <input
-          type="email"
+          type="text"
           class="form-control"
           :class="inputClass"
           id="userWalletInput"
