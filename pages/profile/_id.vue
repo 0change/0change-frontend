@@ -248,7 +248,7 @@
         ...mapGetters('global', ['countries']),
         ...mapGetters('locales', ['pageDirection']),
       isCurrentUser: function () {
-        return this.user && this.user._id === this.$auth.user._id;
+        return this.$auth.loggedIn && this.user && this.user._id === this.$auth.user._id;
       },
       userCountryFlag: function () {
         return "flag-icon-" + this.user.country.toLowerCase();
