@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="$auth.loggedIn">
     <div class="row">
       <div class="col-lg-8">
         <div class="card">
@@ -170,7 +170,10 @@
 <script>
   import {mapGetters, mapActions} from 'vuex';
   import BaseLink from "../components/global/BaseLink";
+  import blockchainUtils from '../mixins/blockchainUtils';
+
   export default {
+    mixins: [blockchainUtils],
     components: {BaseLink},
     layout: 'coreui',
     data() {

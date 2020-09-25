@@ -1,6 +1,7 @@
 <template>
   <header class="app-header navbar">
-    <LoginModal ref="loginModal"/>
+<!--    <LoginModal ref="loginModal"/>-->
+    <EmailLoginModal ref="loginModal"/>
     <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -20,9 +21,9 @@
       <li class="nav-item px-3">
         <BaseLink _class="nav-link" :loginProtect="true" :to="{name: 'wallet'}">{{$t('topHeader.deposit')}}</BaseLink>
       </li>
-      <li class="nav-item px-3">
-        <a class="nav-link" target="_blank" href="https://docs.google.com/document/d/1lO7LQ1W7gL_srVp-rpUQdAMAvWew3ZSPvCTuuRP00U0/edit#heading=h.6j9iv1dzd39h">{{$t('topHeader.help')}}</a>
-      </li>
+<!--      <li class="nav-item px-3">-->
+<!--        <a class="nav-link" target="_blank" href="https://docs.google.com/document/d/1lO7LQ1W7gL_srVp-rpUQdAMAvWew3ZSPvCTuuRP00U0/edit#heading=h.6j9iv1dzd39h">{{$t('topHeader.help')}}</a>-->
+<!--      </li>-->
     </ul>
     <ul class="nav navbar-nav ml-auto">
       <li v-if="!loggedIn" class="nav-item px-3">
@@ -48,7 +49,7 @@
       <li v-if="loggedIn" class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
           <div style="width: 3em; height: 3em">
-            <div class="avatar-bg" :style="{background: 'url(' + user.avatar + ')'}">&nbsp;</div>
+            <div class="avatar-bg" :style="{background: 'url(' + (user.avatar || '/imgs/profile-empty.jpg') + ')'}">&nbsp;</div>
           </div>
           <!--<img class="img-avatar" :src="user.avatar" alt="admin@bootstrapmaster.com">-->
         </a>
@@ -65,6 +66,7 @@
   import LanguageSwitch from '../../components/LanguageSwitch';
   import NotificationDropDownMenu from '../../components/NotificationDropDownMenu';
   import LoginModal from '../../components/loginModal.vue';
+  import EmailLoginModal from '../../components/EmailLoginModal';
   import BaseLink from "../../components/global/BaseLink";
   export default {
     head () {
@@ -72,7 +74,7 @@
         titleTemplate: this.unseanNotificationCount > 0 ? `(${this.unseanNotificationCount}) %s` : `%s`
       }
     },
-    components: {BaseLink, LoginModal, ProfileDropDownMenu, NotificationDropDownMenu, LanguageSwitch},
+    components: {BaseLink, LoginModal, EmailLoginModal, ProfileDropDownMenu, NotificationDropDownMenu, LanguageSwitch},
     data(){
       return{
       };

@@ -44,7 +44,8 @@
       ...mapActions('locales', ['setLang']),
       onItemSelect(item){
         let locale = item.code;
-        document.cookie = `locale=${locale}`;
+        // document.cookie = `locale=${locale}`;
+        this.$cookies.set('locale', locale);
         moment.locale(locale);
 
         //location.reload();

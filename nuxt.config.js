@@ -88,6 +88,7 @@ module.exports = {
 
     // Docs: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
+    'cookie-universal-nuxt',
 
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
