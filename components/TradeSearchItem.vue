@@ -3,7 +3,7 @@
     <td class="text-left">
       <div class="avatar">
         <!--<img class="img-avatar" :src="advertisement.user.avatar" alt="admin@bootstrapmaster.com">-->
-        <div class="avatar-bg" :style="{background: 'url(' + advertisement.user.avatar+ ')'}">&nbsp;</div>
+        <div class="avatar-bg" :style="{background: 'url(' + (advertisement.user.avatar || '/imgs/profile-empty.jpg')+ ')'}">&nbsp;</div>
         <span class="avatar-status" :class="userAvatarStatusClass(advertisement.user)"></span>
       </div>
     </td>

@@ -281,7 +281,7 @@
         return moment(feedback.updatedAt).format('YYYY-MM-DD HH:ss');
       },
       onAvatarSelect(){
-        this.$toast.success('your avatar changed successfully');
+        this.$toast.error('not implemented yet');
       },
       saveUserData(){
         let {firstName, lastName, about, country, mobile} = this;
