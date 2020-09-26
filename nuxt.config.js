@@ -28,7 +28,7 @@ module.exports = {
     ],
     script:[
       {src: "/coreui/vendors/jquery/js/jquery.min.js"},
-      {src: "/back-script/socketio/socket.io.js"},
+      {src: `${process.env._AXIOS_BASE_URL_}/scripts/socketio/socket.io.js`},
       // {src: "/coreui/vendors/popper.js/js/popper.min.js"},
       {src: "/coreui/vendors/bootstrap/js/bootstrap.min.js"},
       // {src: "/coreui/vendors/pace-progress/js/pace.min.js"},
