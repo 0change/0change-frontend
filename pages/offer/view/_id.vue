@@ -36,7 +36,7 @@
               <tr>
                 <td>&nbsp;</td>
                 <td>{{$t('pages.offerView.infoBox.confirmedTrades')}}:&nbsp;</td>
-                <td><strong :dir="pageDirection">{{$t('pages.offerView.infoBox.confirmedTradesCount', {n: ($auth.user.confirmedTrades || '0')})}}</strong></td>
+                <td><strong :dir="pageDirection">{{$t('pages.offerView.infoBox.confirmedTradesCount', {n: confirmedTradesCount})}}</strong></td>
               </tr>
               <!--<tr>-->
                 <!--<td>&nbsp;</td>-->
@@ -235,6 +235,9 @@
         if(!this.termsConfirmed)
           message.push(this.$t('pages.offerView.errors.termsNotConfirmed'));
         return message.join('<br />');
+      },
+      confirmedTradesCount: function(){
+        return this.$auth.user?.confirmedTradesCount || 0;
       },
       tradeTokenCount: {
         get(){

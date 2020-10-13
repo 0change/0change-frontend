@@ -38,6 +38,7 @@
     "vue-star-rating": "^1.6.1"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.11.0",
     "@vue/test-utils": "^1.0.0-beta.27",
     "ava": "^1.0.1",
     "browser-env": "^3.2.5",

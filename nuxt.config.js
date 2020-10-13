@@ -117,6 +117,11 @@ module.exports = {
 
     chunks: 'all',
     automaticNameDelimiter: '.',
+    babel: {
+      plugins: [
+        '@babel/plugin-proposal-optional-chaining'
+      ]
+    },
     extractCSS: {
       //allChunks: true
     },
