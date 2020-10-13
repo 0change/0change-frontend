@@ -184,7 +184,7 @@
   import TradeStartModal from '../../../components/TradeStartModal';
   import {mapGetters, mapActions} from 'vuex';
   import moment from 'moment';
-  import LoginModal from '../../../components/loginModal.vue';
+  import LoginModal from '../../../components/EmailLoginModal.vue';
   import VueStarRating from 'vue-star-rating';
   import BaseLink from "../../../components/global/BaseLink";
 
